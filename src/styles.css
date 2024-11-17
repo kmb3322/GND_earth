@@ -1,0 +1,8 @@
+body {
+    margin: 0;
+    font-family: 'UbuntuSansMono';
+    font-weight: regular;
+    src: url("./fonts/UbuntuSansMono-VariableFont_wght.ttf") format("truetype");
+    background-color: #f5f5f5;
+  }
+  
