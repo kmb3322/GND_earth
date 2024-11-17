@@ -1,4 +1,3 @@
-// src/components/InputCode.jsx
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Alert,
@@ -72,8 +71,7 @@ const InputCode = () => {
   const onSubmitCode = async (data) => {
     setIsLoading(true);
     try {
-      // 실제 API 호출 로직을 여기에 추가하세요.
-      // 예시:
+      // ex)
       // const response = await axios.post('/api/validate-code', { code: data.code });
       // if (response.data.valid) {
       //   setContactStatus('ready');
@@ -88,12 +86,12 @@ const InputCode = () => {
       //   });
       // }
 
-      // 여기서는 예시로 하드코딩된 값으로 처리합니다.
+      // 더미데이터 코드 : 1234567890123456
       await new Promise((resolve) => setTimeout(resolve, 1000)); // 네트워크 지연 시뮬레이션
       if (data.code.replace(/-/g, '') === '1234567890123456') {
         toast({
-          title: '코드가 유효합니다.',
-          description: '이제 이름과 전화번호를 입력할 수 있습니다.',
+          title: 'GND vol.1에 초대되셨습니다',
+          description: '이름과 전화번호를 입력해주세요',
           status: 'success',
           duration: 5000,
           isClosable: true,
@@ -103,7 +101,7 @@ const InputCode = () => {
       } else {
         toast({
           title: '유효하지 않은 코드',
-          description: '입력하신 코드는 사용할 수 없습니다.',
+          description: '입력하신 코드는 사용할 수 없습니다',
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -126,8 +124,7 @@ const InputCode = () => {
   const onSubmitContact = async (data) => {
     setIsLoading(true);
     try {
-      // 실제 API 호출 로직을 여기에 추가하세요.
-      // 예시:
+      // ex)
       // const response = await axios.post('/api/submit-contact', { name: data.name, phone: data.phone, code: validatedCode });
       // if (response.data.success) {
       //   setContactStatus('success');
@@ -136,7 +133,6 @@ const InputCode = () => {
       //   setContactMessage(response.data.message);
       // }
 
-      // 여기서는 예시로 성공으로 처리합니다.
       await new Promise((resolve) => setTimeout(resolve, 1000)); // 네트워크 지연 시뮬레이션
       setContactStatus('success');
       setContactMessage(`이름과 전화번호가 확인되었습니다.`);
@@ -170,7 +166,7 @@ const InputCode = () => {
     setValueContact('phone', value);
   };
 
-  // 모든 입력이 성공적으로 완료되면 SuccessScreen을 렌더링
+  // 모든 입력이 성공적으로 완료되면, SuccessScreen
   if (contactStatus === 'success') {
     return <SuccessScreen />;
   }
@@ -204,7 +200,7 @@ const InputCode = () => {
               </FormErrorMessage>
             </FormControl>
             <IconButton
-              ml="-2" // 입력 필드 옆으로 살짝 겹치게 함
+              ml="-2"
               aria-label="Confirm code"
               icon={isLoading ? <Spinner size="sm" /> : <ArrowForwardIcon boxSize="24px" />}
               bg="black"

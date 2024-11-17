@@ -1,4 +1,3 @@
-// src/components/HomeScreen.jsx
 import { Flex, Icon, Image, Link, Text, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { FaInstagram } from 'react-icons/fa';
