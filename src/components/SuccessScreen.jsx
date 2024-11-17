@@ -1,4 +1,3 @@
-// src/components/SuccessScreen.jsx
 import { Text, VStack } from '@chakra-ui/react';
 import React from 'react';
 
