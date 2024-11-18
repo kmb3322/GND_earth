@@ -31,17 +31,17 @@ const InputCode = () => {
   // 코드 검증을 위한 Yup 스키마
   const codeValidationSchema = Yup.object().shape({
     code: Yup.string()
-      .required('코드는 필수 항목입니다.')
+      .required('16자리 초대 코드를 입력해주세요.')
       .matches(/^(\d{4}-){3}\d{4}$/, '코드를 XXXX-XXXX-XXXX-XXXX 형식으로 입력해주세요.'),
   });
 
   // 연락처 제출을 위한 Yup 스키마
   const contactValidationSchema = Yup.object().shape({
     name: Yup.string()
-      .required('이름은 필수 항목입니다.')
+      .required('이름을 입력해주세요.')
       .max(50, '이름은 최대 50자까지 입력할 수 있습니다.'),
     phone: Yup.string()
-      .required('전화번호는 필수 항목입니다.')
+      .required('전화번호를 입력해주세요.')
       .matches(/^\d{3}-\d{3,4}-\d{4}$/, '전화번호를 XXX-XXX(X)-XXXX 형식으로 입력해주세요.'),
   });
 
