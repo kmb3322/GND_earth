@@ -6,7 +6,7 @@ import InputCode from './InputCode';
 const HomeScreen = () => {
   return (
     <VStack spacing={10} align="center" mt={10}>
-      <Image src="/gnd_image.png" alt="GND vol.1" boxSize="350px" objectFit="contain" />
+      <Image src="/gnd_image.png" alt="GND vol.1" boxSize="250px" objectFit="contain" />
       
       <Text fontFamily="UbuntuMono" fontSize="24px" fontWeight="bold" mb="-20px" mr="220px">GND</Text>
 

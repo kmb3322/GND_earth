@@ -69,59 +69,111 @@ const InputCode = () => {
   });
 
   const onSubmitCode = async (data) => {
-    setIsLoading(true);
+    setIsLoading(true); // 로딩 시작
     try {
-      // 서버 주소 추가 (로컬 환경에서는 http://localhost:3000)
-      const response = await axios.post('https://gnd-back-btq2isstm-minb-ms-projects.vercel.app/api/validate-code', { code: data.code });
+      // 서버 요청
+      const response = await axios.post('https://gnd-back.vercel.app/api/validate-code', { code: data.code });
+      
+
+      // 서버 응답 구조를 확인하여 필요한 값을 출력
+      console.log('응답 데이터:', response.data.valid);
+
+
+      // 응답 구조가 올바른지 확인
+      console.log('Response:', response);  // 응답 로그 찍기
+
+      console.log('응답 데이터:', response.data.success);
+      console.log('응답 데이터:', response.data.data);
+
   
-      if (response.data.valid) {
+
+        if (response.data.valid) {
+          console.log('입장:', response.data.valid);
+
+          toast({
+            title: 'GND vol.1에 초대되셨습니다',
+            description: '이름과 전화번호를 입력해주세요',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+          });
+          setContactStatus('ready'); // 코드가 유효하면 'ready' 상태로 설정
+          setValidatedCode(data.code.replace(/-/g, '')); // 유효한 코드 저장
+        } 
+        else {
+          toast({
+            title: '유효하지 않은 코드',
+            description: '코드를 잘못 입력하셨거나, 이미 사용된 코드입니다.',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          });
+        }
+      } 
+     catch (error) {
+      // 에러를 더 구체적으로 확인
+      if (error.response) {
+        // 서버가 응답을 했고, 상태 코드가 2xx가 아닌 경우
+        console.error('Response Error:', error.response); // 서버 응답 오류 로그
         toast({
-          title: 'GND vol.1에 초대되셨습니다',
-          description: '이름과 전화번호를 입력해주세요',
-          status: 'success',
+          title: '코드 오류',
+          description: `${error.response.data.message || error.message}`,
+          status: 'error',
           duration: 5000,
           isClosable: true,
         });
-        setContactStatus('ready'); // 코드가 유효하면 'ready' 상태로 설정
-        setValidatedCode(data.code.replace(/-/g, '')); // 유효한 코드 저장
-      } else {
+      } else if (error.request) {
+        // 서버에 요청을 보냈으나 응답을 받지 못한 경우
+        console.error('Request Error:', error.request); // 요청 오류 로그
         toast({
-          title: '유효하지 않은 코드',
-          description: response.data.message || '입력하신 코드는 사용할 수 없습니다',
+          title: '네트워크 오류',
+          description: '서버에 연결할 수 없습니다. 나중에 다시 시도해주세요.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        // 다른 오류가 발생한 경우
+        console.error('Error:', error.message); // 다른 오류 메시지 로그
+        toast({
+          title: '알 수 없는 오류',
+          description: '예기치 못한 오류가 발생했습니다. 다시 시도해주세요.',
           status: 'error',
           duration: 5000,
           isClosable: true,
         });
       }
-    } catch (error) {
-      toast({
-        title: '오류 발생',
-        description: '코드 검증에 실패했습니다. 나중에 다시 시도해주세요.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
     } finally {
       setIsLoading(false); // 로딩 상태 해제
     }
   };
+  
+  
 
   // 연락처 제출 핸들러
   const onSubmitContact = async (data) => {
-    setIsLoading(true);
+    setIsLoading(true); // 로딩 시작
     try {
-      // ex)
-      const response = await axios.post('https://gnd-back-btq2isstm-minb-ms-projects.vercel.app/api/submit-contact', { name: data.name, phone: data.phone, code: validatedCode });
+      const response = await axios.post('https://gnd-back.vercel.app/api/submit-contact', {
+        name: data.name,
+        phone: data.phone,
+        code: validatedCode,
+      });
+  
       if (response.data.success) {
-        setContactStatus('success');
+        setContactStatus('success'); // 성공적인 제출 후 화면 전환
       } else {
         setContactStatus('error');
-        setContactMessage(response.data.message);
+        setContactMessage(response.data.message || '알 수 없는 오류 발생');
       }
+    } catch (error) {
+      setContactStatus('error');
+      setContactMessage('서버 오류가 발생했습니다. 나중에 다시 시도해주세요.');
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // 로딩 상태 해제
     }
   };
+  
 
   // 코드 입력 시 자동 하이픈 삽입
   const handleCodeInput = (e) => {
