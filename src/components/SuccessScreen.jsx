@@ -17,8 +17,10 @@ const SuccessScreen = () => {
           
         
         <Text fontFamily="UbuntuMono" fontSize="10px" textAlign="center">
-          입금이 확인된 뒤 입력하신 전화번호로 GND vol.1 세부 안내 문자가 발송될 예정입니다.
-        </Text>
+          입금이 확인된 뒤 입력하신 전화번호로</Text>
+        <Text fontFamily="UbuntuMono" fontSize="10px" textAlign="center">
+          GND vol.1 세부 안내 문자가 발송될 예정입니다.</Text>
+        
       </VStack>
 
       
