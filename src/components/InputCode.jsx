@@ -226,7 +226,7 @@ const InputCode = () => {
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
-                fontFamily="Ubuntu Mono"
+                fontFamily="UbuntuMono"
                 aria-invalid={errorsCode.code ? 'true' : 'false'}
                 _focus={{
                   borderColor: 'black',
@@ -276,7 +276,7 @@ const InputCode = () => {
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
-                fontFamily="Ubuntu Mono"
+                fontFamily="UbuntuMono"
                 aria-invalid={errorsContact.name ? 'true' : 'false'}
                 
               />
@@ -303,7 +303,7 @@ const InputCode = () => {
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
-                fontFamily="Ubuntu Mono"
+                fontFamily="UbuntuMono"
                 aria-invalid={errorsContact.phone ? 'true' : 'false'}
               />
               <FormErrorMessage>
