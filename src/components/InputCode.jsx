@@ -320,7 +320,7 @@ const InputCode = () => {
               boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
               isLoading={isLoading}
             >
-              제출
+              GND vol.1 참가하기
             </Button>
           </VStack>
         </form>
