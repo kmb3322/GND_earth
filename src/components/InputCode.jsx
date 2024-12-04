@@ -72,7 +72,7 @@ const InputCode = () => {
     setIsLoading(true);
     try {
       // 서버 주소 추가 (로컬 환경에서는 http://localhost:3000)
-      const response = await axios.post('https://localhost:3000/api/validate-code', { code: data.code });
+      const response = await axios.post('https://gnd-back.vercel.app/api/validate-code', { code: data.code });
   
       if (response.data.valid) {
         toast({
