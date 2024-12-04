@@ -15,10 +15,10 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from 'axios'; // axios 추가
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
-import axios from 'axios';  // axios 추가
 import SuccessScreen from './SuccessScreen'; // 성공 화면 컴포넌트
 
 const InputCode = () => {
@@ -72,7 +72,7 @@ const InputCode = () => {
     setIsLoading(true);
     try {
       // 서버 주소 추가 (로컬 환경에서는 http://localhost:3000)
-      const response = await axios.post('http://localhost:3000/api/validate-code', { code: data.code });
+      const response = await axios.post('https://localhost:3000/api/validate-code', { code: data.code });
   
       if (response.data.valid) {
         toast({
@@ -111,7 +111,7 @@ const InputCode = () => {
     setIsLoading(true);
     try {
       // ex)
-      const response = await axios.post('http://localhost:3000/api/submit-contact', { name: data.name, phone: data.phone, code: validatedCode });
+      const response = await axios.post('https://gnd-back.vercel.app/api/submit-contact', { name: data.name, phone: data.phone, code: validatedCode });
       if (response.data.success) {
         setContactStatus('success');
       } else {
