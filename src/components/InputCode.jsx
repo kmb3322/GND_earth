@@ -211,6 +211,13 @@ const InputCode = () => {
             <FormControl isInvalid={errorsCode.code}>
               <Input
                 placeholder="XXXX-XXXX-XXXX-XXXX"
+                _placeholder={{
+                  fontFamily: "UbuntuMono",  
+                  fontSize: '12px',                   
+                  color: 'gray.500',                 
+                  fontWeight: '400',                  
+                  letterSpacing: '-0.5px',             
+                }}
                 {...registerCode('code')}
                 onChange={handleCodeInput}
                 maxLength={19} // 하이픈 포함 총 길이
@@ -256,6 +263,13 @@ const InputCode = () => {
               <Input
                 {...registerContact('name')}
                 placeholder="Your Name"
+                _placeholder={{
+                  fontFamily: "UbuntuMono",  
+                  fontSize: '12px',                   
+                  color: 'gray.500',                 
+                  fontWeight: '400',                  
+                  letterSpacing: '-0.5px',             
+                }}
                 maxLength={50}
                 width="100%"
                 bg="var(--Backgrounds-Primary, #FFF)"
@@ -264,6 +278,7 @@ const InputCode = () => {
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
                 fontFamily="Ubuntu Mono"
                 aria-invalid={errorsContact.name ? 'true' : 'false'}
+                
               />
               <FormErrorMessage>
                 {errorsContact.name && errorsContact.name.message}
@@ -274,6 +289,13 @@ const InputCode = () => {
               <Input
                 {...registerContact('phone')}
                 placeholder="Phone Number XXX-XXX(X)-XXXX"
+                _placeholder={{
+                  fontFamily: "UbuntuMono",  
+                  fontSize: '12px',                   
+                  color: 'gray.500',                 
+                  fontWeight: '400',                  
+                  letterSpacing: '-0.5px',             
+                }}
                 onChange={handlePhoneInput}
                 maxLength={13}
                 width="100%"
