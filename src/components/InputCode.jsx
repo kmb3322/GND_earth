@@ -15,6 +15,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from 'axios'; // axios 추가
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
@@ -31,17 +32,17 @@ const InputCode = () => {
   // 코드 검증을 위한 Yup 스키마
   const codeValidationSchema = Yup.object().shape({
     code: Yup.string()
-      .required('코드는 필수 항목입니다.')
+      .required('16자리 초대 코드를 입력해주세요.')
       .matches(/^(\d{4}-){3}\d{4}$/, '코드를 XXXX-XXXX-XXXX-XXXX 형식으로 입력해주세요.'),
   });
 
   // 연락처 제출을 위한 Yup 스키마
   const contactValidationSchema = Yup.object().shape({
     name: Yup.string()
-      .required('이름은 필수 항목입니다.')
+      .required('이름을 입력해주세요.')
       .max(50, '이름은 최대 50자까지 입력할 수 있습니다.'),
     phone: Yup.string()
-      .required('전화번호는 필수 항목입니다.')
+      .required('전화번호를 입력해주세요.')
       .matches(/^\d{3}-\d{3,4}-\d{4}$/, '전화번호를 XXX-XXX(X)-XXXX 형식으로 입력해주세요.'),
   });
 
@@ -67,28 +68,13 @@ const InputCode = () => {
     mode: 'onChange',
   });
 
-  // 코드 제출 핸들러
   const onSubmitCode = async (data) => {
     setIsLoading(true);
     try {
-      // ex)
-      // const response = await axios.post('/api/validate-code', { code: data.code });
-      // if (response.data.valid) {
-      //   setContactStatus('ready');
-      //   setValidatedCode(data.code.replace(/-/g, ''));
-      // } else {
-      //   toast({
-      //     title: 'Invalid Code',
-      //     description: response.data.message,
-      //     status: 'error',
-      //     duration: 5000,
-      //     isClosable: true,
-      //   });
-      // }
-
-      // 더미데이터 코드 : 1234567890123456
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // 네트워크 지연 시뮬레이션
-      if (data.code.replace(/-/g, '') === '1234567890123456') {
+      // 서버 주소 추가 (로컬 환경에서는 http://localhost:3000)
+      const response = await axios.post('https://gnd-back.vercel.app/api/validate-code', { code: data.code });
+  
+      if (response.data.valid) {
         toast({
           title: 'GND vol.1에 초대되셨습니다',
           description: '이름과 전화번호를 입력해주세요',
@@ -96,12 +82,12 @@ const InputCode = () => {
           duration: 5000,
           isClosable: true,
         });
-        setContactStatus('ready');
-        setValidatedCode(data.code.replace(/-/g, ''));
+        setContactStatus('ready'); // 코드가 유효하면 'ready' 상태로 설정
+        setValidatedCode(data.code.replace(/-/g, '')); // 유효한 코드 저장
       } else {
         toast({
           title: '유효하지 않은 코드',
-          description: '입력하신 코드는 사용할 수 없습니다',
+          description: response.data.message || '입력하신 코드는 사용할 수 없습니다',
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -116,7 +102,7 @@ const InputCode = () => {
         isClosable: true,
       });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // 로딩 상태 해제
     }
   };
 
@@ -125,20 +111,13 @@ const InputCode = () => {
     setIsLoading(true);
     try {
       // ex)
-      // const response = await axios.post('/api/submit-contact', { name: data.name, phone: data.phone, code: validatedCode });
-      // if (response.data.success) {
-      //   setContactStatus('success');
-      // } else {
-      //   setContactStatus('error');
-      //   setContactMessage(response.data.message);
-      // }
-
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // 네트워크 지연 시뮬레이션
-      setContactStatus('success');
-      setContactMessage(`이름과 전화번호가 확인되었습니다.`);
-    } catch (error) {
-      setContactStatus('error');
-      setContactMessage('제출에 실패했습니다. 다시 시도해주세요.');
+      const response = await axios.post('https://gnd-back.vercel.app/api/submit-contact', { name: data.name, phone: data.phone, code: validatedCode });
+      if (response.data.success) {
+        setContactStatus('success');
+      } else {
+        setContactStatus('error');
+        setContactMessage(response.data.message);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -151,7 +130,7 @@ const InputCode = () => {
     const parts = value.match(/.{1,4}/g);
     setValueCode('code', parts ? parts.join('-') : '');
   };
-
+  
   // 전화번호 입력 시 자동 하이픈 삽입
   const handlePhoneInput = (e) => {
     let value = e.target.value.replace(/\D/g, '');
@@ -210,22 +189,21 @@ const InputCode = () => {
               borderRadius="full"
               boxShadow="0px 0px 10px 3px rgba(0, 0, 0, 0.25)"
               _hover={{ bg: 'gray.700', transform: 'scale(1.05)' }}
-              _active={{ bg: 'gray.800', transform: 'scale(0.95)' }}
-              isDisabled={isLoading}
+              _active={{ bg: 'gray.800' }}
+              isLoading={isLoading}
             />
           </HStack>
         </form>
       )}
 
-      {/* 연락처 제출 폼 */}
+      {/* 연락처 입력 폼 */}
       {contactStatus === 'ready' && (
         <form onSubmit={handleSubmitContact(onSubmitContact)} style={{ width: '100%', maxWidth: '400px' }}>
-          <VStack spacing={6} width="100%" align="center">
-            {/* 이름 입력 필드 */}
+          <VStack spacing={6} width="100%" justify="center">
             <FormControl isInvalid={errorsContact.name}>
               <Input
-                placeholder="Your Name"
                 {...registerContact('name')}
+                placeholder="Your Name"
                 maxLength={50}
                 width="100%"
                 bg="var(--Backgrounds-Primary, #FFF)"
@@ -234,23 +212,18 @@ const InputCode = () => {
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
                 fontFamily="Ubuntu Mono"
                 aria-invalid={errorsContact.name ? 'true' : 'false'}
-                _focus={{
-                  borderColor: 'black',
-                  boxShadow: '0 0 0 1px black',
-                }}
               />
               <FormErrorMessage>
                 {errorsContact.name && errorsContact.name.message}
               </FormErrorMessage>
             </FormControl>
 
-            {/* 전화번호 입력 필드 */}
             <FormControl isInvalid={errorsContact.phone}>
               <Input
-                placeholder="Phone Number XXX-XXX(X)-XXXX"
                 {...registerContact('phone')}
+                placeholder="Phone Number XXX-XXX(X)-XXXX"
                 onChange={handlePhoneInput}
-                maxLength={13} // 하이픈 포함 최대 길이
+                maxLength={13}
                 width="100%"
                 bg="var(--Backgrounds-Primary, #FFF)"
                 borderRadius="20px"
@@ -258,46 +231,34 @@ const InputCode = () => {
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
                 fontFamily="Ubuntu Mono"
                 aria-invalid={errorsContact.phone ? 'true' : 'false'}
-                _focus={{
-                  borderColor: 'black',
-                  boxShadow: '0 0 0 1px black',
-                }}
               />
               <FormErrorMessage>
                 {errorsContact.phone && errorsContact.phone.message}
               </FormErrorMessage>
             </FormControl>
 
-            {/* 제출 버튼 */}
             <Button
               type="submit"
-              isLoading={isLoading}
-              loadingText="Submitting"
               bg="black"
-              mt="30px"
               color="white"
-              width="150px"
+              width="100%"
               borderRadius="20px"
-              boxShadow="0px 0px 10px 3px rgba(0, 0, 0, 0.25)"
-              _hover={{ bg: 'gray.700', transform: 'scale(1.05)' }}
-              _active={{ bg: 'gray.800', transform: 'scale(0.95)' }}
+              boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
+              isLoading={isLoading}
             >
-              JOIN GND
+              제출
             </Button>
           </VStack>
         </form>
       )}
 
-
-      {/* 연락처 제출 후 에러 메시지 */}
+      {/* 오류 메시지 */}
       {contactStatus === 'error' && (
-        <VStack spacing={4} width="100%" align="center" mt={4} maxWidth="400px">
-          <Alert status="error" borderRadius="md" width="100%" position="relative">
-            <AlertTitle>Error!</AlertTitle>
-            <AlertDescription>{contactMessage}</AlertDescription>
-            <CloseButton position="absolute" right="8px" top="8px" onClick={() => setContactStatus(null)} />
-          </Alert>
-        </VStack>
+        <Alert status="error" width="100%" maxWidth="400px" borderRadius="lg">
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{contactMessage}</AlertDescription>
+          <CloseButton position="absolute" right="8px" top="8px" />
+        </Alert>
       )}
     </VStack>
   );
