@@ -51,6 +51,7 @@ module.exports = async (req, res) => {
           name,
           phone,
           isempty: 0,  // 이제 코드는 사용됨
+          isshared: "true",
         });
 
         return res.status(200).json({ success: true, message: '연락처가 성공적으로 저장되었습니다.' });
