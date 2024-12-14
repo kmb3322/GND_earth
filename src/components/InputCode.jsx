@@ -10,9 +10,10 @@ import {
   HStack,
   IconButton,
   Input,
+  Select,
   Spinner,
   useToast,
-  VStack,
+  VStack
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios'; // axios 추가
@@ -36,7 +37,7 @@ const InputCode = () => {
       .matches(/^(\d{4}-){3}\d{4}$/, '코드를 XXXX-XXXX-XXXX-XXXX 형식으로 입력해주세요.'),
   });
 
-  // 연락처 제출을 위한 Yup 스키마
+  // 연락처 제출을 위한 Yup 스키마 (interest 필드 추가)
   const contactValidationSchema = Yup.object().shape({
     name: Yup.string()
       .required('이름을 입력해주세요.')
@@ -44,6 +45,9 @@ const InputCode = () => {
     phone: Yup.string()
       .required('전화번호를 입력해주세요.')
       .matches(/^\d{3}-\d{3,4}-\d{4}$/, '전화번호를 XXX-XXX(X)-XXXX 형식으로 입력해주세요.'),
+    interest: Yup.string()
+      .required('관심사를 선택해주세요.')
+      .oneOf(['1', '2', '3'], '유효한 관심사를 선택해주세요.'),
   });
 
   // 코드 검증 폼 관리
@@ -74,47 +78,31 @@ const InputCode = () => {
       // 서버 요청
       const response = await axios.post('https://gnd-back.vercel.app/api/validate-code', { code: data.code });
       
-
-      // 서버 응답 구조를 확인하여 필요한 값을 출력
-      console.log('응답 데이터:', response.data.valid);
-
-
-      // 응답 구조가 올바른지 확인
-      console.log('Response:', response);  // 응답 로그 찍기
-
-      console.log('응답 데이터:', response.data.success);
-      console.log('응답 데이터:', response.data.data);
-
-  
-
-        if (response.data.valid) {
-          console.log('입장:', response.data.valid);
-
-          toast({
-            title: 'GND vol.1에 초대되셨습니다',
-            description: '이름과 전화번호를 입력해주세요',
-            status: 'success',
-            duration: 5000,
-            isClosable: true,
-          });
-          setContactStatus('ready'); // 코드가 유효하면 'ready' 상태로 설정
-          setValidatedCode(data.code.replace(/-/g, '')); // 유효한 코드 저장
-        } 
-        else {
-          toast({
-            title: '유효하지 않은 코드',
-            description: '코드를 잘못 입력하셨거나, 이미 사용된 코드입니다.',
-            status: 'error',
-            duration: 5000,
-            isClosable: true,
-          });
-        }
-      } 
-     catch (error) {
-      // 에러를 더 구체적으로 확인
+      // 응답 검사
+      if (response.data.valid) {
+        toast({
+          title: 'GND vol.1에 초대되셨습니다',
+          description: '이름, 전화번호, 관심사를 입력해주세요',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        setContactStatus('ready'); // 코드가 유효하면 'ready' 상태로 설정
+        setValidatedCode(data.code.replace(/-/g, '')); // 유효한 코드 저장
+      } else {
+        toast({
+          title: '유효하지 않은 코드',
+          description: '코드를 잘못 입력하셨거나, 이미 사용된 코드입니다.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } 
+    catch (error) {
+      // 에러를 더 구체적으로 처리
       if (error.response) {
-        // 서버가 응답을 했고, 상태 코드가 2xx가 아닌 경우
-        console.error('Response Error:', error.response); // 서버 응답 오류 로그
+        console.error('Response Error:', error.response);
         toast({
           title: '코드 오류',
           description: `${error.response.data.message || error.message}`,
@@ -123,8 +111,7 @@ const InputCode = () => {
           isClosable: true,
         });
       } else if (error.request) {
-        // 서버에 요청을 보냈으나 응답을 받지 못한 경우
-        console.error('Request Error:', error.request); // 요청 오류 로그
+        console.error('Request Error:', error.request);
         toast({
           title: '네트워크 오류',
           description: '서버에 연결할 수 없습니다. 나중에 다시 시도해주세요.',
@@ -133,8 +120,7 @@ const InputCode = () => {
           isClosable: true,
         });
       } else {
-        // 다른 오류가 발생한 경우
-        console.error('Error:', error.message); // 다른 오류 메시지 로그
+        console.error('Error:', error.message);
         toast({
           title: '알 수 없는 오류',
           description: '예기치 못한 오류가 발생했습니다. 다시 시도해주세요.',
@@ -147,8 +133,6 @@ const InputCode = () => {
       setIsLoading(false); // 로딩 상태 해제
     }
   };
-  
-  
 
   // 연락처 제출 핸들러
   const onSubmitContact = async (data) => {
@@ -158,6 +142,7 @@ const InputCode = () => {
         name: data.name,
         phone: data.phone,
         code: validatedCode,
+        interest: data.interest, // interest 추가
       });
   
       if (response.data.success) {
@@ -173,7 +158,6 @@ const InputCode = () => {
       setIsLoading(false); // 로딩 상태 해제
     }
   };
-  
 
   // 코드 입력 시 자동 하이픈 삽입
   const handleCodeInput = (e) => {
@@ -276,7 +260,10 @@ const InputCode = () => {
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
-                fontFamily="UbuntuMono"
+                fontSize="12px"                // 전체 텍스트 크기 설정
+                color="black"               // 전체 텍스트 색상 설정
+                fontWeight="400"               // 전체 텍스트 굵기 설정
+                letterSpacing="-0.5px"  
                 aria-invalid={errorsContact.name ? 'true' : 'false'}
                 
               />
@@ -303,11 +290,54 @@ const InputCode = () => {
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
-                fontFamily="UbuntuMono"
+                fontSize="12px"                // 전체 텍스트 크기 설정
+                color="black"               // 전체 텍스트 색상 설정
+                fontWeight="400"               // 전체 텍스트 굵기 설정
+                letterSpacing="-0.5px"  
                 aria-invalid={errorsContact.phone ? 'true' : 'false'}
               />
               <FormErrorMessage>
                 {errorsContact.phone && errorsContact.phone.message}
+              </FormErrorMessage>
+            </FormControl>
+            
+            {/* interest 선택 필드 추가 */}
+            <FormControl isInvalid={errorsContact.interest}>
+              <Select
+                {...registerContact('interest')}
+
+                fontSize="12px"                // 전체 텍스트 크기 설정
+                color="black"               // 전체 텍스트 색상 설정
+                fontWeight="400"               // 전체 텍스트 굵기 설정
+                letterSpacing="-0.5px"  
+                placeholder="Select your interest"
+                _placeholder={{
+                  fontFamily: "UbuntuMono",  
+                  fontSize: '12px',                   
+                  color: 'gray.500',                 
+                  fontWeight: '400',                  
+                  letterSpacing: '-0.5px',             
+                }}
+                
+                bg="var(--Backgrounds-Primary, #FFF)"
+                borderRadius="20px"
+                border="1px solid var(--lightlight-Gray, #E8E8E8)"
+                boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
+                fontFamily="UbuntuMono"
+                _focus={{
+                  fontFamily: "UbuntuMono",  
+                  fontSize: '12px',                   
+                  color: 'black',                 
+                  fontWeight: '400',                  
+                  letterSpacing: '-0.5px',  
+                }}
+              >
+                <option value="1">Sound</option>
+                <option value="2">Visual</option>
+                <option value="3">General</option>
+              </Select>
+              <FormErrorMessage>
+                {errorsContact.interest && errorsContact.interest.message}
               </FormErrorMessage>
             </FormControl>
 
@@ -319,6 +349,8 @@ const InputCode = () => {
               borderRadius="20px"
               boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
               isLoading={isLoading}
+              _hover={{ bg: 'gray.700', transform: 'scale(1.02)' }}
+              _active={{ bg: 'gray.800' }}
             >
               GND vol.1 참가하기
             </Button>
