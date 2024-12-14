@@ -19,10 +19,10 @@ const HomeScreen = () => {
         서울 마포구 독막로 7길 20 얼라이브홀<br />2025 01 03
       </Text>
       
-      <Link href="https://instagram.com/gnd__earth" isExternal color="gray.600" mt={4}>
+      <Link href="https://instagram.com/gnd_earth" isExternal color="gray.600" mt={4}>
         <Flex align="center">
           <Icon as={FaInstagram} mr={1} />
-          <Text>gnd__earth</Text>
+          <Text>gnd_earth</Text>
         </Flex>
       </Link>
 
