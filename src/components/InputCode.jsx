@@ -47,7 +47,7 @@ const InputCode = () => {
       .matches(/^\d{3}-\d{3,4}-\d{4}$/, '전화번호를 XXX-XXX(X)-XXXX 형식으로 입력해주세요.'),
     interest: Yup.string()
       .required('관심사를 선택해주세요.')
-      .oneOf(['1', '2', '3'], '유효한 관심사를 선택해주세요.'),
+      .oneOf(['sound', 'visual', 'general'], '유효한 관심사를 선택해주세요.'),
   });
 
   // 코드 검증 폼 관리
@@ -213,6 +213,7 @@ const InputCode = () => {
                 fontFamily="UbuntuMono"
                 aria-invalid={errorsCode.code ? 'true' : 'false'}
                 _focus={{
+                  fontFamily: "UbuntuMono", 
                   borderColor: 'black',
                   boxShadow: '0 0 0 1px black',
                 }}
@@ -260,7 +261,6 @@ const InputCode = () => {
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
-                fontSize="12px"                // 전체 텍스트 크기 설정
                 color="black"               // 전체 텍스트 색상 설정
                 fontWeight="400"               // 전체 텍스트 굵기 설정
                 letterSpacing="-0.5px"  
@@ -290,7 +290,6 @@ const InputCode = () => {
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
-                fontSize="12px"                // 전체 텍스트 크기 설정
                 color="black"               // 전체 텍스트 색상 설정
                 fontWeight="400"               // 전체 텍스트 굵기 설정
                 letterSpacing="-0.5px"  
@@ -326,15 +325,14 @@ const InputCode = () => {
                 fontFamily="UbuntuMono"
                 _focus={{
                   fontFamily: "UbuntuMono",  
-                  fontSize: '12px',                   
                   color: 'black',                 
                   fontWeight: '400',                  
                   letterSpacing: '-0.5px',  
                 }}
               >
-                <option value="1">Sound</option>
-                <option value="2">Visual</option>
-                <option value="3">General</option>
+                <option value="sound">Sound</option>    {/* 변경 */}
+                <option value="visual">Visual</option>  {/* 변경 */}
+                <option value="general">General</option> {/* 변경 */}
               </Select>
               <FormErrorMessage>
                 {errorsContact.interest && errorsContact.interest.message}

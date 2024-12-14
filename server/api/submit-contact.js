@@ -20,10 +20,10 @@ const corsHandler = cors({ origin: '*' });  // '*'는 모든 도메인에서의 
 module.exports = async (req, res) => {
   corsHandler(req, res, async () => {  // CORS 미들웨어를 요청/응답에 적용
     if (req.method === 'POST') {
-      const { name, phone, code } = req.body;
+      const { name, phone, code, interest } = req.body;
 
       // 필수값 체크
-      if (!name || !phone || !code) {
+      if (!name || !phone || !code || !interest) {
         return res.status(400).json({ success: false, message: '모든 필드를 채워주세요.' });
       }
 
@@ -50,6 +50,7 @@ module.exports = async (req, res) => {
         await codeRef.update({
           name,
           phone,
+          interest,
           isempty: 0,  // 이제 코드는 사용됨
           isshared: "true",
         });
