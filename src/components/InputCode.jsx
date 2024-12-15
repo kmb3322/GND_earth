@@ -27,17 +27,18 @@ const InputCode = () => {
   const [contactMessage, setContactMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [validatedCode, setValidatedCode] = useState(''); // 검증된 코드 저장
+  const [submittedName, setSubmittedName] = useState(''); // 제출된 이름 저장용 state
 
   const toast = useToast();
 
-  // 코드 검증을 위한 Yup 스키마
+  // 코드 검증 스키마
   const codeValidationSchema = Yup.object().shape({
     code: Yup.string()
       .required('16자리 초대 코드를 입력해주세요.')
       .matches(/^(\d{4}-){3}\d{4}$/, '코드를 XXXX-XXXX-XXXX-XXXX 형식으로 입력해주세요.'),
   });
 
-  // 연락처 제출을 위한 Yup 스키마 (interest 필드 추가)
+  // 연락처 제출 스키마 (interest 필드 포함)
   const contactValidationSchema = Yup.object().shape({
     name: Yup.string()
       .required('이름을 입력해주세요.')
@@ -73,12 +74,10 @@ const InputCode = () => {
   });
 
   const onSubmitCode = async (data) => {
-    setIsLoading(true); // 로딩 시작
+    setIsLoading(true);
     try {
-      // 서버 요청
       const response = await axios.post('https://gnd-back.vercel.app/api/validate-code', { code: data.code });
       
-      // 응답 검사
       if (response.data.valid) {
         toast({
           title: 'GND vol.1에 초대되셨습니다',
@@ -87,8 +86,8 @@ const InputCode = () => {
           duration: 5000,
           isClosable: true,
         });
-        setContactStatus('ready'); // 코드가 유효하면 'ready' 상태로 설정
-        setValidatedCode(data.code.replace(/-/g, '')); // 유효한 코드 저장
+        setContactStatus('ready');
+        setValidatedCode(data.code.replace(/-/g, ''));
       } else {
         toast({
           title: '유효하지 않은 코드',
@@ -98,9 +97,7 @@ const InputCode = () => {
           isClosable: true,
         });
       }
-    } 
-    catch (error) {
-      // 에러를 더 구체적으로 처리
+    } catch (error) {
       if (error.response) {
         console.error('Response Error:', error.response);
         toast({
@@ -130,23 +127,24 @@ const InputCode = () => {
         });
       }
     } finally {
-      setIsLoading(false); // 로딩 상태 해제
+      setIsLoading(false);
     }
   };
 
-  // 연락처 제출 핸들러
   const onSubmitContact = async (data) => {
-    setIsLoading(true); // 로딩 시작
+    setIsLoading(true);
     try {
       const response = await axios.post('https://gnd-back.vercel.app/api/submit-contact', {
         name: data.name,
         phone: data.phone,
         code: validatedCode,
-        interest: data.interest, // interest 추가
+        interest: data.interest,
       });
   
       if (response.data.success) {
-        setContactStatus('success'); // 성공적인 제출 후 화면 전환
+        // name을 state에 저장해서 SuccessScreen에 전달
+        setSubmittedName(data.name);
+        setContactStatus('success');
       } else {
         setContactStatus('error');
         setContactMessage(response.data.message || '알 수 없는 오류 발생');
@@ -155,7 +153,7 @@ const InputCode = () => {
       setContactStatus('error');
       setContactMessage('서버 오류가 발생했습니다. 나중에 다시 시도해주세요.');
     } finally {
-      setIsLoading(false); // 로딩 상태 해제
+      setIsLoading(false);
     }
   };
 
@@ -181,9 +179,9 @@ const InputCode = () => {
     setValueContact('phone', value);
   };
 
-  // 모든 입력이 성공적으로 완료되면, SuccessScreen
+  // 성공 시 SuccessScreen 렌더링, name 전달
   if (contactStatus === 'success') {
-    return <SuccessScreen />;
+    return <SuccessScreen name={submittedName} />;
   }
 
   return (
@@ -204,7 +202,7 @@ const InputCode = () => {
                 }}
                 {...registerCode('code')}
                 onChange={handleCodeInput}
-                maxLength={19} // 하이픈 포함 총 길이
+                maxLength={19}
                 width="100%"
                 bg="var(--Backgrounds-Primary, #FFF)"
                 borderRadius="20px"
@@ -261,11 +259,10 @@ const InputCode = () => {
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
-                color="black"               // 전체 텍스트 색상 설정
-                fontWeight="400"               // 전체 텍스트 굵기 설정
-                letterSpacing="-0.5px"  
+                color="black"
+                fontWeight="400"
+                letterSpacing="-0.5px"
                 aria-invalid={errorsContact.name ? 'true' : 'false'}
-                
               />
               <FormErrorMessage>
                 {errorsContact.name && errorsContact.name.message}
@@ -290,25 +287,23 @@ const InputCode = () => {
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
-                color="black"               // 전체 텍스트 색상 설정
-                fontWeight="400"               // 전체 텍스트 굵기 설정
-                letterSpacing="-0.5px"  
+                color="black"
+                fontWeight="400"
+                letterSpacing="-0.5px"
                 aria-invalid={errorsContact.phone ? 'true' : 'false'}
               />
               <FormErrorMessage>
                 {errorsContact.phone && errorsContact.phone.message}
               </FormErrorMessage>
             </FormControl>
-            
-            {/* interest 선택 필드 추가 */}
+
             <FormControl isInvalid={errorsContact.interest}>
               <Select
                 {...registerContact('interest')}
-
-                fontSize="12px"                // 전체 텍스트 크기 설정
-                color="black"               // 전체 텍스트 색상 설정
-                fontWeight="400"               // 전체 텍스트 굵기 설정
-                letterSpacing="-0.5px"  
+                fontSize="12px"
+                color="black"
+                fontWeight="400"
+                letterSpacing="-0.5px"
                 placeholder="Select your interest"
                 _placeholder={{
                   fontFamily: "UbuntuMono",  
@@ -317,7 +312,6 @@ const InputCode = () => {
                   fontWeight: '400',                  
                   letterSpacing: '-0.5px',             
                 }}
-                
                 bg="var(--Backgrounds-Primary, #FFF)"
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
@@ -327,12 +321,12 @@ const InputCode = () => {
                   fontFamily: "UbuntuMono",  
                   color: 'black',                 
                   fontWeight: '400',                  
-                  letterSpacing: '-0.5px',  
+                  letterSpacing: '-0.5px',
                 }}
               >
-                <option value="sound">Sound</option>    {/* 변경 */}
-                <option value="visual">Visual</option>  {/* 변경 */}
-                <option value="general">General</option> {/* 변경 */}
+                <option value="sound">Sound</option>
+                <option value="visual">Visual</option>
+                <option value="general">General</option>
               </Select>
               <FormErrorMessage>
                 {errorsContact.interest && errorsContact.interest.message}
@@ -356,7 +350,6 @@ const InputCode = () => {
         </form>
       )}
 
-      {/* 오류 메시지 */}
       {contactStatus === 'error' && (
         <Alert status="error" width="100%" maxWidth="400px" borderRadius="lg">
           <AlertTitle>Error</AlertTitle>
