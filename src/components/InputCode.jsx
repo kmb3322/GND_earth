@@ -16,18 +16,20 @@ import {
   VStack
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import axios from 'axios'; // axios 추가
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
-import SuccessScreen from './SuccessScreen'; // 성공 화면 컴포넌트
+import SuccessScreen from './SuccessScreen';
 
 const InputCode = () => {
-  const [contactStatus, setContactStatus] = useState(null); // 'ready', 'success', 'error'
+  const [contactStatus, setContactStatus] = useState(null); 
   const [contactMessage, setContactMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [validatedCode, setValidatedCode] = useState(''); // 검증된 코드 저장
-  const [submittedName, setSubmittedName] = useState(''); // 제출된 이름 저장용 state
+  const [validatedCode, setValidatedCode] = useState(''); 
+  const [submittedName, setSubmittedName] = useState(''); 
+
+  const [isCodeFocused, setIsCodeFocused] = useState(false); // code 인풋 focus 상태
 
   const toast = useToast();
 
@@ -57,10 +59,14 @@ const InputCode = () => {
     handleSubmit: handleSubmitCode,
     formState: { errors: errorsCode },
     setValue: setValueCode,
+    watch: watchCodeForm
   } = useForm({
     resolver: yupResolver(codeValidationSchema),
     mode: 'onChange',
   });
+
+  // 현재 code 값 감지
+  const codeValue = watchCodeForm('code', '');
 
   // 연락처 제출 폼 관리
   const {
@@ -142,7 +148,6 @@ const InputCode = () => {
       });
   
       if (response.data.success) {
-        // name을 state에 저장해서 SuccessScreen에 전달
         setSubmittedName(data.name);
         setContactStatus('success');
       } else {
@@ -179,7 +184,9 @@ const InputCode = () => {
     setValueContact('phone', value);
   };
 
-  // 성공 시 SuccessScreen 렌더링, name 전달
+  // 포커스 상태와 codeValue를 바탕으로 placeholder 결정
+  const codePlaceholder = (isCodeFocused && codeValue.length === 0) ? "XXXX-XXXX-XXXX-XXXX" : "";
+
   if (contactStatus === 'success') {
     return <SuccessScreen name={submittedName} />;
   }
@@ -192,16 +199,11 @@ const InputCode = () => {
           <HStack spacing={4} width="100%" justify="center">
             <FormControl isInvalid={errorsCode.code}>
               <Input
-                placeholder="XXXX-XXXX-XXXX-XXXX"
-                _placeholder={{
-                  fontFamily: "UbuntuMono",  
-                  fontSize: '12px',                   
-                  color: 'gray.500',                 
-                  fontWeight: '400',                  
-                  letterSpacing: '-0.5px',             
-                }}
+                placeholder={codePlaceholder}
                 {...registerCode('code')}
                 onChange={handleCodeInput}
+                onFocus={() => setIsCodeFocused(true)}
+                onBlur={() => setIsCodeFocused(false)}
                 maxLength={19}
                 width="100%"
                 bg="var(--Backgrounds-Primary, #FFF)"
@@ -210,8 +212,16 @@ const InputCode = () => {
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
                 fontFamily="UbuntuMono"
                 aria-invalid={errorsCode.code ? 'true' : 'false'}
+                _placeholder={{
+                  fontFamily: "UbuntuMono",  
+                  fontSize: '15px',
+                  color: 'gray.500',
+                  fontWeight: '400',
+                  letterSpacing: '-0.5px',
+                }}
                 _focus={{
                   fontFamily: "UbuntuMono", 
+                  fontSize: '15px',
                   borderColor: 'black',
                   boxShadow: '0 0 0 1px black',
                 }}
@@ -272,7 +282,7 @@ const InputCode = () => {
             <FormControl isInvalid={errorsContact.phone}>
               <Input
                 {...registerContact('phone')}
-                placeholder="Phone Number XXX-XXX(X)-XXXX"
+                placeholder="Phone Number"
                 _placeholder={{
                   fontFamily: "UbuntuMono",  
                   fontSize: '12px',                   
