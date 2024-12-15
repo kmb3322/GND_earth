@@ -8,10 +8,10 @@ const HomeScreen = () => {
     <VStack spacing={10} align="center" mt={10}>
       <Image src="/gnd_image.png" alt="GND vol.1" boxSize="250px" objectFit="contain" />
       
-      <Text fontFamily="UbuntuMono" fontSize="24px" fontWeight="bold" mb="-20px" mr="220px">GND</Text>
+      <Text fontFamily="UbuntuMono" fontSize="18px" fontWeight="bold" mb="-20px" mr="220px">GND</Text>
 
-      <Text fontFamily="UbuntuMono" fontSize="20px" fontWeight="bold" mb="-20px">vol.1</Text>
-      <Text fontFamily="UbuntuMono" fontSize="20px" fontWeight="bold" ml="220px">SEOUL</Text>
+      <Text fontFamily="UbuntuMono" fontSize="16px" fontWeight="bold" mb="-20px">vol.1</Text>
+      <Text fontFamily="UbuntuMono" fontSize="16px" fontWeight="bold" ml="220px">SEOUL</Text>
 
       <InputCode />
       
@@ -25,7 +25,9 @@ const HomeScreen = () => {
           <Text>gnd_earth</Text>
         </Flex>
       </Link>
-
+      <Text fontFamily="UbuntuMono" fontSize="10px" textAlign="center" mt="-10px">
+        문의 010-8288-3951
+      </Text>
       <Text mb="100px"></Text>
     </VStack>
   );
