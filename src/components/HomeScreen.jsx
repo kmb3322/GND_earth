@@ -25,9 +25,11 @@ const HomeScreen = () => {
           <Text>gnd_earth</Text>
         </Flex>
       </Link>
-      <Text fontFamily="UbuntuMono" fontSize="10px" textAlign="center" mt="-10px">
-        문의 010-8288-3951
-      </Text>
+      <Link href="tel:010-8288-3951" textDecoration="none">
+          <Text fontFamily="UbuntuMono" fontSize="10px" textAlign="center" mt="-10px">
+            문의 010-8288-3951
+          </Text>
+        </Link>
       <Text mb="100px"></Text>
     </VStack>
   );
