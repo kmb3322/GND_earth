@@ -211,17 +211,18 @@ const InputCode = () => {
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
                 fontFamily="noto"
+                fontSize= '14px'
                 aria-invalid={errorsCode.code ? 'true' : 'false'}
                 _placeholder={{
                   fontFamily: "noto",  
-                  fontSize: '15px',
+                  fontSize: '14px',
                   color: 'gray.500',
                   fontWeight: '400',
-                  letterSpacing: '-0.5px',
+                  letterSpacing: '-1px',
                 }}
                 _focus={{
                   fontFamily: "noto", 
-                  fontSize: '15px',
+                  fontSize: '14px',
                   borderColor: 'black',
                   boxShadow: '0 0 0 1px black',
                 }}
@@ -346,8 +347,10 @@ const InputCode = () => {
             <Button
               type="submit"
               bg="black"
+              fontFamily="mono"
+              fontWeight="700"
+              fontSize="14px"
               color="white"
-              fontFamily= "mono"
               width="100%"
               borderRadius="20px"
               boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
