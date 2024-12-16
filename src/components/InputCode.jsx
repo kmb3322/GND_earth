@@ -347,6 +347,7 @@ const InputCode = () => {
               type="submit"
               bg="black"
               color="white"
+              fontFamily= "mono"
               width="100%"
               borderRadius="20px"
               boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
@@ -354,7 +355,7 @@ const InputCode = () => {
               _hover={{ bg: 'gray.700', transform: 'scale(1.02)' }}
               _active={{ bg: 'gray.800' }}
             >
-              GND vol.1 참가하기
+              JOIN GND vol.1
             </Button>
           </VStack>
         </form>
