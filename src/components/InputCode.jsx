@@ -210,17 +210,17 @@ const InputCode = () => {
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
-                fontFamily="UbuntuMono"
+                fontFamily="noto"
                 aria-invalid={errorsCode.code ? 'true' : 'false'}
                 _placeholder={{
-                  fontFamily: "UbuntuMono",  
+                  fontFamily: "noto",  
                   fontSize: '15px',
                   color: 'gray.500',
                   fontWeight: '400',
                   letterSpacing: '-0.5px',
                 }}
                 _focus={{
-                  fontFamily: "UbuntuMono", 
+                  fontFamily: "noto", 
                   fontSize: '15px',
                   borderColor: 'black',
                   boxShadow: '0 0 0 1px black',
@@ -257,7 +257,7 @@ const InputCode = () => {
                 {...registerContact('name')}
                 placeholder="Your Name"
                 _placeholder={{
-                  fontFamily: "UbuntuMono",  
+                  fontFamily: "noto",  
                   fontSize: '12px',                   
                   color: 'gray.500',                 
                   fontWeight: '400',                  
@@ -284,7 +284,7 @@ const InputCode = () => {
                 {...registerContact('phone')}
                 placeholder="Phone Number"
                 _placeholder={{
-                  fontFamily: "UbuntuMono",  
+                  fontFamily: "noto",  
                   fontSize: '12px',                   
                   color: 'gray.500',                 
                   fontWeight: '400',                  
@@ -316,7 +316,7 @@ const InputCode = () => {
                 letterSpacing="-0.5px"
                 placeholder="Select your interest"
                 _placeholder={{
-                  fontFamily: "UbuntuMono",  
+                  fontFamily: "noto",  
                   fontSize: '12px',                   
                   color: 'gray.500',                 
                   fontWeight: '400',                  
@@ -326,9 +326,9 @@ const InputCode = () => {
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
                 boxShadow="0px 0px 10px 1px rgba(0, 0, 0, 0.10)"
-                fontFamily="UbuntuMono"
+                fontFamily="noto"
                 _focus={{
-                  fontFamily: "UbuntuMono",  
+                  fontFamily: "noto",  
                   color: 'black',                 
                   fontWeight: '400',                  
                   letterSpacing: '-0.5px',
