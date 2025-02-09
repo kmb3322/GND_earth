@@ -25,7 +25,7 @@ const theme = extendTheme({
       body: {
         margin: 0,
         padding: 0,
-        backgroundColor: "#f5f5f5",
+        backgroundColor: "#f2f2f2",
         fontFamily: "'NotoSans', sans-serif", // 기본 바디 폰트 설정
       },
     },

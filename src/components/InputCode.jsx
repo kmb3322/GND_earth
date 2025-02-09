@@ -206,6 +206,7 @@ const InputCode = () => {
                 onBlur={() => setIsCodeFocused(false)}
                 maxLength={19}
                 width="100%"
+                color="black"
                 bg="var(--Backgrounds-Primary, #FFF)"
                 borderRadius="20px"
                 border="1px solid var(--lightlight-Gray, #E8E8E8)"
