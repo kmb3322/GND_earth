@@ -85,6 +85,7 @@ export default function HomeScreen() {
             w="300px"
             px={8}
             py={6}
+            mt={20}
             bg="rgb(160,13,13)"
             color="white"
             fontFamily="mono"
