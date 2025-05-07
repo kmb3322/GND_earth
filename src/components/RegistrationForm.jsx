@@ -102,16 +102,19 @@ const RegistrationForm = ({ onSuccess }) => {
   return (
     <VStack spacing={10} w="100%" align="center" justify="center" p="20px" mt={10}>
       {/* 타이틀 */}
-      <Text color="whiteAlpha.900" fontFamily="Galmuri11" fontSize="24px">
+      <Text color="whiteAlpha.900" fontFamily="Galmuri11" fontSize="24px" mb={-8}>
         SAD GAS X GND
+      </Text>
+      <Text color="whiteAlpha.900" fontFamily="Galmuri11" fontSize="12px">
+        05 24 2025
       </Text>
 
       {/* 입금 안내 */}
       <VStack spacing={2}>
-        <Text fontFamily="noto" fontSize="14px" fontWeight="bold" color="whiteAlpha.900" textAlign="center">
+        <Text fontFamily="NotoSans" fontSize="14px" fontWeight="bold" color="whiteAlpha.900" textAlign="center">
           3333-25-4837088 카카오뱅크 정수빈
         </Text>
-        <Text fontFamily="noto" fontSize="12px" color="gray.300" textAlign="center">
+        <Text fontFamily="NotoSans" fontSize="12px" color="gray.300" textAlign="center">
           ₩20,000원 입금 후 스크린샷을 첨부해주세요.
         </Text>
       </VStack>
