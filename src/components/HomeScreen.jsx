@@ -32,7 +32,7 @@ const HomeScreen = () => {
     >
       {/* 인트로 비디오 */}
       <video
-        src="/주유소_Poster.mp4"
+        src="/Poster_홈페이지용.mp4"
         autoPlay
         loop
         muted
