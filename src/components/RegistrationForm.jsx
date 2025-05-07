@@ -124,14 +124,14 @@ const RegistrationForm = ({ onSuccess }) => {
         <VStack spacing={6}>
           {/* 이름 */}
           <FormControl isInvalid={errors.name}>
-            <Input placeholder="Your Name" {...register('name')} {...inputStyle} />
+            <Input placeholder="이름" {...register('name')} {...inputStyle} />
             <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
           </FormControl>
 
           {/* 전화번호 */}
           <FormControl isInvalid={errors.phone}>
             <Input
-              placeholder="Phone Number"
+              placeholder="전화번호"
               {...register('phone')}
               onChange={handlePhone}
               maxLength={13}
