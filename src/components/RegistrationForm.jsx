@@ -153,7 +153,7 @@ const RegistrationForm = ({ onSuccess }) => {
               fontFamily="noto"
               fontWeight="400"
               bg="whiteAlpha.100"
-              color="whiteAlpha.700"
+              color="whiteAlpha.600"
               letterSpacing="-0.5px"
               borderRadius="20px"
               border="1px solid rgba(255,255,255,0.25)"
