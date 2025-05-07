@@ -18,6 +18,12 @@ const corsHandler = cors({ origin: '*' }); // 필요하면 도메인 제한
 
 module.exports = async (req, res) => {
   corsHandler(req, res, async () => {
+    if (req.method === 'OPTIONS') {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+        return res.status(200).end();
+      }
     if (req.method !== 'POST') {
       return res.status(405).json({ success: false, message: 'Method Not Allowed' });
     }

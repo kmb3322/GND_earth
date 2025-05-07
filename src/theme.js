@@ -16,9 +16,13 @@ const theme = extendTheme({
       '@font-face': [
         {
           fontFamily: 'Galmuri11',
-          src: `url("/fonts/Galmuri11.ttf") format("truetype")`,
-          fontStyle: 'normal',
+          src: `
+            url("/fonts/Galmuri11.woff2") format("woff2"),
+            url("/fonts/Galmuri11.ttf")  format("truetype"),
+          `,
           fontWeight: 'normal',
+          fontStyle: 'normal',
+          fontDisplay: 'swap',
         },
         {
           fontFamily: 'UbuntuMono',
