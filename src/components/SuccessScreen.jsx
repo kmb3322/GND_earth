@@ -8,7 +8,7 @@ const SuccessScreen = ({ name }) => (
   <VStack spacing={10} align="center" mt={10}>
     <VStack spacing={6} width="100%" align="center">
       <Text
-        fontFamily="noto"
+        fontFamily="Galmuri11"
         fontWeight="bold"
         fontSize="17px"
         textAlign="center"
@@ -17,7 +17,7 @@ const SuccessScreen = ({ name }) => (
       </Text>
 
       <Text
-        fontFamily="noto"
+        fontFamily="Galmuri11"
         fontWeight="bold"
         fontSize="17px"
         mt="-12px"
@@ -27,7 +27,7 @@ const SuccessScreen = ({ name }) => (
       </Text>
 
       <Text
-        fontFamily="noto"
+        fontFamily="Galmuri11"
         fontSize="12px"
         mt="10px"
         textAlign="center"

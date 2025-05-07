@@ -20,7 +20,6 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaInstagram } from 'react-icons/fa';
 import * as Yup from 'yup';
-import SuccessScreen from './SuccessScreen';
 
 /**
  * RegistrationForm
@@ -42,7 +41,7 @@ const RegistrationForm = () => {
       .max(50, '최대 50자까지 입력 가능합니다.'),
     phone: Yup.string()
       .required('전화번호를 입력해주세요.')
-      .matches(/^\d{3}-\d{3,4}-\d{4}$/, '전화번호를 XXX-XXX(X)-XXXX 형식으로 입력해주세요.'),
+      .matches(/^\d{3}-\d{3,4}-\d{4}$/, 'XXX-XXX(X)-XXXX 형식으로 입력해주세요.'),
     screenshot: Yup.mixed()
       .required('입금 인증 스크린샷을 첨부해주세요.')
       .test('fileType', '이미지 파일만 업로드 가능합니다.', (value) => {
@@ -101,7 +100,10 @@ const RegistrationForm = () => {
     }
   };
 
-  if (status === 'success') return <SuccessScreen name={submittedName} />;
+  if (status === 'success') {
+    onSuccess();     // 성공 시 HomeScreen이 success 오버레이로 전환
+    return null;     // 폼 자체는 더 이상 표시 X
+  }
 
   return (
     <VStack spacing={10} w="100%" align="center" justify="center" p="20px" mt={10}>
