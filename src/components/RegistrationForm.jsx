@@ -4,25 +4,28 @@ import {
   AlertTitle,
   Button,
   CloseButton,
+  Flex,
   FormControl,
   FormErrorMessage,
+  Icon,
   Input,
+  Link,
   Text,
+  useToast,
   VStack,
-  useToast
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { FaInstagram } from 'react-icons/fa';
 import * as Yup from 'yup';
 import SuccessScreen from './SuccessScreen';
 
 /**
- * RegistrationForm (rev. no-interest, screenshot validation only)
- * - Interest 필드 제거
- * - 스크린샷은 필수 입력(프론트 검증) / 서버 전송 X
- * - 서버에는 name, phone JSON 으로만 POST
+ * RegistrationForm
+ * - 스크린샷 필수(업로드는 하지 않음)
+ * - 서버에는 name, phone 두 필드만 JSON POST
  */
 const RegistrationForm = () => {
   const [status, setStatus] = useState(null); // null | 'error' | 'success'
@@ -32,14 +35,14 @@ const RegistrationForm = () => {
 
   const toast = useToast();
 
-  // validation schema (interest 제거)
+  // Yup schema
   const schema = Yup.object().shape({
     name: Yup.string()
       .required('이름을 입력해주세요.')
       .max(50, '최대 50자까지 입력 가능합니다.'),
     phone: Yup.string()
       .required('전화번호를 입력해주세요.')
-      .matches(/^\d{3}-\d{3,4}-\d{4}$/,'전화번호를 XXX-XXX(X)-XXXX 형식으로 입력해주세요.'),
+      .matches(/^\d{3}-\d{3,4}-\d{4}$/, '전화번호를 XXX-XXX(X)-XXXX 형식으로 입력해주세요.'),
     screenshot: Yup.mixed()
       .required('입금 인증 스크린샷을 첨부해주세요.')
       .test('fileType', '이미지 파일만 업로드 가능합니다.', (value) => {
@@ -62,7 +65,7 @@ const RegistrationForm = () => {
     mode: 'onChange',
   });
 
-  // phone auto-hyphen
+  // 전화번호 자동 하이픈
   const handlePhone = (e) => {
     let val = e.target.value.replace(/\D/g, '');
     if (val.length > 11) val = val.slice(0, 11);
@@ -74,10 +77,10 @@ const RegistrationForm = () => {
     setValue('phone', val, { shouldValidate: true });
   };
 
+  // 제출
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
-      // 서버로는 이름, 전화번호만 보냄 (JSON)
       const res = await axios.post('https://gnd-back.vercel.app/api/register', {
         name: data.name,
         phone: data.phone,
@@ -101,7 +104,12 @@ const RegistrationForm = () => {
   if (status === 'success') return <SuccessScreen name={submittedName} />;
 
   return (
-    <VStack spacing={10} width="100%" align="center" justify="center" padding="20px" mt={10}>
+    <VStack spacing={10} w="100%" align="center" justify="center" p="20px" mt={10}>
+      {/* 타이틀 */}
+      <Text color="black.300" fontFamily="Galmuri11" fontSize="24px">
+        SAD GAS X GND
+      </Text>
+
       {/* 입금 안내 */}
       <VStack spacing={2}>
         <Text fontFamily="noto" fontSize="14px" fontWeight="bold" textAlign="center">
@@ -112,6 +120,7 @@ const RegistrationForm = () => {
         </Text>
       </VStack>
 
+      {/* 폼 */}
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%', maxWidth: '400px' }}>
         <VStack spacing={6}>
           {/* 이름 */}
@@ -154,16 +163,8 @@ const RegistrationForm = () => {
 
           {/* 스크린샷 업로드 */}
           <FormControl isInvalid={errors.screenshot}>
-            {/* 숨겨진 파일 인풋 */}
-            <Input
-              id="screenshot"
-              type="file"
-              accept="image/*"
-              {...register('screenshot')}
-              display="none"
-            />
+            <Input id="screenshot" type="file" accept="image/*" {...register('screenshot')} display="none" />
 
-            {/* 커스텀 업로드 버튼 */}
             <Button
               as="label"
               htmlFor="screenshot"
@@ -184,7 +185,6 @@ const RegistrationForm = () => {
               스크린샷 선택 (입금자명이 보이도록 캡처해주세요)
             </Button>
 
-            {/* 파일명 표시 */}
             {watch('screenshot')?.length > 0 && (
               <Text mt={2} ml={1} fontSize="12px" color="gray.700" fontFamily="noto">
                 {watch('screenshot')[0].name}
@@ -202,7 +202,7 @@ const RegistrationForm = () => {
             fontWeight="700"
             fontSize="14px"
             color="white"
-            width="100%"
+            w="100%"
             borderRadius="20px"
             boxShadow="0px 0px 10px 1px rgba(0,0,0,0.10)"
             isLoading={isLoading}
@@ -215,12 +215,32 @@ const RegistrationForm = () => {
       </form>
 
       {status === 'error' && (
-        <Alert status="error" width="100%" maxWidth="400px" borderRadius="lg" mt={4}>
+        <Alert status="error" w="100%" maxW="400px" borderRadius="lg" mt={4}>
           <AlertTitle>Error</AlertTitle>
           <AlertDescription>{message}</AlertDescription>
           <CloseButton position="absolute" right="8px" top="8px" onClick={() => setStatus(null)} />
         </Alert>
       )}
+
+      {/* 주소 & 인스타 & 연락처 */}
+      <VStack spacing={2} mt={8}>
+        <Text color="gray.500" fontFamily="Galmuri11" fontSize="sm" textAlign="center">
+          서울 용산구 이태원로 173-7 REVENGE
+        </Text>
+
+        <Link href="https://instagram.com/gnd_earth" isExternal color="gray.400">
+          <Flex align="center">
+            <Icon as={FaInstagram} mr={1} />
+            <Text>gnd_earth</Text>
+          </Flex>
+        </Link>
+
+        <Link href="tel:010-8288-3951" _hover={{ textDecor: 'none' }}>
+          <Text color="gray.500" fontFamily="noto" fontSize="10px" textAlign="center">
+            문의&nbsp;010-8288-3951
+          </Text>
+        </Link>
+      </VStack>
     </VStack>
   );
 };
