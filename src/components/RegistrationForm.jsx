@@ -205,9 +205,12 @@ const RegistrationForm = ({ onSuccess }) => {
 
       {/* 주소 & 인스타 & 연락처 */}
       <VStack spacing={2} mt={8}>
-        <Text color="gray.300" fontFamily="Galmuri11" fontSize="sm" textAlign="center">
-          서울 용산구 이태원로 173-7 REVENGE
-        </Text>
+      <Link href="https://instagram.com/revengeseoul" isExternal color="gray.400">
+          <Text color="gray.300" fontFamily="Galmuri11" fontSize="sm" textAlign="center">
+            서울 용산구 이태원로 173-7 REVENGE
+          </Text>
+        </Link>
+
 
         <Link href="https://instagram.com/gnd_earth" isExternal color="gray.400">
           <Flex align="center">
