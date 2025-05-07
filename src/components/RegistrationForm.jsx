@@ -182,13 +182,14 @@ const RegistrationForm = ({ onSuccess }) => {
             fontSize="14px"
             color="white"
             w="100%"
+            letterSpacing={6}
             borderRadius="20px"
             boxShadow="0 0 10px 1px rgba(0,0,0,0.25)"
             isLoading={isLoading}
             _hover={{ bg: 'rgb(180, 33, 33)', transform: 'scale(1.02)' }}
             _active={{ bg: 'rgb(120, 10, 10)' }}
           >
-            제출하기
+            참가하기
           </Button>
         </VStack>
       </form>
