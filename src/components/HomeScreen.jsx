@@ -7,6 +7,7 @@ import SuccessScreen from './SuccessScreen';
 export default function HomeScreen() {
   const [step, setStep] = useState('intro');   // 'intro' | 'form' | 'success'
   const [showButton, setShowButton] = useState(false);
+  const [submittedName, setSubmittedName] = useState('');
 
   /* 2초 뒤 버튼 노출, 클릭/터치하면 즉시 노출 */
   useEffect(() => {
@@ -102,7 +103,10 @@ export default function HomeScreen() {
       {step === 'form' && (
         <Overlay>
           <RegistrationForm
-            onSuccess={() => setStep('success')}
+            onSuccess={(name) => {
+              setSubmittedName(name);
+              setStep('success');
+            }}
             onClose={() => setStep('intro')}
           />
         </Overlay>
@@ -110,7 +114,7 @@ export default function HomeScreen() {
 
       {step === 'success' && (
         <Overlay>
-          <SuccessScreen />
+          <SuccessScreen name={submittedName} />
         </Overlay>
       )}
     </Box>
