@@ -2,31 +2,42 @@
 import { extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
+  /* 1) 전역 폰트 지정 */
   fonts: {
-    heading: "'UbuntuMono', monospace", // 기본 헤딩 폰트
-    body: "'NotoSans', sans-serif",      // 기본 바디 폰트
-    mono: "'UbuntuMono', monospace",     // 코드 블록 등에서 사용할 수 있는 모노 폰트
-    noto: "'NotoSans', sans-serif",      // 추가로 사용할 수 있는 NotoSans 폰트
+    heading: "'Galmuri11', sans-serif",  // 헤딩·버튼 등에 Galmuri 우선 적용
+    body: "'Galmuri11', 'NotoSans', sans-serif", // 본문도 Galmuri 우선 + NotoSans fallback
+    mono: "'UbuntuMono', monospace",
+    noto: "'NotoSans', sans-serif",
   },
+
+  /* 2) @font-face 선언 */
   styles: {
     global: {
-      "@font-face": [
+      '@font-face': [
         {
-          fontFamily: "UbuntuMono",
-          src: `url("/fonts/UbuntuSansMono-VariableFont_wght.ttf") format("truetype")`,
-          fontStyle: "normal",
+          fontFamily: 'Galmuri11',
+          src: `url("/fonts/Galmuri11.ttf") format("truetype")`,
+          fontStyle: 'normal',
+          fontWeight: 'normal',
         },
         {
-          fontFamily: "NotoSans",
+          fontFamily: 'UbuntuMono',
+          src: `url("/fonts/UbuntuSansMono-VariableFont_wght.ttf") format("truetype")`,
+          fontStyle: 'normal',
+        },
+        {
+          fontFamily: 'NotoSans',
           src: `url("/fonts/NotoSansKR-VariableFont_wght.ttf") format("truetype")`,
-          fontStyle: "normal",
+          fontStyle: 'normal',
         },
       ],
+
+      /* 3) 기본 바디 스타일 */
       body: {
         margin: 0,
         padding: 0,
-        backgroundColor: "#f2f2f2",
-        fontFamily: "'NotoSans', sans-serif", // 기본 바디 폰트 설정
+        backgroundColor: '#f2f2f2',
+        fontFamily: "'Galmuri11', 'NotoSans', sans-serif",
       },
     },
   },

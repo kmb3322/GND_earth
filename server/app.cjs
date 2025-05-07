@@ -87,3 +87,7 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+app.get('/health', (req, res) => {
+  res.status(200).json({ message: '서버가 정상적으로 진짜 작동하고 있습니다.' });
+});
