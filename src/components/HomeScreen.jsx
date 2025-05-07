@@ -9,9 +9,9 @@ export default function HomeScreen() {
   const [showButton, setShowButton] = useState(false);
   const [submittedName, setSubmittedName] = useState('');
 
-  /* 2초 뒤 버튼 노출, 클릭/터치하면 즉시 노출 */
+  /* 3초 뒤 버튼 노출, 클릭/터치하면 즉시 노출 */
   useEffect(() => {
-    const timer = setTimeout(() => setShowButton(true), 2000);
+    const timer = setTimeout(() => setShowButton(true), 3000);
     return () => clearTimeout(timer);
   }, []);
   const handleTouch = () => !showButton && setShowButton(true);
@@ -78,7 +78,7 @@ export default function HomeScreen() {
           transform="translate(-50%, -50%)"
           opacity={0}
           animation="fadeIn 1s forwards"
-          sx={{ '@keyframes fadeIn': { from: { opacity: 0 }, to: { opacity: 0.7 } } }}
+          sx={{ '@keyframes fadeIn': { from: { opacity: 0 }, to: { opacity: 0.9 } } }}
         >
           <Button
             borderRadius="10px"
