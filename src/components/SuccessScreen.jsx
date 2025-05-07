@@ -23,7 +23,7 @@ const SuccessScreen = ({ name }) => (
         mt="-12px"
         textAlign="center"
       >
-        SAD GAS X GND에 오신 것을 환영합니다.
+        SAD GAS X GND에 오신 것을<br />환영합니다.
       </Text>
 
       <Text
