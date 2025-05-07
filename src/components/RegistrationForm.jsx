@@ -8,6 +8,7 @@ import {
   FormControl,
   FormErrorMessage,
   Icon,
+  IconButton,
   Input,
   Link,
   Text,
@@ -22,7 +23,7 @@ import { FaInstagram } from 'react-icons/fa';
 import * as Yup from 'yup';
 
 /* ===== RegistrationForm ===== */
-const RegistrationForm = ({ onSuccess }) => {
+const RegistrationForm = ({ onSuccess, onClose }) => {
   const [status, setStatus] = useState(null);   // null | 'error' | 'success'
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -101,6 +102,19 @@ const RegistrationForm = ({ onSuccess }) => {
 
   return (
     <VStack spacing={10} w="100%" align="center" justify="center" p="20px" mt={10}>
+       {/* ─── 닫기 버튼 ─── */}
+       <IconButton
+        aria-label="닫기"
+        icon={<Text fontFamily="Galmuri11" fontSize="28px">×</Text>}
+        variant="ghost"
+        position="absolute"
+        color="whiteAlpha.600"
+        top="12px"
+        right="12px"
+        _hover={{ color: 'whiteAlpha.900' }}
+        _active={{ color: 'whiteAlpha.500' }}
+        onClick={onClose}
+      />
       {/* 타이틀 */}
       <Text color="whiteAlpha.900" fontFamily="Galmuri11" fontSize="24px" mb={-8}>
         SAD GAS X GND
@@ -184,6 +198,7 @@ const RegistrationForm = ({ onSuccess }) => {
             w="100%"
             letterSpacing={6}
             borderRadius="20px"
+            opacity={0.8}
             boxShadow="0 0 10px 1px rgba(0,0,0,0.25)"
             isLoading={isLoading}
             _hover={{ bg: 'rgb(180, 33, 33)', transform: 'scale(1.02)' }}
