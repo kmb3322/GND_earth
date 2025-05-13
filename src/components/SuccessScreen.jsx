@@ -1,10 +1,23 @@
 // =========================
 //  SuccessScreen.jsx
 // =========================
-import { Text, VStack } from '@chakra-ui/react';
+import { IconButton, Text, VStack } from '@chakra-ui/react';
 
 const SuccessScreen = ({ name, ticketNo }) => (
   <VStack spacing={10} align="center" mt={10}>
+    {/* ─── 닫기 버튼 ─── */}
+          <IconButton
+            aria-label="닫기"
+            icon={<Text fontFamily="Galmuri11" fontSize="28px">×</Text>}
+            variant="ghost"
+            position="absolute"
+            color="whiteAlpha.600"
+            top="12px"
+            right="12px"
+            _hover={{ color: 'whiteAlpha.900' }}
+            _active={{ color: 'whiteAlpha.500' }}
+            onClick={onClose}
+          />
     <VStack spacing={6} width="100%" align="center">
       <Text
         fontFamily="Galmuri11"
@@ -27,9 +40,9 @@ const SuccessScreen = ({ name, ticketNo }) => (
 
       {ticketNo && (
         <Text fontFamily="Galmuri11" fontSize="15px" mt="4px" textAlign="center">
-          {name}님의&nbsp;SAD GAS X GND&nbsp;raffle&nbsp;추첨&nbsp;번호는&nbsp;
+          {name}님의<br />SAD GAS X GND raffle 추첨 번호는<br />
           <b>{ticketNo}</b>번입니다.<br />
-          추첨 번호가 띄워진 본 화면을 캡쳐하신 후,&nbsp;당일&nbsp;보여주시면&nbsp;됩니다.
+          추첨 번호가 띄워진 본 화면을<br />당일 STAFF에게 보여주시면 됩니다.
         </Text>
       )}
 
