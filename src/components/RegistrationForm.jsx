@@ -59,7 +59,7 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
       );
 
       if (res.data.success) {
-        onSuccess(data.name);
+        onSuccess(data.name, res.data.ticketNo);
       } else {
         toast({
           status: 'error',

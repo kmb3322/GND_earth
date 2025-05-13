@@ -8,6 +8,7 @@ export default function HomeScreen() {
   const [step, setStep] = useState('intro');   // 'intro' | 'form' | 'success'
   const [showButton, setShowButton] = useState(false);
   const [submittedName, setSubmittedName] = useState('');
+  const [ticketNo, setTicketNo]       = useState(null);
   const [vh, setVh] = useState('100vh');
 
 useEffect(() => {
@@ -127,8 +128,9 @@ useEffect(() => {
       {step === 'form' && (
         <Overlay>
           <RegistrationForm
-            onSuccess={(name) => {
+            onSuccess={(name, ticket) => {
               setSubmittedName(name);
+              setTicketNo(ticket);
               setStep('success');
             }}
             onClose={() => setStep('intro')}
@@ -138,7 +140,7 @@ useEffect(() => {
 
       {step === 'success' && (
         <Overlay>
-          <SuccessScreen name={submittedName} />
+          <SuccessScreen name={submittedName} ticketNo={ticketNo} />
         </Overlay>
       )}
     </Box>
