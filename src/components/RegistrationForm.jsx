@@ -1,9 +1,6 @@
+// RegistrationForm.jsx
 import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
   Button,
-  CloseButton,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -12,8 +9,8 @@ import {
   Input,
   Link,
   Text,
-  useToast,
   VStack,
+  useToast,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
@@ -24,10 +21,7 @@ import * as Yup from 'yup';
 
 /* ===== RegistrationForm ===== */
 const RegistrationForm = ({ onSuccess, onClose }) => {
-  const [status, setStatus] = useState(null);   // null | 'error' | 'success'
-  const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
   const toast = useToast();
 
   /* yup validation */
@@ -35,14 +29,7 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
     name: Yup.string().required('이름을 입력해주세요.').max(50, '최대 50자까지 입력 가능합니다.'),
     phone: Yup.string()
       .required('전화번호를 입력해주세요.')
-      .matches(/^\d{3}-\d{3,4}-\d{4}$/, 'XXX-XXX(X)-XXXX 형식으로 입력해주세요.'),
-    // screenshot: Yup.mixed()
-    //   .required('입금 인증 스크린샷을 첨부해주세요.')
-    //   .test('fileType', '이미지 파일만 업로드 가능합니다.', (value) =>
-    //     value &&
-    //     value.length &&
-    //     ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'].includes(value[0].type)
-    //   ),
+      .matches(/^\d{3}-\d{3,4}-\d{4}$/, 'XXX-XXXX-XXXX 형식으로 입력해주세요.'),
   });
 
   const {
@@ -50,7 +37,6 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
     handleSubmit,
     formState: { errors },
     setValue,
-    watch,
   } = useForm({ resolver: yupResolver(schema), mode: 'onChange' });
 
   /* 전화번호 자동 하이픈 */
@@ -66,21 +52,33 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
-      const res = await axios.post('https://gnd-back.vercel.app/api/register', {
-        name: data.name,
-        phone: data.phone,
-      });
+      const res = await axios.post(
+        'https://gnd-back.vercel.app/api/register',
+        { name: data.name, phone: data.phone },
+        { timeout: 12000 } // 15 초 타임아웃
+      );
 
       if (res.data.success) {
-        setStatus('success');
         onSuccess(data.name);
       } else {
-        setStatus('error');
-        setMessage(res.data.message || '알 수 없는 오류 발생');
+        toast({
+          status: 'error',
+          title: res.data.message || '알 수 없는 오류 발생',
+          duration: 5000,
+          isClosable: true,
+        });
       }
-    } catch {
-      setStatus('error');
-      setMessage('서버 오류가 발생했습니다. 나중에 다시 시도해주세요.');
+    } catch (err) {
+      const isTimeout = err.code === 'ECONNABORTED';
+      toast({
+        status: 'error',
+        title: isTimeout
+          ? '네트워크 연결 오류'
+          : '네트워크 연결 오류',
+        description: isTimeout ? '잠시 후 다시 시도해주세요.' : err.response?.data?.message,
+        duration: 5000,
+        isClosable: true,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -102,8 +100,8 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
 
   return (
     <VStack spacing={10} w="100%" align="center" justify="center" p="20px" mt={10}>
-       {/* ─── 닫기 버튼 ─── */}
-       <IconButton
+      {/* ─── 닫기 버튼 ─── */}
+      <IconButton
         aria-label="닫기"
         icon={<Text fontFamily="Galmuri11" fontSize="28px">×</Text>}
         variant="ghost"
@@ -115,6 +113,7 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
         _active={{ color: 'whiteAlpha.500' }}
         onClick={onClose}
       />
+
       {/* 타이틀 */}
       <Text color="whiteAlpha.900" fontFamily="Galmuri11" fontSize="24px" mb={-8}>
         SAD GAS X GND
@@ -123,9 +122,8 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
         05 24 2025
       </Text>
 
-      {/* 입금 안내 */}
+      {/* 안내 문구 */}
       <VStack spacing={2}>
-
         <Text fontFamily="noto" fontSize="12px" color="gray.300" textAlign="center">
           입력해주신 연락처로 1~2일 내 안내 문자가 발송될 예정입니다.
         </Text>
@@ -151,39 +149,6 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
             />
             <FormErrorMessage>{errors.phone?.message}</FormErrorMessage>
           </FormControl>
-          {/* 스크린샷 업로드
-          <FormControl isInvalid={errors.screenshot}>
-            <Input id="screenshot" type="file" accept="image/*" {...register('screenshot')} display="none" />
-
-            <Button
-              as="label"
-              htmlFor="screenshot"
-              justifyContent="flex-start"
-              w="100%"
-              fontSize="12px"
-              fontFamily="noto"
-              fontWeight="400"
-              bg="whiteAlpha.100"
-              color="whiteAlpha.600"
-              letterSpacing="-0.5px"
-              borderRadius="20px"
-              border="1px solid rgba(255,255,255,0.25)"
-              boxShadow="0 0 10px 1px rgba(0,0,0,0.25)"
-              _hover={{ bg: 'whiteAlpha.200', transform: 'scale(1.02)' }}
-              _active={{ bg: 'whiteAlpha.300' }}
-            >
-              스크린샷 선택 (입금자명이 보이도록 캡처해주세요)
-            </Button>
-
-            {watch('screenshot')?.length > 0 && (
-              <Text mt={2} ml={1} fontSize="12px" color="whiteAlpha.900" fontFamily="noto">
-                {watch('screenshot')[0].name}
-              </Text>
-            )}
-
-            <FormErrorMessage>{errors.screenshot?.message}</FormErrorMessage>
-
-          </FormControl>  */}
 
           {/* 제출 버튼 */}
           <Button
@@ -207,23 +172,13 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
         </VStack>
       </form>
 
-      {/* 에러 알림 */}
-      {status === 'error' && (
-        <Alert status="error" w="100%" maxW="400px" borderRadius="lg" mt={4}>
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{message}</AlertDescription>
-          <CloseButton pos="absolute" right="8px" top="8px" onClick={() => setStatus(null)} />
-        </Alert>
-      )}
-
       {/* 주소 & 인스타 & 연락처 */}
       <VStack spacing={2} mt={0}>
-      <Link href="https://instagram.com/revengeseoul" isExternal color="gray.400">
+        <Link href="https://instagram.com/revengeseoul" isExternal color="gray.400">
           <Text color="gray.300" fontFamily="Galmuri11" fontSize="sm" textAlign="center">
             서울 용산구 이태원로 173-7 REVENGE
           </Text>
         </Link>
-
 
         <Link href="https://instagram.com/gnd_earth" isExternal color="gray.400">
           <Flex align="center">
