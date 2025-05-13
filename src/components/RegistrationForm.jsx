@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaInstagram } from 'react-icons/fa';
 import * as Yup from 'yup';
@@ -36,13 +36,13 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
     phone: Yup.string()
       .required('전화번호를 입력해주세요.')
       .matches(/^\d{3}-\d{3,4}-\d{4}$/, 'XXX-XXX(X)-XXXX 형식으로 입력해주세요.'),
-    screenshot: Yup.mixed()
-      .required('입금 인증 스크린샷을 첨부해주세요.')
-      .test('fileType', '이미지 파일만 업로드 가능합니다.', (value) =>
-        value &&
-        value.length &&
-        ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'].includes(value[0].type)
-      ),
+    // screenshot: Yup.mixed()
+    //   .required('입금 인증 스크린샷을 첨부해주세요.')
+    //   .test('fileType', '이미지 파일만 업로드 가능합니다.', (value) =>
+    //     value &&
+    //     value.length &&
+    //     ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'].includes(value[0].type)
+    //   ),
   });
 
   const {
@@ -119,17 +119,15 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
       <Text color="whiteAlpha.900" fontFamily="Galmuri11" fontSize="24px" mb={-8}>
         SAD GAS X GND
       </Text>
-      <Text color="whiteAlpha.900" fontFamily="Galmuri11" fontSize="12px">
+      <Text color="whiteAlpha.900" fontFamily="Galmuri11" fontSize="12px" mb={-8}>
         05 24 2025
       </Text>
 
       {/* 입금 안내 */}
       <VStack spacing={2}>
-        <Text fontFamily="noto" fontSize="14px" fontWeight="bold" color="whiteAlpha.900" textAlign="center">
-          3333-25-4837088 카카오뱅크 정수빈
-        </Text>
+
         <Text fontFamily="noto" fontSize="12px" color="gray.300" textAlign="center">
-          ₩20,000원 입금 후 스크린샷을 첨부해주세요.
+          입력해주신 연락처로 1~2일 내 안내 문자가 발송될 예정입니다.
         </Text>
       </VStack>
 
@@ -153,8 +151,7 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
             />
             <FormErrorMessage>{errors.phone?.message}</FormErrorMessage>
           </FormControl>
-
-          {/* 스크린샷 업로드 */}
+          {/* 스크린샷 업로드
           <FormControl isInvalid={errors.screenshot}>
             <Input id="screenshot" type="file" accept="image/*" {...register('screenshot')} display="none" />
 
@@ -185,7 +182,8 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
             )}
 
             <FormErrorMessage>{errors.screenshot?.message}</FormErrorMessage>
-          </FormControl>
+
+          </FormControl>  */}
 
           {/* 제출 버튼 */}
           <Button
