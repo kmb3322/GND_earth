@@ -28,6 +28,12 @@ module.exports = async (req, res) => corsHandler(req, res, async () => {
     const dup = await db.collection('contacts').where('phone','==', phone).limit(1).get();
     if (!dup.empty) {
       const existing = dup.docs[0].data();
+      if (existing.name !== name) {
+        return res.status(200).json({
+          success : false,
+          message : '사전에 신청하신 이름과 전화번호가 다릅니다.',
+        });
+      }
       return res.status(200).json({
         success : true,
         ticketNo: existing.ticketNo,
