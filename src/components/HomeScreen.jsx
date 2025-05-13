@@ -8,6 +8,19 @@ export default function HomeScreen() {
   const [step, setStep] = useState('intro');   // 'intro' | 'form' | 'success'
   const [showButton, setShowButton] = useState(false);
   const [submittedName, setSubmittedName] = useState('');
+  const [vh, setVh] = useState('100vh');
+
+useEffect(() => {
+    const handleResize = () => {
+      const height = window.innerHeight * 0.01;
+      setVh(`${height * 100}px`);
+    };
+
+    handleResize(); // 초기 실행
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
 
   /* 3초 뒤 버튼 노출, 클릭/터치하면 즉시 노출 */
   useEffect(() => {
@@ -50,7 +63,7 @@ export default function HomeScreen() {
   );
 
   return (
-     <Box position="relative" w="100%" h="100vh" bg="gray.900" overflow="hidden">
+     <Box position="relative" w="100%" h={vh} bg="gray.900" overflow="hidden">
       {/* 배경 비디오 + 버튼을 묶는 컨테이너 */}
       <Box
         position="relative"
