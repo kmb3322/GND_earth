@@ -2,7 +2,6 @@
 //  SuccessScreen.jsx
 // =========================
 import { Text, VStack } from '@chakra-ui/react';
-import React from 'react';
 
 const SuccessScreen = ({ name }) => (
   <VStack spacing={10} align="center" mt={10}>
@@ -32,7 +31,7 @@ const SuccessScreen = ({ name }) => (
         mt="10px"
         textAlign="center"
       >
-        입금 확인 후 세부 안내가 문자로 발송될 예정입니다.
+        세부 안내가 문자로 1~2일 내 발송될 예정입니다.
       </Text>
     </VStack>
 

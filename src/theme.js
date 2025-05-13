@@ -4,13 +4,13 @@ import { extendTheme } from '@chakra-ui/react';
 const theme = extendTheme({
   /* 1) 전역 폰트 지정 */
   fonts: {
-    heading: "'Galmuri11', sans-serif",  // 헤딩·버튼 등에 Galmuri 우선 적용
-    body: "'Galmuri11', 'NotoSans', sans-serif", // 본문도 Galmuri 우선 + NotoSans fallback
+    heading: "'Galmuri11', sans-serif",
+    body: "'Galmuri11', 'NotoSans', sans-serif",
     mono: "'UbuntuMono', monospace",
     noto: "'NotoSans', sans-serif",
   },
 
-  /* 2) @font-face 선언 */
+  /* 2) @font-face 선언 및 기본 바디 스타일 */
   styles: {
     global: {
       '@font-face': [
@@ -18,7 +18,7 @@ const theme = extendTheme({
           fontFamily: 'Galmuri11',
           src: `
             url("/fonts/Galmuri11.woff2") format("woff2"),
-            url("/fonts/Galmuri11.ttf")  format("truetype"),
+            url("/fonts/Galmuri11.ttf")  format("truetype")
           `,
           fontWeight: 'normal',
           fontStyle: 'normal',
@@ -35,14 +35,25 @@ const theme = extendTheme({
           fontStyle: 'normal',
         },
       ],
-
-      /* 3) 기본 바디 스타일 */
       body: {
         margin: 0,
         padding: 0,
         backgroundColor: '#f2f2f2',
         fontFamily: "'Galmuri11', 'NotoSans', sans-serif",
       },
+    },
+  },
+
+  /* 3) Toast 컴포넌트 색상 오버라이드 */
+  components: {
+    Alert: {
+      baseStyle: (props) => ({
+        container: {
+          bg: props.status === 'error' ? 'red.700' : undefined,
+          color: props.status === 'error' ? 'white' : undefined,
+          fontFamily: 'noto',
+        },
+      }),
     },
   },
 });
