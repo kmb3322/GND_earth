@@ -125,7 +125,7 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
       {/* 안내 문구 */}
       <VStack spacing={2}>
         <Text fontFamily="noto" fontSize="12px" color="gray.300" textAlign="center">
-          입력해주신 연락처로 1~2일 내 안내 문자가 발송될 예정입니다.
+          입력해주신 연락처로 안내 문자가 발송될 예정입니다.
         </Text>
       </VStack>
 
