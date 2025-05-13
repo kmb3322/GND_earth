@@ -29,7 +29,7 @@ const SuccessScreen = ({ name, ticketNo }) => (
         <Text fontFamily="Galmuri11" fontSize="15px" mt="4px" textAlign="center">
           {name}님의&nbsp;SAD GAS X GND&nbsp;raffle&nbsp;추첨&nbsp;번호는&nbsp;
           <b>{ticketNo}</b>번입니다.<br />
-          추첨 번호가 띄워진 본 화면을&nbsp;당일&nbsp;보여주시면&nbsp;됩니다.
+          추첨 번호가 띄워진 본 화면을 캡쳐하신 후,&nbsp;당일&nbsp;보여주시면&nbsp;됩니다.
         </Text>
       )}
 
