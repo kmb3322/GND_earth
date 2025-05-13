@@ -3,7 +3,7 @@
 // =========================
 import { Text, VStack } from '@chakra-ui/react';
 
-const SuccessScreen = ({ name }) => (
+const SuccessScreen = ({ name, ticketNo }) => (
   <VStack spacing={10} align="center" mt={10}>
     <VStack spacing={6} width="100%" align="center">
       <Text
@@ -24,6 +24,14 @@ const SuccessScreen = ({ name }) => (
       >
         SAD GAS X GND에 오신 것을<br />환영합니다.
       </Text>
+
+      {ticketNo && (
+        <Text fontFamily="Galmuri11" fontSize="15px" mt="4px" textAlign="center">
+          {name}님의&nbsp;SAD GAS X GND&nbsp;raffle&nbsp;추첨&nbsp;번호는&nbsp;
+          <b>{ticketNo}</b>번입니다.<br />
+          추첨 번호가 띄워진 본 화면을&nbsp;당일&nbsp;보여주시면&nbsp;됩니다.
+        </Text>
+      )}
 
       <Text
         fontFamily="Galmuri11"
