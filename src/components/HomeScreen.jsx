@@ -1,6 +1,6 @@
 // HomeScreen.jsx
 import { Box, Button } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import RegistrationForm from './RegistrationForm';
 import SuccessScreen from './SuccessScreen';
 
@@ -11,7 +11,7 @@ export default function HomeScreen() {
 
   /* 3초 뒤 버튼 노출, 클릭/터치하면 즉시 노출 */
   useEffect(() => {
-    const timer = setTimeout(() => setShowButton(true), 3000);
+    const timer = setTimeout(() => setShowButton(true), 2500);
     return () => clearTimeout(timer);
   }, []);
   const handleTouch = () => !showButton && setShowButton(true);
@@ -53,7 +53,7 @@ export default function HomeScreen() {
     <Box position="relative" w="100%" h="100vh" bg="gray.900" overflow="hidden">
       {/* 배경 비디오 */}
       <video
-        src="/postervideo.mp4"
+        src="/posterpage.mp4"
         autoPlay
         loop
         muted
