@@ -1,23 +1,10 @@
 // =========================
 //  SuccessScreen.jsx
 // =========================
-import { IconButton, Text, VStack } from '@chakra-ui/react';
+import { Text, VStack } from '@chakra-ui/react';
 
 const SuccessScreen = ({ name, ticketNo }) => (
   <VStack spacing={10} align="center" mt={10}>
-    {/* ─── 닫기 버튼 ─── */}
-          <IconButton
-            aria-label="닫기"
-            icon={<Text fontFamily="Galmuri11" fontSize="28px">×</Text>}
-            variant="ghost"
-            position="absolute"
-            color="whiteAlpha.600"
-            top="12px"
-            right="12px"
-            _hover={{ color: 'whiteAlpha.900' }}
-            _active={{ color: 'whiteAlpha.500' }}
-            onClick={onClose}
-          />
     <VStack spacing={6} width="100%" align="center">
       <Text
         fontFamily="Galmuri11"
