@@ -50,55 +50,65 @@ export default function HomeScreen() {
   );
 
   return (
-    <Box position="relative" w="100%" h="100vh" bg="gray.900" overflow="hidden">
-      {/* 배경 비디오 */}
-      <video
-        src="/posterpage.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
+     <Box position="relative" w="100%" h="100vh" bg="gray.900" overflow="hidden">
+      {/* 배경 비디오 + 버튼을 묶는 컨테이너 */}
+      <Box
+        position="relative"
+        w="100%"
+        h="100%"
         onTouchStart={handleTouch}
         onClick={handleTouch}
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'contain',
-          objectPosition: 'center',
-          backgroundColor: '#1a1a1a',
-        }}
-      />
+      >
+        <video
+          src="/posterpage.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            objectPosition: 'center',
+            backgroundColor: '#1a1a1a',
+          }}
+        />
 
-      {/* 참가하기 버튼 */}
-      {showButton && step === 'intro' && (
-        <Box
-          position="absolute"
-          top="68%"
-          left="50%"
-          transform="translate(-50%, -50%)"
-          opacity={0}
-          animation="fadeIn 1s forwards"
-          sx={{ '@keyframes fadeIn': { from: { opacity: 0 }, to: { opacity: 0.9 } } }}
-        >
-          <Button
-            borderRadius="10px"
-            w="300px"
-            px={8}
-            py={6}
-            mt={20}
-            bg="rgb(160,13,13)"
-            color="white"
-            fontFamily="mono"
-            fontWeight="700"
-            fontSize="16px"
-            letterSpacing={6}
-            _hover={{ transform: 'scale(1.02)' }}
-            onClick={() => setStep('form')}
+        {/* 참가하기 버튼 – 영상 안에서 위치 */}
+        {showButton && step === 'intro' && (
+          <Box
+            position="absolute"
+            bottom="30%"
+            left="50%"
+            transform="translateX(-50%)"
+            opacity={0}
+            animation="fadeIn 1s forwards"
+            sx={{
+              '@keyframes fadeIn': {
+                from: { opacity: 0 },
+                to: { opacity: 0.9 },
+              },
+            }}
           >
-            참가하기
-          </Button>
-        </Box>
-      )}
+            <Button
+              borderRadius="10px"
+              w="300px"
+              px={8}
+              py={6}
+              bg="rgb(160,13,13)"
+              color="white"
+              fontFamily="mono"
+              fontWeight="700"
+              fontSize="16px"
+              letterSpacing={6}
+              _hover={{ transform: 'scale(1.02)' }}
+              onClick={() => setStep('form')}
+            >
+              참가하기
+            </Button>
+          </Box>
+        )}
+      </Box>
 
       {/* ===== 오버레이 단계 ===== */}
       {step === 'form' && (
