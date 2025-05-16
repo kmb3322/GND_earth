@@ -80,14 +80,15 @@ useEffect(() => {
   );
 
   return (
-     <Box position="relative" w="100%" h={vh} bg="gray.900" overflow="hidden">
+     <Box position="fixed" top={0} left={0} w="100%" h={vh} bg="gray.900" overflow="hidden">
       {/* 배경 비디오 + 버튼을 묶는 컨테이너 */}
       <Box
-        position="relative"
+        position="absolute"
         w="100%"
         h="100%"
         onTouchStart={handleTouch}
         onClick={handleTouch}
+        overflow="hidden"
       >
         <video
           src="/posterpage.mp4"
