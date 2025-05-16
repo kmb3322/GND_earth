@@ -33,14 +33,6 @@ const SuccessScreen = ({ name, ticketNo }) => (
         </Text>
       )}
 
-      <Text
-        fontFamily="noto"
-        fontSize="12px"
-        mt="10px"
-        textAlign="center"
-      >
-        세부 안내가 문자로 발송될 예정입니다.
-      </Text>
     </VStack>
 
     <Text mb="20px"></Text>

@@ -125,9 +125,6 @@ const RegistrationForm = ({ onSuccess, onClose }) => {
       {/* 안내 문구 */}
       <VStack spacing={2}>
         <Text fontFamily="noto" fontSize="12px" color="gray.300" textAlign="center">
-          입력해주신 연락처로 안내 문자가 발송될 예정입니다.
-        </Text>
-        <Text fontFamily="noto" fontSize="12px" color="gray.300" textAlign="center">
           이미 신청하신 분들은 동일 정보를 입력하시면<br /> 신청 내역을 확인하실 수 있습니다.
         </Text>
       </VStack>
