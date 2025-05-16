@@ -39,7 +39,7 @@ const SuccessScreen = ({ name, ticketNo }) => (
         mt="10px"
         textAlign="center"
       >
-        세부 안내가 문자로 1~2일 내 발송될 예정입니다.
+        세부 안내가 문자로 발송될 예정입니다.
       </Text>
     </VStack>
 
