@@ -13,8 +13,24 @@ export default function HomeScreen() {
 
 useEffect(() => {
     const handleResize = () => {
-      const height = window.innerHeight * 0.01;
-      setVh(`${height * 100}px`);
+      const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // 🎯 영상 비율 (예: 9:16 기준)
+    const videoRatio = 9 / 16;
+    const screenRatio = vw / vh;
+
+    let newHeight;
+
+    if (screenRatio > videoRatio) {
+      // 화면이 더 넓음 → 영상 높이에 맞춰야 함
+      newHeight = vh;
+    } else {
+      // 화면이 더 좁음 → 영상 너비에 맞춰서 높이 조절
+      newHeight = vw / videoRatio;
+    }
+
+    setVh(`${newHeight}px`);
     };
 
     handleResize(); // 초기 실행
