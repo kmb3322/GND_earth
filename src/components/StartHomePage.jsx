@@ -49,7 +49,7 @@ export default function StartHomePage() {
     {
       name: '채도빈',
       role: '공연 총괄',
-      desc: ["22.7.16 EP 'BREAK THE MINOR' 데뷔 (YunB, leebido 참여)",'Rap Varsity (2023.08.09)', '안양시 축제공연(2023.09.22)', "'THE TOUR BUS' 기획 총괄 (관객 150명 참여)"],
+      desc: ["22.7.16 EP 'BREAK THE MINOR' 데뷔 (YunB, leebido 참여)","2025 이탈리아 밀라노 MilanloveSeoul 초청 아티스트", "THE TOUR BUS' 기획 총괄 (관객 150명 참여)"],
     },
     {
       name: '김민범',
