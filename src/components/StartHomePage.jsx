@@ -113,7 +113,7 @@ export default function StartHomePage() {
         </Text>
 
         {/* 날짜 */}
-        <Text mt={20} mb={50} color="gray.700" fontFamily="mono" fontWeight={500} fontSize="md">
+        <Text mt={20} mb={50} color="gray.700" fontFamily="mono" fontWeight={500} fontSize="14px">
           2025&nbsp;06&nbsp;14
         </Text>
 
@@ -128,7 +128,8 @@ export default function StartHomePage() {
               fontFamily="mono"
               bg="black"
               color="white"
-              size="lg"
+              fontSize="16px"
+              fontWeight={500}
               borderRadius="full"
               px={10}
               py={6}
