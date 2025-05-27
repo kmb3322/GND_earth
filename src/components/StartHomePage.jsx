@@ -1,12 +1,12 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
-    AspectRatio, Box, Button, Flex, Grid, Icon, Link, Text, VStack,
+  AspectRatio, Box, Button, Flex, Grid, Icon, Link, Text, VStack,
 } from '@chakra-ui/react';
 import {
-    AnimatePresence,
-    motion,
-    useScroll,
-    useTransform,
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
 } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { FaInstagram, FaYoutube } from 'react-icons/fa';
@@ -136,7 +136,7 @@ export default function StartHomePage() {
               boxShadow="0 4px 12px rgba(0,0,0,0.25)"
               _hover={{ bg: 'gray.700', transform: 'scale(1.03)' }}
               _active={{ bg: 'gray.800' }}
-              bottom="22%"
+              bottom="20%"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -148,7 +148,7 @@ export default function StartHomePage() {
         </AnimatePresence>
 
         {/* 아래로 스크롤 버튼 */}
-        <Button
+        <MotionButton
             position="absolute"
           bottom="10%"
           variant="ghost"
@@ -156,9 +156,14 @@ export default function StartHomePage() {
           _hover={{ transform: 'translateY(2px)' }}
           _active={{ transform: 'translateY(4px)' }}
           aria-label="scroll"
+
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
         >
           <Icon as={ChevronDownIcon} w={10} h={10} />
-        </Button>
+        </MotionButton>
       </MotionBox>
 
       {/* ───── Video ───── */}
