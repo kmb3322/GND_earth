@@ -35,7 +35,7 @@ export default function StartHomePage() {
   /* ────────────── 콘텐츠 ────────────── */
   const missionLines = [
     'GND는 젊은 아티스트들이 자신을 알리고 성장할 수 있는 발판을 마련하고자 하는 취지에서 출발하였습니다.',
-    'GND는 높은 잠재력을 지닌 다양한 분야(미술, 음악, 무용 등)의 아티스트들을 한자리에 모시고, 보다 큰 무대를 제공하고자 합니다.',
+    'GND는 높은 잠재력을 지닌 다양한 분야(미술, 음악, 영상, 무용 등)의 아티스트들을 한자리에 모시고, 보다 큰 무대를 제공하고자 합니다.',
     '여러 작가와 창작자들이 함께 작업하는 과정에서 얻게 되는 지식과 아이디어의 교류는 개인의 역량을 확장할 뿐 아니라, 예술 생태계 전반의 성장에도 크게 기여할 수 있습니다.',
     'GND는 나아가 아티스트들이 서로의 작품 세계를 공유하고 자유롭게 논의할 수 있는 네트워킹 장을 구축하여, 기존에 없던 협업과 창작의 기회를 창출하는 것을 목표로 하고 있습니다.',
   ];
@@ -43,18 +43,18 @@ export default function StartHomePage() {
   const people = [
     {
       name: '정수빈',
-      role: '기획총괄 및 대표',
+      role: '기획 총괄 · 대표',
       desc: ['KAIST 산업디자인학과 23학번', 'KAIST 공식학생홍보대사 카이누리 18기', 'KAIST 입학처 주관 창글리 캠프 기획·운영 (2023.07.31, 2024.01.22, 2024.01.29, 2024.07.29, 2025.01.20)'],
     },
     {
       name: '채도빈',
       role: '공연 총괄',
-      desc: ["22.7.16 EP 'BREAK THE MINOR' 데뷔 (YunB, leebido 참여)","2025 이탈리아 밀라노 MilanloveSeoul 초청 아티스트", "'THE TOUR BUS' 기획 총괄 (관객 150명 참여)"],
+      desc: ["2022.7.16 EP 'BREAK THE MINOR' 데뷔 (YunB, leebido 참여)","이탈리아 밀라노 Fashion Week MilanloveSeoul 초청 아티스트 (2025.02.25)", "공연 'THE TOUR BUS' 기획 총괄 (관객 150명 참여)"],
     },
     {
       name: '김민범',
-      role: '영상 총괄 · 홈페이지 개발',
-      desc: ['KAIST 전산학부 23학번', 'KAIST HCI 연구실 KIXLAB 인턴', "대전 대학가요제 '태울뮤직페스티벌' 총감독", 'KAIST 방송국 VOK 소속 활동, 학교 홍보 영상 · 신입생 환영 영상 제작', '전국 단위 단편영화제 다수 수상'],
+      role: '영상 총괄 · UX 리서치',
+      desc: ['KAIST 전산학부 23학번', 'KAIST HCI 연구실 KIXLAB Intern', "대전 대학가요제 '태울뮤직페스티벌 (2024.05.22)' 총감독", 'KAIST 방송국 VOK 소속 활동, 학교 홍보 영상 · 신입생 환영 영상 제작', '전국 단위 단편영화제 다수 수상'],
     },
   ];
 
@@ -117,11 +117,11 @@ export default function StartHomePage() {
               fontFamily="mono"
               bg="black"
               color="white"
-              fontSize="16px"
+              fontSize="14px"
               fontWeight={500}
               borderRadius="full"
-              px={10}
-              py={6}
+              px={8}
+              py={5}
               boxShadow="0 4px 12px rgba(0,0,0,0.25)"
               _hover={{ bg: 'gray.700', transform: 'scale(1.03)' }}
               _active={{ bg: 'gray.800' }}
@@ -147,7 +147,7 @@ export default function StartHomePage() {
           aria-label="scroll"
 
           initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 0.8, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
@@ -183,10 +183,11 @@ export default function StartHomePage() {
       >
         <VStack spacing={6} maxW="900px" mx="auto" px={4}>
           <Text
-            fontFamily="'Ubuntu Mono', monospace"
+            fontFamily="mono"
             fontSize="28px"
+            textAlign="center"
             fontWeight="700"
-            alignSelf="flex-start"
+            mb={10}
           >
             GND EARTH
           </Text>
@@ -257,8 +258,51 @@ export default function StartHomePage() {
               ))}
             </Grid>
           </MotionBox>
+
+          {/* ───── GND 더 알아보기 버튼 ───── */}
+          <AnimatePresence> 
+            <MotionButton
+              key="gnd-more-btn"
+              as="a"                          // 외부 PDF 링크
+              href="/gndinfo.pdf"            // public 폴더 기준 경로
+              target="_blank"                 // 새 탭
+              rel="noopener noreferrer"
+              fontFamily="noto"
+              bg="#f2f2f2"
+              color="303030"
+              border="2px solid #606060"
+              borderRadius="full"
+              px={5}
+              py={4}
+              fontSize="14px"
+              fontWeight={500}
+              boxShadow="0 4px 12px rgba(0,0,0,0.1)"
+              _hover={{ bg: 'gray.100', transform: 'scale(1.03)' }}
+              _active={{ bg: 'gray.200' }}
+              mt={100}                  
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.8 }}
+            >
+              GND 더 알아보기
+            </MotionButton>
+            <Text
+            fontFamily="mono"
+            fontSize="12px"
+            textAlign="center"
+            fontWeight="500"
+            mb={10}
+          >
+            약 200명의 아티스트와 함께한, 음악과 전시 예술의 환상적 결합.<br/> GND vol.1을 만나보세요.
+          </Text>
+          </AnimatePresence>
+
         </VStack>
       </Box>
+
+
+
 
       {/* ───── Footer ───── */}
       <VStack py={10} spacing={2}>
