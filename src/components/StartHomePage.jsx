@@ -70,18 +70,7 @@ export default function StartHomePage() {
 
   return (
     <Box bg="#F2F2F2" minH="100vh" position="relative" overflowX="hidden">
-      {/* 상단 스크롤 바 */}
-      <motion.div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          height: 3,
-          background: '#000',
-          width: barWidth,
-          zIndex: 999,
-        }}
-      />
+    
 
       {/* ───── Hero ───── */}
       <MotionBox
