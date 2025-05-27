@@ -49,12 +49,12 @@ export default function StartHomePage() {
     {
       name: '채도빈',
       role: '공연 총괄',
-      desc: ["22.7.16 EP 'BREAK THE MINOR' 데뷔 (YunB, leebido 참여)","2025 이탈리아 밀라노 MilanloveSeoul 초청 아티스트", "THE TOUR BUS' 기획 총괄 (관객 150명 참여)"],
+      desc: ["22.7.16 EP 'BREAK THE MINOR' 데뷔 (YunB, leebido 참여)","2025 이탈리아 밀라노 MilanloveSeoul 초청 아티스트", "'THE TOUR BUS' 기획 총괄 (관객 150명 참여)"],
     },
     {
       name: '김민범',
       role: '영상 총괄 · 홈페이지 개발',
-      desc: ['KAIST 전산학부 23학번', 'KAIST HCI 연구실 KIXLAB 인턴', '제37회 대학 축제 태울뮤직페스티벌 총감독', 'KAIST 방송국 VOK 소속 활동, 학교 홍보 영상 · 신입생 환영 영상 제작', '전국 단위 단편영화제 다수 수상'],
+      desc: ['KAIST 전산학부 23학번', 'KAIST HCI 연구실 KIXLAB 인턴', "대전 대학가요제 '태울뮤직페스티벌' 총감독", 'KAIST 방송국 VOK 소속 활동, 학교 홍보 영상 · 신입생 환영 영상 제작', '전국 단위 단편영화제 다수 수상'],
     },
   ];
 
