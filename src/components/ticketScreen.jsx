@@ -287,7 +287,6 @@ useEffect(() => {
               required: '전화번호를 입력해주세요.',
               pattern : {
                 value  : /^\d{3}-\d{3,4}-\d{4}$/,
-                message: 'XXX-XXXX-XXXX',
               },
             })}
             onChange={handlePhone}
