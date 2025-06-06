@@ -71,7 +71,12 @@ export default function StartHomePage() {
   };
 
   return (
-    <Box bg="#F2F2F2" minH="100vh" position="relative" overflowX="hidden">
+    <Box bg="#F2F2F2"
+    minH="100vh"
+    position="relative"
+    overflowX="hidden"
+    px={{ base: 4, sm: 8, md: 16 }}
+    >
     
 
       {/* ───── Hero ───── */}
