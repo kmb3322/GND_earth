@@ -59,7 +59,7 @@ export default function TicketScreen() {
           return;
         }
         try {
-          const { data } = await axios.get('https://gnd-back.vercel.app/api/register',, { params: { name: n, phone: p } });
+          const { data } = await axios.get('https://gnd-back.vercel.app/api/register', { params: { name: n, phone: p } });
           if (data.exists) {
             setIsExisting(true);
             setExistingInfo({ ticketNo: data.ticketNo, isPaid: data.isPaid });
