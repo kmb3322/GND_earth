@@ -137,10 +137,10 @@ export default function StartHomePage() {
               as={RouterLink}
               to="/ticket"
               fontFamily="mono"
+              fontWeight="700"
               bg="black"
               color="white"
               fontSize="14px"
-              fontWeight={500}
               borderRadius="full"
               px={8}
               py={5}
@@ -153,7 +153,7 @@ export default function StartHomePage() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8 }}
             >
-              참가하기
+              JOIN
             </MotionButton>
           )}
         </AnimatePresence>

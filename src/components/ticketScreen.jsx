@@ -19,7 +19,7 @@ import axios from 'axios';
 import debounce from 'lodash.debounce';
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FaCamera, FaInstagram } from 'react-icons/fa';
+import { FaCamera, FaInstagram, FaYoutube } from 'react-icons/fa';
 import SuccessScreen from './SuccessScreen';
 
 export default function TicketScreen() {
@@ -442,28 +442,28 @@ useEffect(() => {
         </Text>
 
         {/* SNS / 문의 */}
-        <Flex w="100%" justify="center" mt={10} mb={1}>
-          <Link
-            href="https://instagram.com/gnd_earth"
-            isExternal
-            color="gray.600"
-            display="flex"
-            alignItems="center"
-          >
-            <Icon as={FaInstagram} mr={1} />
-            <Text fontFamily="noto" fontSize="10px">gnd_earth</Text>
-          </Link>
-        </Flex>
-        <Link href="tel:010-8288-3951" textDecoration="none">
-          <Text
-            fontFamily="noto"
-            color="gray.500"
-            fontSize="10px"
-            textAlign="center"
-          >
-            문의 010-8288-3951
-          </Text>
-        </Link>
+        {/* ───── Footer ───── */}
+      <VStack py={10} spacing={2}>
+        <Link href="https://instagram.com/gnd_earth" isExternal>
+                  <Flex align="center" color="gray.500">
+                    <Icon as={FaInstagram} mr={1} />
+                    <Text color="gray.600" fontFamily="noto" fontSize="10px" textAlign="center" >@gnd_earth</Text>
+                  </Flex>
+                </Link>
+                <Link href="https://youtube.com/@gndearth" isExternal>
+                  <Flex align="center" color="gray.500">
+                    <Icon as={FaYoutube} mr={1} />
+                    <Text color="gray.600" fontFamily="noto" fontSize="10px" textAlign="center">
+                      youtube.com/@gndearth
+                    </Text>
+                  </Flex>
+                </Link>
+                <Link href="tel:010-8288-3951" textDecoration="none">
+                          <Text color="gray.600" fontFamily="noto" fontSize="10px" textAlign="center" mt="0px">
+                            문의 010-8288-3951
+                          </Text>
+                        </Link>
+          </VStack>
       </Box>
     </VStack>
   );
