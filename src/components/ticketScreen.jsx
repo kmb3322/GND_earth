@@ -23,14 +23,14 @@ import SuccessScreen from './SuccessScreen';
 
 export default function TicketScreen() {
   /* ────────────── local state ────────────── */
-  const [step, setStep]             = useState('form'); // 'form' | 'success'
-  const [ticketNo, setTicketNo]     = useState(null);
-  const [name, setName]             = useState('');
-  const [isPaid, setIsPaid]         = useState(false);
+  const [step, setStep]         = useState('form'); // 'form' | 'success'
+  const [ticketNo, setTicketNo] = useState(null);
+  const [name, setName]         = useState('');
+  const [isPaid, setIsPaid]     = useState(false);
 
-  // lookup 결과
-  const [isExisting, setIsExisting]       = useState(false);
-  const [existingInfo, setExistingInfo]   = useState(null); // {ticketNo, isPaid}
+  /* lookup 결과 */
+  const [isExisting, setIsExisting]     = useState(false);
+  const [existingInfo, setExistingInfo] = useState(null); // { ticketNo, isPaid }
 
   /* ────────────── RHF 세팅 ────────────── */
   const toast = useToast();
@@ -40,12 +40,17 @@ export default function TicketScreen() {
     watch,
     formState: { errors, isSubmitting, isValid },
     setValue,
+    clearErrors,
+    unregister,
   } = useForm({ mode: 'onChange' });
 
   /* ────────────── 파일 미리보기 ────────────── */
   const watchedScreenshot = watch('screenshot');
   const screenshotURL     = useMemo(
-    () => (watchedScreenshot?.length ? URL.createObjectURL(watchedScreenshot[0]) : null),
+    () =>
+      watchedScreenshot?.length
+        ? URL.createObjectURL(watchedScreenshot[0])
+        : null,
     [watchedScreenshot],
   );
 
@@ -59,10 +64,16 @@ export default function TicketScreen() {
           return;
         }
         try {
-          const { data } = await axios.get('https://gnd-back.vercel.app/api/register', { params: { name: n, phone: p } });
+          const { data } = await axios.get(
+            'https://gnd-back.vercel.app/api/lookup',
+            { params: { name: n, phone: p } },
+          );
           if (data.exists) {
             setIsExisting(true);
-            setExistingInfo({ ticketNo: data.ticketNo, isPaid: data.isPaid });
+            setExistingInfo({
+              ticketNo: data.ticketNo,
+              isPaid  : data.isPaid,
+            });
           } else {
             setIsExisting(false);
             setExistingInfo(null);
@@ -78,16 +89,40 @@ export default function TicketScreen() {
   const watchedName  = watch('name');
   const watchedPhone = watch('phone');
 
+  /* 이름·전화번호 변경 → 중복 체크 */
   useEffect(() => {
     checkDuplicate(watchedName, watchedPhone);
   }, [watchedName, watchedPhone, checkDuplicate]);
 
+  /* 이름/폰 입력 여부 & 전화번호 패턴 검증 */
+  const nameFilled = !!watchedName?.trim();
+  const phoneValid = /^\d{3}-\d{3,4}-\d{4}$/.test(watchedPhone || '');
+  const showScreenshot = !isExisting && nameFilled && phoneValid;
+
+  /* 중복 발견 시 스크린샷 초기화 */
+  useEffect(() => {
+    if (isExisting) {
+      setValue('screenshot', undefined, { shouldValidate: false });
+      clearErrors('screenshot');
+      unregister('screenshot');
+    }
+  }, [isExisting, setValue, clearErrors, unregister]);
+
+  /* showScreenshot=false → 스크린샷 필드 제거 */
+  useEffect(() => {
+    if (!showScreenshot) {
+      unregister('screenshot');
+      clearErrors('screenshot');
+    }
+  }, [showScreenshot, unregister, clearErrors]);
+
   /* ────────────── 핸들러 ────────────── */
-  // 전화번호 하이픈
+  // 전화번호 하이픈 포매터
   const handlePhone = (e) => {
     let v = e.target.value.replace(/\D/g, '').slice(0, 11);
     if (v.length > 3 && v.length <= 6) v = `${v.slice(0, 3)}-${v.slice(3)}`;
-    else if (v.length > 6)            v = `${v.slice(0, 3)}-${v.slice(3, v.length - 4)}-${v.slice(-4)}`;
+    else if (v.length > 6)
+      v = `${v.slice(0, 3)}-${v.slice(3, v.length - 4)}-${v.slice(-4)}`;
     setValue('phone', v, { shouldValidate: true });
   };
 
@@ -95,13 +130,16 @@ export default function TicketScreen() {
   const handleScreenshot = (e) =>
     setValue('screenshot', e.target.files, { shouldValidate: true });
 
-  // 신규 등록 submit
+  /* 신규 등록 submit */
   const onSubmit = async (data) => {
     if (isExisting) return; // 이미 등록된 경우 submit 금지
 
     const { screenshot, ...payload } = data; // 파일은 전송하지 않음
     try {
-      const res = await axios.post('https://gnd-back.vercel.app/api/register', payload);
+      const res = await axios.post(
+        'https://gnd-back.vercel.app/api/register',
+        payload,
+      );
 
       if (res.data.success) {
         setName(payload.name);
@@ -152,16 +190,42 @@ export default function TicketScreen() {
         mt={-55}
         mb={-10}
       />
-      <Text mt={-15} color="gray.700" fontFamily="mono" fontWeight="700" fontSize="16px">
+      <Text
+        mt={-15}
+        color="gray.700"
+        fontFamily="mono"
+        fontWeight="700"
+        fontSize="16px"
+      >
         SAD GAS X GND : HOMECOMMING DAY
       </Text>
-      <Text mt={5} color="gray.700" fontFamily="mono" fontWeight="500" fontSize="14px">
+      <Text
+        mt={5}
+        color="gray.700"
+        fontFamily="mono"
+        fontWeight="500"
+        fontSize="14px"
+      >
         2025 06 14
       </Text>
-      <Text mb={2} color="gray.700" fontFamily="mono" fontWeight="500" fontSize="14px" textAlign="center">
+      <Text
+        mb={2}
+        color="gray.700"
+        fontFamily="mono"
+        fontWeight="500"
+        fontSize="14px"
+        textAlign="center"
+      >
         서울 용산구 대사관로31길 ROSSO SEOUL
       </Text>
-      <Text mb={2} color="gray.700" fontFamily="mono" fontWeight="500" fontSize="14px" textAlign="center">
+      <Text
+        mb={2}
+        color="gray.700"
+        fontFamily="mono"
+        fontWeight="500"
+        fontSize="14px"
+        textAlign="center"
+      >
         ₩20,000
       </Text>
 
@@ -179,7 +243,7 @@ export default function TicketScreen() {
           <Input
             placeholder="Name"
             {...register('name', {
-              required: '이름을 입력해주세요.',
+              required : '이름을 입력해주세요.',
               maxLength: { value: 50, message: '최대 50자까지 가능' },
             })}
             bg="white"
@@ -189,7 +253,9 @@ export default function TicketScreen() {
             fontSize="14px"
             fontFamily="noto"
           />
-          <FormErrorMessage fontFamily="noto">{errors.name?.message}</FormErrorMessage>
+          <FormErrorMessage fontFamily="noto">
+            {errors.name?.message}
+          </FormErrorMessage>
         </FormControl>
 
         {/* 전화번호 */}
@@ -198,7 +264,10 @@ export default function TicketScreen() {
             placeholder="Phone Number"
             {...register('phone', {
               required: '전화번호를 입력해주세요.',
-              pattern: { value: /^\d{3}-\d{3,4}-\d{4}$/, message: 'XXX-XXXX-XXXX 형식' },
+              pattern : {
+                value  : /^\d{3}-\d{3,4}-\d{4}$/,
+                message: 'XXX-XXXX-XXXX 형식',
+              },
             })}
             onChange={handlePhone}
             maxLength={13}
@@ -209,11 +278,13 @@ export default function TicketScreen() {
             fontSize="14px"
             fontFamily="noto"
           />
-          <FormErrorMessage fontFamily="noto">{errors.phone?.message}</FormErrorMessage>
+          <FormErrorMessage fontFamily="noto">
+            {errors.phone?.message}
+          </FormErrorMessage>
         </FormControl>
 
-        {/* 스크린샷: 신규 사용자만 표시 */}
-        {!isExisting && (
+        {/* 스크린샷: 신규 + 이름/폰 입력 완료 + 폰 형식 OK */}
+        {showScreenshot && (
           <FormControl isInvalid={!!errors.screenshot} mb={8}>
             <VisuallyHidden>
               <Input
@@ -246,14 +317,26 @@ export default function TicketScreen() {
               {screenshotURL ? '스크린샷 변경' : '입금 확인 스크린샷 첨부'}
             </Button>
 
-            <Text mt={2} fontFamily="noto" fontSize="10px" color="gray.500" textAlign="left">
+            <Text
+              mt={2}
+              fontFamily="noto"
+              fontSize="10px"
+              color="gray.500"
+              textAlign="left"
+            >
               위에 기입한 이름과 동일한 입금자명으로 ₩20,000 입금 후,<br />
               입금자명이 화면에 표시된 스크린샷을 첨부해주세요.
             </Text>
 
             {screenshotURL && (
               <>
-                <Text mt={2} fontFamily="noto" fontSize="12px" color="green.500" fontWeight="700">
+                <Text
+                  mt={2}
+                  fontFamily="noto"
+                  fontSize="12px"
+                  color="green.500"
+                  fontWeight="700"
+                >
                   입금 확인 스크린샷 첨부 완료.
                 </Text>
                 <Image
@@ -267,7 +350,9 @@ export default function TicketScreen() {
               </>
             )}
 
-            <FormErrorMessage fontFamily="noto">{errors.screenshot?.message}</FormErrorMessage>
+            <FormErrorMessage fontFamily="noto">
+              {errors.screenshot?.message}
+            </FormErrorMessage>
           </FormControl>
         )}
 
