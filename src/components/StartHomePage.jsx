@@ -116,7 +116,7 @@ export default function StartHomePage() {
         {/* 날짜 */}
         <Text
           position="absolute"
-          bottom="40%"          /* ← 참가하기 버튼(20%)보다 살짝 위 */
+          bottom="38%"          /* ← 참가하기 버튼(20%)보다 살짝 위 */
           left="50%"
           transform="translateX(-50%)"
           color="gray.700"
@@ -124,8 +124,9 @@ export default function StartHomePage() {
           fontWeight={500}
           fontSize="14px"
         >          
-        2025 06 14
+        2025 06 14<br />서울 용산구 대사관로31길 ROSSO SEOUL
         </Text>
+
 
         {/* 참가하기 버튼 : AnimatePresence 로 부드럽게 fade-in */}
         <AnimatePresence>
@@ -146,7 +147,7 @@ export default function StartHomePage() {
               boxShadow="0 4px 12px rgba(0,0,0,0.25)"
               _hover={{ bg: 'gray.700', transform: 'scale(1.03)' }}
               _active={{ bg: 'gray.800' }}
-              bottom="30%"
+              bottom="27%"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

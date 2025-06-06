@@ -27,6 +27,7 @@ export default function TicketScreen() {
   const [ticketNo, setTicketNo] = useState(null);
   const [name, setName]         = useState('');
   const [isPaid, setIsPaid]     = useState(false);
+  const [dupChecked, setDupChecked] = useState(false); 
 
   /* lookup 결과 */
   const [isExisting, setIsExisting]     = useState(false);
@@ -58,9 +59,11 @@ export default function TicketScreen() {
   const checkDuplicate = useMemo(
     () =>
       debounce(async (n, p) => {
+        setDupChecked(false);
         if (!n || !/^\d{3}-\d{3,4}-\d{4}$/.test(p)) {
           setIsExisting(false);
           setExistingInfo(null);
+          setDupChecked(false);
           return;
         }
         try {
@@ -81,6 +84,8 @@ export default function TicketScreen() {
         } catch (e) {
           setIsExisting(false);
           setExistingInfo(null);
+        } finally {
+          setDupChecked(false);
         }
       }, 300),
     [],
@@ -97,7 +102,7 @@ export default function TicketScreen() {
   /* 이름/폰 입력 여부 & 전화번호 패턴 검증 */
   const nameFilled = !!watchedName?.trim();
   const phoneValid = /^\d{3}-\d{3,4}-\d{4}$/.test(watchedPhone || '');
-  const showScreenshot = !isExisting && nameFilled && phoneValid;
+  const showScreenshot = dupChecked && !isExisting && nameFilled && phoneValid;
 
   /* 중복 발견 시 스크린샷 초기화 */
   useEffect(() => {

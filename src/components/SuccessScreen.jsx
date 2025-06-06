@@ -60,7 +60,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
       boxShadow="0 4px 12px rgba(0,0,0,0.1)"
       _hover={{ bg: 'gray.100', transform: 'scale(1.03)' }}
       _active={{ bg: 'gray.200' }}
-      mt={100}
+      mt={50}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: '-80px' }}
