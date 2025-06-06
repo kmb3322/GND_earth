@@ -1,23 +1,23 @@
-import { Flex, Icon, Image, Link, Text, VStack } from '@chakra-ui/react';
-import React from 'react';
+import { Flex, Icon, Link, Text, VStack } from '@chakra-ui/react';
 import { FaInstagram } from 'react-icons/fa';
-import InputCode from './RegistrationForm';
+import InputCode from './old_vol.1_InputCode';
 
 const HomeScreen = () => {
   return (
     <VStack spacing={10} align="center" mt={10}>
-      <Image src="/gnd_image.png" alt="GND vol.1" boxSize="250px" objectFit="contain" />
       
       <Text color="gray.700" fontFamily="mono" fontSize="18px" fontWeight="bold" mb="-20px" mr="220px">GND</Text>
 
       <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" mb="-20px">vol.1</Text>
-      <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" ml="220px">SEOUL</Text>
+      <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" mb="100px" ml="220px">SEOUL</Text>
+
+      
+      
+      <Text color="gray.700" fontFamily="mono" fontSize="md" fontWeight="bold" textAlign="center" mt="20px">
+        2025 07 12
+      </Text>
 
       <InputCode />
-      
-      <Text color="black" fontFamily="noto" fontSize="md" textAlign="center" mt="20px">
-        서울 마포구 독막로 7길 20 얼라이브홀<br />2025 01 03
-      </Text>
       
       <Link href="https://instagram.com/gnd_earth" isExternal color="gray.600" mt={4}>
         <Flex align="center">

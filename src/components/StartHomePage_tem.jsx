@@ -1,8 +1,6 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
-  AspectRatio, Box, Button, Flex, Grid, Icon,
-  Image,
-  Link, Text, VStack,
+  AspectRatio, Box, Button, Flex, Grid, Icon, Link, Text, VStack,
 } from '@chakra-ui/react';
 import {
   AnimatePresence,
@@ -12,7 +10,8 @@ import {
 } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { FaInstagram, FaYoutube } from 'react-icons/fa';
-import { Link as RouterLink } from 'react-router-dom';
+
+import InputCode from './old_vol.1_InputCode';
 
 const MotionText   = motion(Text);
 const MotionBox    = motion(Box);
@@ -56,7 +55,7 @@ export default function StartHomePage() {
     {
       name: '김민범',
       role: 'Marketing Director (Video & Web)',
-      desc: ['KAIST 전산학부 23학번', 'KAIST HCI 연구실 KIXLAB', "대전 대학가요제 '태울뮤직페스티벌 (2024.05.22)' 총기획·감독", 'KAIST 홍보·신입생 환영 영상 다수 제작', '전국 단위 단편영화제 및 공모전 다수 수상'],
+      desc: ['KAIST 전산학부 23학번', 'KAIST HCI 연구실 KIXLAB', "대전 대학가요제 '태울뮤직페스티벌 (2024.05.22)' 총기획·감독", 'KAIST 홍보 영상 · 신입생 환영 영상 다수 제작', '전국 단위 단편영화제 및 공모전 다수 수상'],
     },
   ];
 
@@ -92,70 +91,24 @@ export default function StartHomePage() {
         onClick={reveal}
         onTouchStart={reveal}
       >
-        {/* 로고 
+        {/* 로고 */}
         <Text color="gray.700" fontFamily="mono" fontSize="18px" fontWeight="bold" mb="40px" mr="220px">
-          SADGAS
+          GND
         </Text>
         <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" mb="40px">
-          X
+          vol.2
         </Text>
         <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" ml="220px" mb="60px">
-          GND
-        </Text>*/}
-        <Image src="/sadgasXgnd2.png"
-          alt="SADGASXGND"
-          boxSize={{ base: '300px', md: '500px' }}
-          objectFit="contain"
-          position="absolute"
-          top="10%"          // 화면 높이 기준 Y 위치
-          left="50%"         // 가로 중앙
-          transform="translateX(-50%)" />
-      
-
-
-        {/* 날짜 */}
-        <Text
-          position="absolute"
-          bottom="40%"          /* ← 참가하기 버튼(20%)보다 살짝 위 */
-          left="50%"
-          transform="translateX(-50%)"
-          color="gray.700"
-          fontFamily="mono"
-          fontWeight={500}
-          fontSize="14px"
-        >          
-        2025 06 14
+          SEOUL
         </Text>
 
-        {/* 참가하기 버튼 : AnimatePresence 로 부드럽게 fade-in */}
-        <AnimatePresence>
-          {showTicket && (
-            <MotionButton
-            position="absolute"
-              key="ticket-btn"
-              as={RouterLink}
-              to="/ticket"
-              fontFamily="mono"
-              bg="black"
-              color="white"
-              fontSize="14px"
-              fontWeight={500}
-              borderRadius="full"
-              px={8}
-              py={5}
-              boxShadow="0 4px 12px rgba(0,0,0,0.25)"
-              _hover={{ bg: 'gray.700', transform: 'scale(1.03)' }}
-              _active={{ bg: 'gray.800' }}
-              bottom="30%"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              참가하기
-            </MotionButton>
-          )}
-        </AnimatePresence>
+        {/* 날짜 */}
+        <Text mt={20} mb={50} color="gray.700" fontFamily="mono" fontWeight={500} fontSize="14px">
+          2025&nbsp;07&nbsp;12
+        </Text>
+
+        <InputCode />
+
 
         {/* 아래로 스크롤 버튼 */}
         <MotionButton
@@ -166,7 +119,7 @@ export default function StartHomePage() {
           _hover={{ transform: 'translateY(2px)' }}
           _active={{ transform: 'translateY(4px)' }}
           aria-label="scroll"
-          color="gray.700"
+
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 0.8, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
@@ -186,13 +139,12 @@ export default function StartHomePage() {
         <VStack spacing={2} maxW="900px" mx="auto" px={20}>
           <AspectRatio width={{ base: '100vw', md: '80vw' }} ratio={16 / 9}>
             <iframe
-              src="https://www.youtube.com/embed/Xfkr6HS8J6o?start=60&autoplay=1&mute=1&playsinline=1&controls=1&loop=1&playlist=Xfkr6HS8J6o"
+              src="https://youtu.be/Xfkr6HS8J6o?si=XW6yT3OXZ3uOoDm1&t=44&autoplay=1&mute=1&playsinline=1&controls=1&loop=1&playlist=Db1onQoAIXU"
               title="YouTube video player"
               allow="autoplay; encrypted-media; picture-in-picture"
               allowFullScreen
             />
           </AspectRatio>
-
         </VStack>
       </Box>
 

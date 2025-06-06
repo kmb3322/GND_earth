@@ -3,7 +3,7 @@ import { Box, ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 //import EndScreen from './components/EndScreen';
 //import HomeScreen from './components/HomeScreen';
-import StartHomePage from './components/StartHomePage';
+import StartHomePage from './components/StartHomePage'; // 수정된 StartHomePage 컴포넌트 임포트
 import TicketScreen from './components/ticketScreen';
 import theme from './theme'; // 커스텀 테마 임포트
 
