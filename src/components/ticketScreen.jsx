@@ -266,7 +266,7 @@ useEffect(() => {
     }}
     color={hasCopied ? 'green.500' : 'gray.700'}
     fontFamily="noto"
-    fontWeight="700"
+    fontWeight="500"
     fontSize="12px"
     textAlign="center"
     cursor="pointer"
@@ -276,7 +276,7 @@ useEffect(() => {
   </Text>
   <Text
     fontFamily="noto"
-    fontWeight="700"
+    fontWeight="500"
     fontSize="12px"
     color="gray.700"
     textAlign="center"
