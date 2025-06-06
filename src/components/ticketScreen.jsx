@@ -212,7 +212,7 @@ useEffect(() => {
         mb={-10}
       />
       <Text
-        mt={-15}
+        mt={0}
         color="gray.700"
         fontFamily="mono"
         fontWeight="700"
@@ -451,7 +451,7 @@ useEffect(() => {
             alignItems="center"
           >
             <Icon as={FaInstagram} mr={1} />
-            <Text fontFamily="noto">gnd_earth</Text>
+            <Text fontFamily="noto" fontSize="10px">gnd_earth</Text>
           </Link>
         </Flex>
         <Link href="tel:010-8288-3951" textDecoration="none">
