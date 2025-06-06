@@ -181,7 +181,7 @@ export default function StartHomePage() {
       <Box
         pt={20}
         pb={10}
-        bg="#F5F5F5"
+        bg="#F2F2F2"
         bgGradient="linear(to-b,#F5F5F5 0%,rgba(245,245,245,0) 100%)"
       >
         <VStack spacing={2} maxW="900px" mx="auto" px={20}>
