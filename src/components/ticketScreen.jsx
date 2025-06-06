@@ -380,7 +380,9 @@ useEffect(() => {
               textAlign="left"
             >
               위에 기입한 이름과 동일한 입금자명으로 ₩20,000 입금 후,<br />
-              입금자명이 화면에 표시된 스크린샷을 첨부해주세요.
+              입금자명이 화면에 표시된 스크린샷을 첨부해주세요.<br/>
+              Please transfer ₩20,000 using the same name entered above,<br/>
+              and attach a screenshot that clearly shows the remitter’s name.
             </Text>
 
             {screenshotURL && (
