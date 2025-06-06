@@ -29,7 +29,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
       {isPaid ? (
         ticketNo && (
           <Text fontFamily="noto" fontSize="15px" mt="4px" textAlign="center">
-            {name}님의<br />SAD GAS X GND raffle 추첨 번호는<br />
+            SAD GAS X GND raffle 추첨 번호는<br />
             <b>{ticketNo}</b>번입니다.<br /><br />
             추첨 번호가 띄워진 본 화면을<br />당일 STAFF에게 보여주시면 됩니다.
           </Text>
