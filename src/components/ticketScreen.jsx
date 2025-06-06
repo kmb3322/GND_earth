@@ -59,7 +59,7 @@ export default function TicketScreen() {
           return;
         }
         try {
-          const { data } = await axios.get('/api/lookup', { params: { name: n, phone: p } });
+          const { data } = await axios.get('https://gnd-back.vercel.app/api/register',, { params: { name: n, phone: p } });
           if (data.exists) {
             setIsExisting(true);
             setExistingInfo({ ticketNo: data.ticketNo, isPaid: data.isPaid });
@@ -101,7 +101,7 @@ export default function TicketScreen() {
 
     const { screenshot, ...payload } = data; // 파일은 전송하지 않음
     try {
-      const res = await axios.post('/api/register', payload);
+      const res = await axios.post('https://gnd-back.vercel.app/api/register', payload);
 
       if (res.data.success) {
         setName(payload.name);

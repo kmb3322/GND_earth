@@ -1,7 +1,7 @@
 // HomeScreen.jsx
 import { Box, Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import RegistrationForm from './RegistrationForm';
+import RegistrationForm from './old_sadgas1_RegistrationForm';
 import SuccessScreen from './SuccessScreen';
 
 export default function HomeScreen() {
