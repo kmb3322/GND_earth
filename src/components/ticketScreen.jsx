@@ -9,6 +9,7 @@ import {
   Image,
   Input,
   Link,
+  Spinner,
   Text,
   VStack,
   VisuallyHidden,
@@ -85,7 +86,7 @@ export default function TicketScreen() {
           setIsExisting(false);
           setExistingInfo(null);
         } finally {
-          setDupChecked(false);
+          setDupChecked(true);
         }
       }, 300),
     [],
@@ -94,15 +95,30 @@ export default function TicketScreen() {
   const watchedName  = watch('name');
   const watchedPhone = watch('phone');
 
-  /* 이름·전화번호 변경 → 중복 체크 */
-  useEffect(() => {
-    checkDuplicate(watchedName, watchedPhone);
-  }, [watchedName, watchedPhone, checkDuplicate]);
-
   /* 이름/폰 입력 여부 & 전화번호 패턴 검증 */
   const nameFilled = !!watchedName?.trim();
   const phoneValid = /^\d{3}-\d{3,4}-\d{4}$/.test(watchedPhone || '');
   const showScreenshot = dupChecked && !isExisting && nameFilled && phoneValid;
+
+
+useEffect(() => {
+// 아직 둘 다 입력되지 않았으면 스피너도 끄고, 중복 확인도 생략
+  if (!nameFilled || !phoneValid) {
+    setDupChecked(true);          // "조회 끝" 처리
+    setIsExisting(false);
+    setExistingInfo(null);
+    return;
+  }
+
+  setDupChecked(false);           // 스피너 ON
+  checkDuplicate(watchedName, watchedPhone);
+}, [
+    watchedName,
+    watchedPhone,
+    nameFilled,
+    phoneValid,
+    checkDuplicate,
+]);
 
   /* 중복 발견 시 스크린샷 초기화 */
   useEffect(() => {
@@ -271,7 +287,7 @@ export default function TicketScreen() {
               required: '전화번호를 입력해주세요.',
               pattern : {
                 value  : /^\d{3}-\d{3,4}-\d{4}$/,
-                message: 'XXX-XXXX-XXXX 형식',
+                message: 'XXX-XXXX-XXXX',
               },
             })}
             onChange={handlePhone}
@@ -362,7 +378,19 @@ export default function TicketScreen() {
         )}
 
         {/* 버튼 영역 */}
-        {isExisting ? (
+        {nameFilled && phoneValid && !dupChecked ? (
+          <Button
+            w="100%"
+            bg="gray.400"
+            color="white"
+            borderRadius="20px"
+            isDisabled
+            leftIcon={<Spinner size="sm" />}
+            mb={5}
+             >
+            </Button>
+
+        ) : isExisting ? (
           <Button
             w="100%"
             bg="black"
