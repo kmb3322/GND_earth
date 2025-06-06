@@ -73,6 +73,8 @@ export default function StartHomePage() {
   // Breakpoint 값 설정
   const dateBottom = useBreakpointValue({ base: '38%', lg: '28%' });
   const joinBottom = useBreakpointValue({ base: '27%', lg: '17%' });
+  const scrollBottom = useBreakpointValue({ base: '10%', lg: '5%' });
+
 
 
   return (
@@ -172,7 +174,7 @@ export default function StartHomePage() {
         {/* 아래로 스크롤 버튼 */}
         <MotionButton
             position="absolute"
-          bottom="10%"
+          bottom={scrollBottom}
           variant="ghost"
           onClick={() => scrollTo(infoRef)}
           _hover={{ transform: 'translateY(2px)' }}
