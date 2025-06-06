@@ -124,7 +124,7 @@ export default function StartHomePage() {
           fontWeight={500}
           fontSize="14px"
         >          
-        2025 06 14<br />서울 용산구 대사관로31길 ROSSO SEOUL
+        2025 06 14<br />서울 용산구 대사관로31길
         </Text>
 
 
