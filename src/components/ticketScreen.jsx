@@ -215,7 +215,7 @@ useEffect(() => {
         mb={-10}
       />
       <Text
-        mt={0}
+        mt={10}
         color="gray.700"
         fontFamily="mono"
         fontWeight="700"
@@ -243,7 +243,7 @@ useEffect(() => {
         서울 용산구 대사관로31길 ROSSO SEOUL
       </Text>
       <Text
-        
+        mt={7}
         color="gray.700"
         fontFamily="mono"
         fontWeight="700"
