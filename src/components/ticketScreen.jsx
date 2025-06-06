@@ -13,6 +13,7 @@ import {
   Text,
   VStack,
   VisuallyHidden,
+  useClipboard,
   useToast,
 } from '@chakra-ui/react';
 import axios from 'axios';
@@ -100,6 +101,8 @@ export default function TicketScreen() {
   const phoneValid = /^\d{3}-\d{3,4}-\d{4}$/.test(watchedPhone || '');
   const showScreenshot = dupChecked && !isExisting && nameFilled && phoneValid;
 
+  const accountNumber = '94290201906113';
+  const { onCopy, hasCopied } = useClipboard(accountNumber);
 
 useEffect(() => {
 // 아직 둘 다 입력되지 않았으면 스피너도 끄고, 중복 확인도 생략
@@ -230,7 +233,7 @@ useEffect(() => {
         2025 06 14
       </Text>
       <Text
-        mb={2}
+        mb={6}
         color="gray.700"
         fontFamily="mono"
         fontWeight="500"
@@ -240,15 +243,47 @@ useEffect(() => {
         서울 용산구 대사관로31길 ROSSO SEOUL
       </Text>
       <Text
-        mb={2}
+        
         color="gray.700"
         fontFamily="mono"
-        fontWeight="500"
-        fontSize="14px"
+        fontWeight="700"
+        fontSize="15px"
         textAlign="center"
       >
         ₩20,000
       </Text>
+      <Flex direction="row" justify="center" align="center" gap="1" mt={1} wrap="wrap">
+  <Text
+    as="button"
+    onClick={() => {
+      onCopy();
+      toast({
+        title: '계좌번호가 복사되었습니다.',
+        status: 'success',
+        duration: 2500,
+        isClosable: true,
+      });
+    }}
+    color={hasCopied ? 'green.500' : 'gray.700'}
+    fontFamily="noto"
+    fontWeight="700"
+    fontSize="12px"
+    textAlign="center"
+    cursor="pointer"
+    textDecoration="underline"
+  >
+    김민범 KB국민은행 {accountNumber}
+  </Text>
+  <Text
+    fontFamily="noto"
+    fontWeight="700"
+    fontSize="12px"
+    color="gray.700"
+    textAlign="center"
+  >
+    으로 입금 바랍니다.
+  </Text>
+</Flex>
 
       {/* 입력 폼 */}
       <Box
