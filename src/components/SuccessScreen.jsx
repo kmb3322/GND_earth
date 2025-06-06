@@ -1,7 +1,11 @@
 // =========================
 //  SuccessScreen.jsx
 // =========================
-import { Image, Text, VStack } from '@chakra-ui/react';
+import { Button, Image, Text, VStack } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import { Link as RouterLink } from 'react-router-dom';
+
+const MotionButton = motion(Button);
 
 const SuccessScreen = ({ name, ticketNo, isPaid }) => (
   <VStack spacing={10} align="center" mt={10}>
@@ -35,8 +39,35 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
           입금 확인이 완료되면,<br />
           당일 입장 가능한 번호가 제공됩니다.
         </Text>
+
       )}
     </VStack>
+
+    {/* 메인 페이지로 돌아가기 */}
+    <MotionButton
+      key="back-home-btn"
+      as={RouterLink}
+      to="/"                         // 라우터 홈 경로
+      fontFamily="noto"
+      bg="#f2f2f2"
+      color="#303030"
+      border="2px solid #606060"
+      borderRadius="full"
+      px={5}
+      py={4}
+      fontSize="14px"
+      fontWeight={500}
+      boxShadow="0 4px 12px rgba(0,0,0,0.1)"
+      _hover={{ bg: 'gray.100', transform: 'scale(1.03)' }}
+      _active={{ bg: 'gray.200' }}
+      mt={100}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.8 }}
+    >
+      홈으로 돌아가기
+    </MotionButton>
 
     <Text mb="20px"></Text>
   </VStack>
