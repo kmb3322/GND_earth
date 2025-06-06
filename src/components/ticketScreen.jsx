@@ -308,6 +308,10 @@ useEffect(() => {
             boxShadow="0 0 10px 1px rgba(0,0,0,.1)"
             fontSize="14px"
             fontFamily="noto"
+            _focus={{
+              borderColor: 'black', // 포커스 시 테두리 색상을 검정색으로 변경
+              boxShadow: '0 0 0 1px black', // 검정색 테두리 강조
+            }}
           />
           <FormErrorMessage fontFamily="noto">
             {errors.name?.message}
@@ -332,6 +336,10 @@ useEffect(() => {
             boxShadow="0 0 10px 1px rgba(0,0,0,.1)"
             fontSize="14px"
             fontFamily="noto"
+            _focus={{
+              borderColor: 'black', // 포커스 시 테두리 색상을 검정색으로 변경
+              boxShadow: '0 0 0 1px black', // 검정색 테두리 강조
+            }}
           />
           <FormErrorMessage fontFamily="noto">
             {errors.phone?.message}
@@ -346,6 +354,10 @@ useEffect(() => {
                 id="screenshot-upload"
                 type="file"
                 accept="image/*"
+                _focus={{
+                borderColor: 'black', // 포커스 시 테두리 색상을 검정색으로 변경
+                boxShadow: '0 0 0 1px black', // 검정색 테두리 강조
+              }}
                 onChange={handleScreenshot}
                 {...register('screenshot', {
                   required: '스크린샷을 첨부해주세요.',
