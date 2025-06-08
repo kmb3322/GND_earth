@@ -240,7 +240,7 @@ useEffect(() => {
         fontSize="14px"
         textAlign="center"
       >
-        서울 용산구 대사관로31길 ROSSO SEOUL
+        서울 용산구 대사관로31길 17 ROSSO SEOUL
       </Text>
       <Text
         mt={7}
