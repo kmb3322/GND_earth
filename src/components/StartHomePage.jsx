@@ -136,7 +136,7 @@ export default function StartHomePage() {
           fontSize="14px"
           bottom={dateBottom} // 반응형으로 위치 조정
         >          
-        2025 06 14<br />서울 용산구 대사관로31길
+        2025 06 14<br />서울 용산구 대사관로31길 17
         </Text>
 
 
