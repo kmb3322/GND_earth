@@ -1,7 +1,8 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   AspectRatio, Box, Button, Flex, Grid, Icon,
-  Link, Text, VStack, useBreakpointValue
+  Image,
+  Link, Text, VStack, useBreakpointValue,
 } from '@chakra-ui/react';
 import {
   AnimatePresence,
@@ -11,6 +12,7 @@ import {
 } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { FaInstagram, FaYoutube } from 'react-icons/fa';
+import { Link as RouterLink } from 'react-router-dom';
 
 const MotionText   = motion(Text);
 const MotionBox    = motion(Box);
@@ -102,66 +104,43 @@ export default function StartHomePage() {
         onClick={reveal}
         onTouchStart={reveal}
       >
-  
-        <Text color="gray.700" fontFamily="mono" fontSize="18px" fontWeight="bold" mt="-100px" mb="40px" mr="220px">
-          Next?
+        {/* 로고 
+        <Text color="gray.700" fontFamily="mono" fontSize="18px" fontWeight="bold" mb="40px" mr="220px">
+          SADGAS
         </Text>
         <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" mb="40px">
-          Next?
+          X
         </Text>
         <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" ml="220px" mb="60px">
-          Next?
-        </Text>
+          GND
+        </Text>*/}
+        <Image src="/sadgasXgnd2.png"
+          alt="SADGASXGND"
+          boxSize={{ base: '300px', lg: '500px' }}
+          objectFit="contain"
+          position="absolute"
+          top="10%"          // 화면 높이 기준 Y 위치
+          left="50%"         // 가로 중앙
+          transform="translateX(-50%)" />
       
 
 
         {/* 날짜 */}
         <Text
+          position="absolute"
+          left="50%"
+          transform="translateX(-50%)"
           color="gray.700"
           fontFamily="mono"
           fontWeight={500}
-          fontSize="16px"
-          mt="50px"
+          fontSize="14px"
           bottom={dateBottom} // 반응형으로 위치 조정
-          initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
         >          
-        GND EARTH와 함께 성장할 아티스트 크루원을 모집합니다.
+        2025 06 14<br />서울 용산구 대사관로31길 17
         </Text>
 
-        <AnimatePresence>
-          <MotionButton
-              key="gnd-more-btn"
-              as="a"                          
-              href="https://forms.gle/DiQDrMSizwqUFK548" 
-              target="_blank"                 // 새 탭
-              rel="noopener noreferrer"
-              fontFamily="noto"
-              bg="#f2f2f2"
-              color="303030"
-              border="2px solid #606060"
-              borderRadius="full"
-              px={5}
-              py={4}
-              fontSize="14px"
-              fontWeight={500}
-              boxShadow="0 4px 12px rgba(0,0,0,0.1)"
-              _hover={{ bg: 'gray.100', transform: 'scale(1.03)' }}
-              _active={{ bg: 'gray.200' }}
-              mt={50}                  
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.8 }}
-              
-            >
-              지원하기
-            </MotionButton>
-          </AnimatePresence>
 
-        {/* 참가하기 버튼 
+        {/* 참가하기 버튼 : AnimatePresence 로 부드럽게 fade-in */}
         <AnimatePresence>
           {showTicket && (
             <MotionButton
@@ -191,7 +170,6 @@ export default function StartHomePage() {
             </MotionButton>
           )}
         </AnimatePresence>
-        */}
 
         {/* 아래로 스크롤 버튼 */}
         <MotionButton
