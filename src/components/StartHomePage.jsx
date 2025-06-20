@@ -120,7 +120,7 @@ export default function StartHomePage() {
           color="gray.700"
           fontFamily="mono"
           fontWeight={500}
-          fontSize="16px"
+          fontSize={{ base: '12px', md: '16px' }}
           mt="50px"
           bottom={dateBottom} // 반응형으로 위치 조정
           initial={{ opacity: 0 }}
