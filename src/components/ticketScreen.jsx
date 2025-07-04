@@ -11,8 +11,6 @@ import {
   IconButton,
   Image,
   Input,
-  InputGroup,
-  InputRightElement,
   Link,
   Spinner,
   Text,
@@ -92,7 +90,7 @@ export default function TicketScreen() {
         }
         try {
           const { data } = await axios.get(
-            '/api/lookup',
+            'https://gnd-back.vercel.app/api/lookup',
             { params: { name: n, phone: p } },
           );
           if (data.exists) {
@@ -148,7 +146,7 @@ export default function TicketScreen() {
     if (!codeValid || codeVerified) return;
     try {
       setCheckingCode(true);
-      const { data } = await axios.get('/api/checkCode', {
+      const { data } = await axios.get('https://gnd-back.vercel.app/api/checkCode', {
         params: { code: code.toUpperCase() },
       });
       if (data.exists) {
@@ -199,7 +197,7 @@ export default function TicketScreen() {
 
     const { screenshot, ...payload } = data;
     try {
-      const res = await axios.post('/api/register', payload);
+      const res = await axios.post('https://gnd-back.vercel.app/api/register', payload);
       if (res.data.success) {
         setName(payload.name);
         setTicketNo(res.data.ticketNo);
@@ -337,7 +335,7 @@ export default function TicketScreen() {
             fontFamily="noto"
             _focus={{ borderColor: 'black', boxShadow: '0 0 0 1px black' }}
           />
-          <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
+          <FormErrorMessage fontFamily="noto" fontSize="12px" fontWeight="500">{errors.name?.message}</FormErrorMessage>
         </FormControl>
 
         {/* ───────── 전화번호 ───────── */}
@@ -358,56 +356,62 @@ export default function TicketScreen() {
             fontFamily="noto"
             _focus={{ borderColor: 'black', boxShadow: '0 0 0 1px black' }}
           />
-          <FormErrorMessage>{errors.phone?.message}</FormErrorMessage>
+          <FormErrorMessage fontFamily="noto" fontSize="12px" fontWeight="500">{errors.phone?.message}</FormErrorMessage>
         </FormControl>
 
         {/* ───────── 코드 입력 + 화살표 ───────── */}
         {showCodeInput && (
-          <FormControl isInvalid={!!errors.code} mb={5}>
-            <InputGroup>
-              <Input
-                placeholder="Invite Code (e.g., A1234)"
-                {...register('code', {
-                  required: '코드를 입력하세요.',
-                  pattern : { value: /^[A-Z]\d{4}$/, message: '형식 오류' },
-                  onChange: (e) => setCode(e.target.value.toUpperCase()),
-                })}
-                value={code}
-                maxLength={5}
-                bg="white"
-                borderRadius="20px"
-                border="1px solid #E8E8E8"
-                boxShadow="0 0 10px 1px rgba(0,0,0,.1)"
-                fontSize="14px"
-                fontFamily="noto"
-                _focus={{ borderColor: 'black', boxShadow: '0 0 0 1px black' }}
-                pr="52px"
-              />
-              <InputRightElement w="50px" pr="6px">
-                <IconButton
-                  aria-label="Confirm code"
-                  icon={
-                    checkingCode ? (
-                      <Spinner size="sm" />
-                    ) : (
-                      <ArrowForwardIcon boxSize="24px" />
-                    )
-                  }
-                  bg="black"
-                  color="white"
-                  size="md"
-                  borderRadius="full"
-                  boxShadow="0px 0px 10px 3px rgba(0, 0, 0, 0.25)"
-                  _hover={{ bg: 'gray.700', transform: 'scale(1.05)' }}
-                  _active={{ bg: 'gray.800' }}
-                  isDisabled={!codeValid || checkingCode || codeVerified}
-                  onClick={verifyCode}
-                />
-              </InputRightElement>
-            </InputGroup>
-            <FormErrorMessage>{errors.code?.message}</FormErrorMessage>
-          </FormControl>
-        )}
+        <FormControl isInvalid={!!errors.code} mb={5}>
+          <Flex w="100%" align="center">
+            {/* ① 입력창: flex=1 로 남는 폭 전부 차지 */}
+            <Input
+              flex="1"
+              placeholder="Invite Code (e.g. A1234)"
+              {...register('code', {
+                required: '코드를 입력하세요.',
+                pattern : { value: /^[A-Z]\d{4}$/, message: '형식 오류' },
+                onChange: (e) => setCode(e.target.value.toUpperCase()),
+              })}
+              value={code}
+              maxLength={5}
+              bg="white"
+              borderRadius="20px"
+              border="1px solid #E8E8E8"
+              boxShadow="0 0 10px 1px rgba(0,0,0,.1)"
+              fontSize="14px"
+              fontFamily="noto"
+              _focus={{ borderColor: 'black', boxShadow: '0 0 0 1px black' }}
+            />
+
+            {/* ② 화살표: 고정폭(46px)·왼쪽 여백 8px */}
+            <IconButton
+              ml={2}
+              aria-label="Confirm code"
+              icon={
+                checkingCode ? (
+                  <Spinner size="sm" />
+                ) : (
+                  <ArrowForwardIcon boxSize="22px" />
+                )
+              }
+              bg="black"
+              color="white"
+              size="md"
+              minW="40px"
+              w="40px"
+              h="40px"
+              borderRadius="full"
+              boxShadow="0 0 10px 3px rgba(0,0,0,0.25)"
+              _hover={{ bg: 'gray.700', transform: 'scale(1.05)' }}
+              _active={{ bg: 'gray.800' }}
+              isDisabled={!codeValid || checkingCode || codeVerified}
+              onClick={verifyCode}
+            />
+          </Flex>
+
+          <FormErrorMessage fontFamily="noto" fontSize="12px" fontWeight="500">{errors.code?.message}</FormErrorMessage>
+        </FormControl>
+      )}
 
         {/* ───────── 스크린샷 ───────── */}
         {showScreenshot && (
@@ -463,7 +467,7 @@ export default function TicketScreen() {
                 />
               </>
             )}
-            <FormErrorMessage>{errors.screenshot?.message}</FormErrorMessage>
+            <FormErrorMessage fontFamily="noto" fontSize="12px" fontWeight="500">{errors.screenshot?.message}</FormErrorMessage>
           </FormControl>
         )}
 

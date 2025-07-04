@@ -53,6 +53,15 @@ const theme = extendTheme({
           color: props.status === 'error' ? 'white' : undefined,
           fontFamily: 'noto',
         },
+         FormError: {
+          baseStyle: {
+            text: {
+              fontFamily: 'noto',
+              fontSize: '12px',
+              fontWeight: 500,
+            },
+          },
+        },
       }),
     },
   },
