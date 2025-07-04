@@ -1,8 +1,7 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   AspectRatio, Box, Button, Flex, Grid, Icon,
-  Image,
-  Link, Text, VStack, useBreakpointValue,
+  Link, Text, VStack, useBreakpointValue
 } from '@chakra-ui/react';
 import {
   AnimatePresence,
@@ -12,7 +11,6 @@ import {
 } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { FaInstagram, FaYoutube } from 'react-icons/fa';
-import { Link as RouterLink } from 'react-router-dom';
 
 const MotionText   = motion(Text);
 const MotionBox    = motion(Box);
@@ -71,9 +69,8 @@ export default function StartHomePage() {
   };
 
   // Breakpoint 값 설정
-  const nameBottom = useBreakpointValue({ base: '40%', lg: '40%' });
-  const joinBottom = useBreakpointValue({ base: '30%', lg: '30%' });
-  const dateBottom = useBreakpointValue({ base: '20%', lg: '17%' });
+  const dateBottom = useBreakpointValue({ base: '38%', lg: '28%' });
+  const joinBottom = useBreakpointValue({ base: '27%', lg: '17%' });
   const scrollBottom = useBreakpointValue({ base: '10%', lg: '5%' });
 
 
@@ -105,55 +102,66 @@ export default function StartHomePage() {
         onClick={reveal}
         onTouchStart={reveal}
       >
-        {/* 로고 
-        <Text color="gray.700" fontFamily="mono" fontSize="18px" fontWeight="bold" mb="40px" mr="220px">
-          SADGAS
+  
+        <Text color="gray.700" fontFamily="mono" fontSize="18px" fontWeight="bold" mt="-100px" mb="40px" mr="220px">
+          Next?
         </Text>
         <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" mb="40px">
-          X
+          Next?
         </Text>
         <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" ml="220px" mb="60px">
-          GND
-        </Text>*/}
-        <Image src="/gnd_vol2.png"
-          alt="SADGASXGND"
-          boxSize='700px'
-          objectFit="contain"
-          position="absolute"
-          top="0%"          // 화면 높이 기준 Y 위치
-          left="50%"         // 가로 중앙
-          transform="translateX(-50%)" />
+          Next?
+        </Text>
       
 
-      <Text
-          position="absolute"
-          left="50%"
-          transform="translateX(-50%)"
-          color="gray.700"
-          fontFamily="mono"
-          fontWeight={700}
-          fontSize="18px"
-          bottom={nameBottom} // 반응형으로 위치 조정
-        >          
-        GND SEOUL vol.2
-        </Text>
-  
+
         {/* 날짜 */}
         <Text
-          position="absolute"
-          left="50%"
-          transform="translateX(-50%)"
           color="gray.700"
           fontFamily="mono"
           fontWeight={500}
-          fontSize="14px"
+          fontSize={{ base: '12px', md: '16px' }}
+          mt="50px"
           bottom={dateBottom} // 반응형으로 위치 조정
+          initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
         >          
-        서울 마포구 독막로7길 20<br />2025 07 18
+        GND EARTH와 함께 성장할 아티스트 크루원을 모집합니다.
         </Text>
 
+        <AnimatePresence>
+          <MotionButton
+              key="gnd-more-btn"
+              as="a"                          
+              href="https://forms.gle/DiQDrMSizwqUFK548" 
+              target="_blank"                 // 새 탭
+              rel="noopener noreferrer"
+              fontFamily="noto"
+              bg="#f2f2f2"
+              color="303030"
+              border="2px solid #606060"
+              borderRadius="full"
+              px={5}
+              py={4}
+              fontSize="14px"
+              fontWeight={500}
+              boxShadow="0 4px 12px rgba(0,0,0,0.1)"
+              _hover={{ bg: 'gray.100', transform: 'scale(1.03)' }}
+              _active={{ bg: 'gray.200' }}
+              mt={50}                  
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.8 }}
+              
+            >
+              지원하기
+            </MotionButton>
+          </AnimatePresence>
 
-        {/* 참가하기 버튼 : AnimatePresence 로 부드럽게 fade-in */}
+        {/* 참가하기 버튼 
         <AnimatePresence>
           {showTicket && (
             <MotionButton
@@ -183,6 +191,7 @@ export default function StartHomePage() {
             </MotionButton>
           )}
         </AnimatePresence>
+        */}
 
         {/* 아래로 스크롤 버튼 */}
         <MotionButton

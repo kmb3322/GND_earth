@@ -1,4 +1,5 @@
 // src/components/TicketScreen.jsx
+// =========================================
 import {
   Box,
   Button,
@@ -29,7 +30,11 @@ export default function TicketScreen() {
   const [ticketNo, setTicketNo] = useState(null);
   const [name, setName]         = useState('');
   const [isPaid, setIsPaid]     = useState(false);
-  const [dupChecked, setDupChecked] = useState(false); 
+  const [dupChecked, setDupChecked] = useState(false);
+
+  /* code 입력용 */
+  const [code, setCode] = useState('');
+  const codeValid = /^[A-Z]\d{4}$/.test(code);
 
   /* lookup 결과 */
   const [isExisting, setIsExisting]     = useState(false);
@@ -68,6 +73,7 @@ export default function TicketScreen() {
           setDupChecked(false);
           return;
         }
+
         try {
           const { data } = await axios.get(
             'https://gnd-back.vercel.app/api/lookup',
@@ -83,7 +89,7 @@ export default function TicketScreen() {
             setIsExisting(false);
             setExistingInfo(null);
           }
-        } catch (e) {
+        } catch {
           setIsExisting(false);
           setExistingInfo(null);
         } finally {
@@ -97,48 +103,58 @@ export default function TicketScreen() {
   const watchedPhone = watch('phone');
 
   /* 이름/폰 입력 여부 & 전화번호 패턴 검증 */
-  const nameFilled = !!watchedName?.trim();
-  const phoneValid = /^\d{3}-\d{3,4}-\d{4}$/.test(watchedPhone || '');
-  const showScreenshot = dupChecked && !isExisting && nameFilled && phoneValid;
+  const nameFilled   = !!watchedName?.trim();
+  const phoneValid   = /^\d{3}-\d{3,4}-\d{4}$/.test(watchedPhone || '');
+
+  const showCodeInput  =
+    dupChecked && !isExisting && nameFilled && phoneValid;
+  const showScreenshot = showCodeInput && codeValid;
 
   const accountNumber = '94290201906113';
   const { onCopy, hasCopied } = useClipboard(accountNumber);
 
-useEffect(() => {
-// 아직 둘 다 입력되지 않았으면 스피너도 끄고, 중복 확인도 생략
-  if (!nameFilled || !phoneValid) {
-    setDupChecked(true);          // "조회 끝" 처리
-    setIsExisting(false);
-    setExistingInfo(null);
-    return;
-  }
+  /* ────────────── useEffect: 중복 확인 ────────────── */
+  useEffect(() => {
+    if (!nameFilled || !phoneValid) {
+      setDupChecked(true);
+      setIsExisting(false);
+      setExistingInfo(null);
+      return;
+    }
 
-  setDupChecked(false);           // 스피너 ON
-  checkDuplicate(watchedName, watchedPhone);
-}, [
-    watchedName,
-    watchedPhone,
-    nameFilled,
-    phoneValid,
-    checkDuplicate,
-]);
+    setDupChecked(false);
+    checkDuplicate(watchedName, watchedPhone);
+  }, [watchedName, watchedPhone, nameFilled, phoneValid, checkDuplicate]);
 
-  /* 중복 발견 시 스크린샷 초기화 */
+  /* 중복 발견 시 스크린샷 & 코드 초기화 */
   useEffect(() => {
     if (isExisting) {
       setValue('screenshot', undefined, { shouldValidate: false });
       clearErrors('screenshot');
       unregister('screenshot');
+
+      setCode('');
+      unregister('code');
+      clearErrors('code');
     }
   }, [isExisting, setValue, clearErrors, unregister]);
 
-  /* showScreenshot=false → 스크린샷 필드 제거 */
+  /* showScreenshot false → 스크린샷 필드 제거 */
   useEffect(() => {
     if (!showScreenshot) {
       unregister('screenshot');
       clearErrors('screenshot');
     }
   }, [showScreenshot, unregister, clearErrors]);
+
+  /* showCodeInput false → code 필드 제거 */
+  useEffect(() => {
+    if (!showCodeInput) {
+      unregister('code');
+      clearErrors('code');
+      setCode('');
+    }
+  }, [showCodeInput, unregister, clearErrors]);
 
   /* ────────────── 핸들러 ────────────── */
   // 전화번호 하이픈 포매터
@@ -150,15 +166,15 @@ useEffect(() => {
     setValue('phone', v, { shouldValidate: true });
   };
 
-  // 스크린샷 등록
+  // 스크린샷 업로드
   const handleScreenshot = (e) =>
     setValue('screenshot', e.target.files, { shouldValidate: true });
 
   /* 신규 등록 submit */
   const onSubmit = async (data) => {
-    if (isExisting) return; // 이미 등록된 경우 submit 금지
+    if (isExisting) return; // 이미 등록된 경우 금지
 
-    const { screenshot, ...payload } = data; // 파일은 전송하지 않음
+    const { screenshot, ...payload } = data; // 파일은 전송 안 함
     try {
       const res = await axios.post(
         'https://gnd-back.vercel.app/api/register',
@@ -191,15 +207,8 @@ useEffect(() => {
   };
 
   /* ────────────── 성공 화면 ────────────── */
-  if (step === 'success') {
-    return (
-      <SuccessScreen
-        name={name}
-        ticketNo={ticketNo}
-        isPaid={isPaid}
-      />
-    );
-  }
+  if (step === 'success')
+    return <SuccessScreen name={name} ticketNo={ticketNo} isPaid={isPaid} />;
 
   /* ────────────── 폼 화면 ────────────── */
   return (
@@ -207,21 +216,21 @@ useEffect(() => {
       {/* 상단 이미지 & 정보 */}
       <Box pt={{ base: 6, md: 10 }} />
       <Image
-        src="/sadgasXgnd2.png"
-        alt="SADGASXGND"
+        src="/gnd_vol2.png"
+        alt="GND2"
         boxSize={{ base: '280px', md: '450px' }}
         objectFit="contain"
         mt={-55}
-        mb={-10}
+        mb={{ base: '-20px', md: '-60px' }}
       />
       <Text
-        mt={10}
+        mb={5}
         color="gray.700"
         fontFamily="mono"
         fontWeight="700"
         fontSize="16px"
       >
-        SAD GAS X GND : HOMECOMMING DAY
+        GND SEOUL vol.2
       </Text>
       <Text
         mt={5}
@@ -230,7 +239,7 @@ useEffect(() => {
         fontWeight="500"
         fontSize="14px"
       >
-        2025 06 14
+        서울 마포구 독막로7길 20
       </Text>
       <Text
         mb={6}
@@ -240,7 +249,7 @@ useEffect(() => {
         fontSize="14px"
         textAlign="center"
       >
-        서울 용산구 대사관로31길 17 ROSSO SEOUL
+        2025 07 18
       </Text>
       <Text
         mt={7}
@@ -253,37 +262,37 @@ useEffect(() => {
         ₩20,000
       </Text>
       <Flex direction="row" justify="center" align="center" gap="1" mt={1} wrap="wrap">
-  <Text
-    as="button"
-    onClick={() => {
-      onCopy();
-      toast({
-        title: '계좌번호가 복사되었습니다.',
-        status: 'success',
-        duration: 2500,
-        isClosable: true,
-      });
-    }}
-    color={hasCopied ? 'green.500' : 'gray.700'}
-    fontFamily="noto"
-    fontWeight="500"
-    fontSize="12px"
-    textAlign="center"
-    cursor="pointer"
-    textDecoration="underline"
-  >
-    김민범 KB국민은행 {accountNumber}
-  </Text>
-  <Text
-    fontFamily="noto"
-    fontWeight="500"
-    fontSize="12px"
-    color="gray.700"
-    textAlign="center"
-  >
-    으로 입금 바랍니다.
-  </Text>
-</Flex>
+        <Text
+          as="button"
+          onClick={() => {
+            onCopy();
+            toast({
+              title: '계좌번호가 복사되었습니다.',
+              status: 'success',
+              duration: 2500,
+              isClosable: true,
+            });
+          }}
+          color={hasCopied ? 'green.500' : 'gray.700'}
+          fontFamily="noto"
+          fontWeight="500"
+          fontSize="12px"
+          textAlign="center"
+          cursor="pointer"
+          textDecoration="underline"
+        >
+          김민범 KB국민은행 {accountNumber}
+        </Text>
+        <Text
+          fontFamily="noto"
+          fontWeight="500"
+          fontSize="12px"
+          color="gray.700"
+          textAlign="center"
+        >
+          으로 입금 바랍니다.
+        </Text>
+      </Flex>
 
       {/* 입력 폼 */}
       <Box
@@ -308,10 +317,7 @@ useEffect(() => {
             boxShadow="0 0 10px 1px rgba(0,0,0,.1)"
             fontSize="14px"
             fontFamily="noto"
-            _focus={{
-              borderColor: 'black', // 포커스 시 테두리 색상을 검정색으로 변경
-              boxShadow: '0 0 0 1px black', // 검정색 테두리 강조
-            }}
+            _focus={{ borderColor: 'black', boxShadow: '0 0 0 1px black' }}
           />
           <FormErrorMessage fontFamily="noto">
             {errors.name?.message}
@@ -324,9 +330,7 @@ useEffect(() => {
             placeholder="Phone Number"
             {...register('phone', {
               required: '전화번호를 입력해주세요.',
-              pattern : {
-                value  : /^\d{3}-\d{3,4}-\d{4}$/,
-              },
+              pattern : { value: /^\d{3}-\d{3,4}-\d{4}$/ },
             })}
             onChange={handlePhone}
             maxLength={13}
@@ -336,17 +340,41 @@ useEffect(() => {
             boxShadow="0 0 10px 1px rgba(0,0,0,.1)"
             fontSize="14px"
             fontFamily="noto"
-            _focus={{
-              borderColor: 'black', // 포커스 시 테두리 색상을 검정색으로 변경
-              boxShadow: '0 0 0 1px black', // 검정색 테두리 강조
-            }}
+            _focus={{ borderColor: 'black', boxShadow: '0 0 0 1px black' }}
           />
           <FormErrorMessage fontFamily="noto">
             {errors.phone?.message}
           </FormErrorMessage>
         </FormControl>
 
-        {/* 스크린샷: 신규 + 이름/폰 입력 완료 + 폰 형식 OK */}
+        {/* 코드 입력: 신규 + 이름/폰 완료 */}
+        {showCodeInput && (
+          <FormControl isInvalid={!!errors.code} mb={5}>
+            <Input
+              placeholder="Invite Code (e.g., A1234)"
+              {...register('code', {
+                required: '코드를 입력하세요.',
+                pattern : { value: /^[A-Z]\d{4}$/, message: '형식이 올바르지 않습니다.' },
+                onChange: (e) =>
+                  setCode(e.target.value.toUpperCase()),
+              })}
+              value={code}
+              maxLength={5}
+              bg="white"
+              borderRadius="20px"
+              border="1px solid #E8E8E8"
+              boxShadow="0 0 10px 1px rgba(0,0,0,.1)"
+              fontSize="14px"
+              fontFamily="noto"
+              _focus={{ borderColor: 'black', boxShadow: '0 0 0 1px black' }}
+            />
+            <FormErrorMessage fontFamily="noto">
+              {errors.code?.message}
+            </FormErrorMessage>
+          </FormControl>
+        )}
+
+        {/* 스크린샷: 코드가 유효해야 노출 */}
         {showScreenshot && (
           <FormControl isInvalid={!!errors.screenshot} mb={8}>
             <VisuallyHidden>
@@ -354,10 +382,6 @@ useEffect(() => {
                 id="screenshot-upload"
                 type="file"
                 accept="image/*"
-                _focus={{
-                borderColor: 'black', // 포커스 시 테두리 색상을 검정색으로 변경
-                boxShadow: '0 0 0 1px black', // 검정색 테두리 강조
-              }}
                 onChange={handleScreenshot}
                 {...register('screenshot', {
                   required: '스크린샷을 첨부해주세요.',
@@ -384,17 +408,9 @@ useEffect(() => {
               {screenshotURL ? '스크린샷 변경' : '입금 확인 스크린샷 첨부'}
             </Button>
 
-            <Text
-              mt={2}
-              fontFamily="noto"
-              fontSize="10px"
-              color="gray.500"
-              textAlign="left"
-            >
-              위에 기입한 이름과 동일한 입금자명으로 ₩20,000 입금 후,<br />
-              입금자명이 화면에 표시된 스크린샷을 첨부해주세요.<br/>
-              Please transfer ₩20,000 using the same name entered above,<br/>
-              and attach a screenshot that clearly shows the remitter’s name.
+            <Text mt={2} fontFamily="noto" fontSize="10px" color="gray.500">
+              위에 기입한 이름과 동일한 입금자명으로 ₩20,000 입금 후,
+              입금자명이 화면에 표시된 스크린샷을 첨부해주세요.
             </Text>
 
             {screenshotURL && (
@@ -435,9 +451,7 @@ useEffect(() => {
             isDisabled
             leftIcon={<Spinner size="sm" />}
             mb={5}
-             >
-            </Button>
-
+          />
         ) : isExisting ? (
           <Button
             w="100%"
@@ -469,7 +483,7 @@ useEffect(() => {
             fontWeight="700"
             fontSize="14px"
             isLoading={isSubmitting}
-            isDisabled={!isValid || isSubmitting}
+            isDisabled={!isValid || !showScreenshot || isSubmitting}
             _hover={{ bg: 'gray.700', transform: 'scale(1.02)' }}
             _disabled={{ display: 'none' }}
             mb={5}
@@ -478,6 +492,7 @@ useEffect(() => {
           </Button>
         )}
 
+        {/* 하단 안내 & SNS 링크 (생략 부분 그대로) */}
         {/* 하단 안내 */}
         <Text
           textAlign="center"
