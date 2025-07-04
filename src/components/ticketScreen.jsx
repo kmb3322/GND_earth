@@ -98,6 +98,7 @@ export default function TicketScreen() {
             setExistingInfo({
               ticketNo: data.ticketNo,
               isPaid  : data.isPaid,
+              code : data.code || '',
             });
           } else {
             setIsExisting(false);
@@ -202,6 +203,7 @@ export default function TicketScreen() {
         setName(payload.name);
         setTicketNo(res.data.ticketNo);
         setIsPaid(res.data.isPaid);
+        
         setStep('success');
       } else {
         toast({
@@ -510,6 +512,7 @@ export default function TicketScreen() {
               setName(watchedName);
               setTicketNo(existingInfo.ticketNo);
               setIsPaid(existingInfo.isPaid);
+              setCode(existingInfo.code || '');
               setStep('success');
             }}
           >
