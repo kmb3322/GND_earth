@@ -43,6 +43,7 @@ module.exports = async (req, res) =>
         exists   : match,
         ticketNo : match ? data.ticketNo : null,
         isPaid   : match ? !!data.isPaid : null,
+        code     : match ? data.code || null : null, 
       });
     } catch (e) {
       console.error('lookup ▶', e);

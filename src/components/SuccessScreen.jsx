@@ -7,7 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 const MotionButton = motion(Button);
 
-const SuccessScreen = ({ name, ticketNo, isPaid }) => (
+const SuccessScreen = ({ name, ticketNo, isPaid, code }) => (
   <VStack spacing={10} align="center" mt={10}>
     <VStack spacing={6} width="100%" align="center">
       <Image
@@ -26,6 +26,19 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
       <Text fontFamily="noto" fontWeight="bold" fontSize="17px" mt="-12px" textAlign="center">
         GND SEOUL vol.2에 초대되신 것을<br />환영합니다.
       </Text>
+
+      {code && (
+            <Text
+              fontFamily="mono"
+              fontSize="14px"
+              color="gray.700"
+              textAlign="center"
+              fontWeight={700}
+              mt="6px"
+            >
+              Invite Code: <b>{code}</b>
+            </Text>
+          )}
 
       {/* ───────────── 분기 ───────────── */}
       {isPaid ? (

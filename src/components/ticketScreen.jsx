@@ -225,7 +225,7 @@ export default function TicketScreen() {
 
   /* ────────────── 성공 화면 ────────────── */
   if (step === 'success')
-    return <SuccessScreen name={name} ticketNo={ticketNo} isPaid={isPaid} />;
+    return <SuccessScreen name={name} ticketNo={ticketNo} isPaid={isPaid} code={code} />;
 
   /* ────────────── 폼 화면 ────────────── */
   return (
