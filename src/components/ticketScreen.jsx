@@ -567,11 +567,7 @@ export default function TicketScreen() {
                     </Text>
                   </Flex>
                 </Link>
-                <Link href="tel:010-8288-3951" textDecoration="none">
-                          <Text color="gray.600" fontFamily="noto" fontSize="10px" textAlign="center" mt="0px">
-                            문의 010-8288-3951
-                          </Text>
-                        </Link>
+
           </VStack>
       </Box>
     </VStack>
