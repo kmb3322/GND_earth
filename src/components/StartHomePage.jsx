@@ -343,7 +343,7 @@ export default function StartHomePage() {
             fontWeight="500"
             mb={10}
           >
-            창의적인 젊은 아티스트들이 모인 환상적인 네트워크 공간.<br/> GND EARTH를 만나보세요.
+            창의적인 젊은 아티스트들이 모인 환상적인 네트워크 공간,<br/> GND EARTH에 참여하세요.
           </Text>
           </AnimatePresence>
 
