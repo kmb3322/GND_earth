@@ -343,7 +343,7 @@ export default function StartHomePage() {
             fontWeight="500"
             mb={10}
           >
-            약 200명의 아티스트와 함께 한, 음악과 전시 예술의 환상적 결합.<br/> GND vol.1을 만나보세요.
+            약 200명의 아티스트와 함께 한, 음악과 전시 예술의 환상적 결합.<br/> GND EARTH를 만나보세요.
           </Text>
           </AnimatePresence>
 

@@ -152,7 +152,7 @@ export default function TicketScreen() {
       if (data.exists) {
         setCodeVerified(true);
         toast({
-          title: '코드 확인 완료',
+          title: 'GND EARTH에 초대되셨습니다.',
           status: 'success',
           duration: 2500,
           isClosable: true,
@@ -446,6 +446,19 @@ export default function TicketScreen() {
               {screenshotURL ? '스크린샷 변경' : '입금 확인 스크린샷 첨부'}
             </Button>
 
+            <Text
+              mt={2}
+              fontFamily="noto"
+              fontSize="10px"
+              color="gray.500"
+              textAlign="left"
+            >
+              위에 기입한 이름과 동일한 입금자명으로 ₩20,000 입금 후,<br />
+              입금자명이 화면에 표시된 스크린샷을 첨부해주세요.<br/>
+              Please transfer ₩20,000 using the same name entered above,<br/>
+              and attach a screenshot that clearly shows the remitter’s name.
+            </Text>
+
             {screenshotURL && (
               <>
                 <Text
@@ -455,7 +468,7 @@ export default function TicketScreen() {
                   color="green.500"
                   fontWeight="700"
                 >
-                  첨부 완료!
+                  스크린샷 첨부 완료
                 </Text>
                 <Image
                   src={screenshotURL}
