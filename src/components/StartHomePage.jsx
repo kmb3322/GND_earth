@@ -116,11 +116,11 @@ export default function StartHomePage() {
           GND
         </Text>*/}
         <Image src="/gnd_vol2.png"
-          alt="SADGASXGND"
+          alt="GND2"
           boxSize='700px'
           objectFit="contain"
           position="absolute"
-          top="0%"          // 화면 높이 기준 Y 위치
+          top="-10%"          // 화면 높이 기준 Y 위치
           left="50%"         // 가로 중앙
           transform="translateX(-50%)" />
       

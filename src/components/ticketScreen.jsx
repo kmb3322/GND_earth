@@ -1,5 +1,6 @@
 // src/components/TicketScreen.jsx
 // =========================================
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -7,15 +8,18 @@ import {
   FormControl,
   FormErrorMessage,
   Icon,
+  IconButton,
   Image,
   Input,
+  InputGroup,
+  InputRightElement,
   Link,
   Spinner,
   Text,
   VStack,
   VisuallyHidden,
   useClipboard,
-  useToast,
+  useToast
 } from '@chakra-ui/react';
 import axios from 'axios';
 import debounce from 'lodash.debounce';
@@ -26,21 +30,22 @@ import SuccessScreen from './SuccessScreen';
 
 export default function TicketScreen() {
   /* ────────────── local state ────────────── */
-  const [step, setStep]         = useState('form'); // 'form' | 'success'
+  const [step, setStep]         = useState('form');
   const [ticketNo, setTicketNo] = useState(null);
   const [name, setName]         = useState('');
   const [isPaid, setIsPaid]     = useState(false);
-  const [dupChecked, setDupChecked] = useState(false);
 
-  /* code 입력용 */
-  const [code, setCode] = useState('');
+  const [dupChecked, setDupChecked]   = useState(false);
+  const [isExisting, setIsExisting]   = useState(false);
+  const [existingInfo, setExistingInfo] = useState(null);
+
+  const [code, setCode]               = useState('');
+  const [codeVerified, setCodeVerified] = useState(false);
+  const [checkingCode, setCheckingCode] = useState(false);
+
   const codeValid = /^[A-Z]\d{4}$/.test(code);
 
-  /* lookup 결과 */
-  const [isExisting, setIsExisting]     = useState(false);
-  const [existingInfo, setExistingInfo] = useState(null); // { ticketNo, isPaid }
-
-  /* ────────────── RHF 세팅 ────────────── */
+  /* ────────────── RHF ────────────── */
   const toast = useToast();
   const {
     register,
@@ -52,7 +57,7 @@ export default function TicketScreen() {
     unregister,
   } = useForm({ mode: 'onChange' });
 
-  /* ────────────── 파일 미리보기 ────────────── */
+  /* ────────────── 미리보기 ────────────── */
   const watchedScreenshot = watch('screenshot');
   const screenshotURL     = useMemo(
     () =>
@@ -62,7 +67,19 @@ export default function TicketScreen() {
     [watchedScreenshot],
   );
 
-  /* ────────────── 중복 확인 (디바운스) ────────────── */
+  /* ────────────── 이름·전화 체크 ────────────── */
+  const watchedName  = watch('name');
+  const watchedPhone = watch('phone');
+
+  const nameFilled = !!watchedName?.trim();
+  const phoneValid = /^\d{3}-\d{3,4}-\d{4}$/.test(watchedPhone || '');
+
+  const showCodeInput  = dupChecked && !isExisting && nameFilled && phoneValid;
+  const showScreenshot = codeVerified; // ✔︎ 코드 OK 시에만
+  const accountNumber = '94290201906113';
+  const { onCopy, hasCopied } = useClipboard(accountNumber);
+
+  /* ────────────── 전화번호 중복 확인 ────────────── */
   const checkDuplicate = useMemo(
     () =>
       debounce(async (n, p) => {
@@ -73,10 +90,9 @@ export default function TicketScreen() {
           setDupChecked(false);
           return;
         }
-
         try {
           const { data } = await axios.get(
-            'https://gnd-back.vercel.app/api/lookup',
+            '/api/lookup',
             { params: { name: n, phone: p } },
           );
           if (data.exists) {
@@ -99,20 +115,6 @@ export default function TicketScreen() {
     [],
   );
 
-  const watchedName  = watch('name');
-  const watchedPhone = watch('phone');
-
-  /* 이름/폰 입력 여부 & 전화번호 패턴 검증 */
-  const nameFilled   = !!watchedName?.trim();
-  const phoneValid   = /^\d{3}-\d{3,4}-\d{4}$/.test(watchedPhone || '');
-
-  const showCodeInput  =
-    dupChecked && !isExisting && nameFilled && phoneValid;
-  const showScreenshot = showCodeInput && codeValid;
-
-  const accountNumber = '94290201906113';
-  const { onCopy, hasCopied } = useClipboard(accountNumber);
-
   /* ────────────── useEffect: 중복 확인 ────────────── */
   useEffect(() => {
     if (!nameFilled || !phoneValid) {
@@ -121,43 +123,64 @@ export default function TicketScreen() {
       setExistingInfo(null);
       return;
     }
-
     setDupChecked(false);
     checkDuplicate(watchedName, watchedPhone);
   }, [watchedName, watchedPhone, nameFilled, phoneValid, checkDuplicate]);
 
-  /* 중복 발견 시 스크린샷 & 코드 초기화 */
+  /* 중복 발견 시 값 초기화 */
   useEffect(() => {
     if (isExisting) {
-      setValue('screenshot', undefined, { shouldValidate: false });
-      clearErrors('screenshot');
-      unregister('screenshot');
-
-      setCode('');
-      unregister('code');
-      clearErrors('code');
-    }
-  }, [isExisting, setValue, clearErrors, unregister]);
-
-  /* showScreenshot false → 스크린샷 필드 제거 */
-  useEffect(() => {
-    if (!showScreenshot) {
+      setValue('screenshot', undefined);
       unregister('screenshot');
       clearErrors('screenshot');
-    }
-  }, [showScreenshot, unregister, clearErrors]);
-
-  /* showCodeInput false → code 필드 제거 */
-  useEffect(() => {
-    if (!showCodeInput) {
-      unregister('code');
-      clearErrors('code');
       setCode('');
+      setCodeVerified(false);
     }
-  }, [showCodeInput, unregister, clearErrors]);
+  }, [isExisting, setValue, unregister, clearErrors]);
 
-  /* ────────────── 핸들러 ────────────── */
-  // 전화번호 하이픈 포매터
+  /* 코드 입력 바뀌면 검증 상태 reset */
+  useEffect(() => {
+    setCodeVerified(false);
+  }, [code]);
+
+  /* ────────────── API: 코드 확인 ────────────── */
+  const verifyCode = async () => {
+    if (!codeValid || codeVerified) return;
+    try {
+      setCheckingCode(true);
+      const { data } = await axios.get('/api/checkCode', {
+        params: { code: code.toUpperCase() },
+      });
+      if (data.exists) {
+        setCodeVerified(true);
+        toast({
+          title: '코드 확인 완료',
+          status: 'success',
+          duration: 2500,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: '유효하지 않은 코드입니다',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (err) {
+      toast({
+        title: '서버 오류',
+        description: err.response?.data?.message || err.message,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setCheckingCode(false);
+    }
+  };
+
+  /* ────────────── 전화번호 하이픈 ────────────── */
   const handlePhone = (e) => {
     let v = e.target.value.replace(/\D/g, '').slice(0, 11);
     if (v.length > 3 && v.length <= 6) v = `${v.slice(0, 3)}-${v.slice(3)}`;
@@ -166,25 +189,21 @@ export default function TicketScreen() {
     setValue('phone', v, { shouldValidate: true });
   };
 
-  // 스크린샷 업로드
+  /* 스크린샷 핸들러 */
   const handleScreenshot = (e) =>
     setValue('screenshot', e.target.files, { shouldValidate: true });
 
-  /* 신규 등록 submit */
+  /* ────────────── submit ────────────── */
   const onSubmit = async (data) => {
-    if (isExisting) return; // 이미 등록된 경우 금지
+    if (isExisting) return;
 
-    const { screenshot, ...payload } = data; // 파일은 전송 안 함
+    const { screenshot, ...payload } = data;
     try {
-      const res = await axios.post(
-        'https://gnd-back.vercel.app/api/register',
-        payload,
-      );
-
+      const res = await axios.post('/api/register', payload);
       if (res.data.success) {
         setName(payload.name);
         setTicketNo(res.data.ticketNo);
-        setIsPaid(!!res.data.isPaid);
+        setIsPaid(res.data.isPaid);
         setStep('success');
       } else {
         toast({
@@ -293,8 +312,7 @@ export default function TicketScreen() {
           으로 입금 바랍니다.
         </Text>
       </Flex>
-
-      {/* 입력 폼 */}
+      
       <Box
         as="form"
         onSubmit={handleSubmit(onSubmit)}
@@ -303,13 +321,13 @@ export default function TicketScreen() {
         mt={6}
         px={4}
       >
-        {/* 이름 */}
+        {/* ───────── 이름 ───────── */}
         <FormControl isInvalid={!!errors.name} mb={5}>
           <Input
             placeholder="Name"
             {...register('name', {
               required : '이름을 입력해주세요.',
-              maxLength: { value: 50, message: '최대 50자까지 가능' },
+              maxLength: { value: 50, message: '최대 50자' },
             })}
             bg="white"
             borderRadius="20px"
@@ -319,12 +337,10 @@ export default function TicketScreen() {
             fontFamily="noto"
             _focus={{ borderColor: 'black', boxShadow: '0 0 0 1px black' }}
           />
-          <FormErrorMessage fontFamily="noto">
-            {errors.name?.message}
-          </FormErrorMessage>
+          <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
         </FormControl>
 
-        {/* 전화번호 */}
+        {/* ───────── 전화번호 ───────── */}
         <FormControl isInvalid={!!errors.phone} mb={5}>
           <Input
             placeholder="Phone Number"
@@ -342,39 +358,58 @@ export default function TicketScreen() {
             fontFamily="noto"
             _focus={{ borderColor: 'black', boxShadow: '0 0 0 1px black' }}
           />
-          <FormErrorMessage fontFamily="noto">
-            {errors.phone?.message}
-          </FormErrorMessage>
+          <FormErrorMessage>{errors.phone?.message}</FormErrorMessage>
         </FormControl>
 
-        {/* 코드 입력: 신규 + 이름/폰 완료 */}
+        {/* ───────── 코드 입력 + 화살표 ───────── */}
         {showCodeInput && (
           <FormControl isInvalid={!!errors.code} mb={5}>
-            <Input
-              placeholder="Invite Code (e.g., A1234)"
-              {...register('code', {
-                required: '코드를 입력하세요.',
-                pattern : { value: /^[A-Z]\d{4}$/, message: '형식이 올바르지 않습니다.' },
-                onChange: (e) =>
-                  setCode(e.target.value.toUpperCase()),
-              })}
-              value={code}
-              maxLength={5}
-              bg="white"
-              borderRadius="20px"
-              border="1px solid #E8E8E8"
-              boxShadow="0 0 10px 1px rgba(0,0,0,.1)"
-              fontSize="14px"
-              fontFamily="noto"
-              _focus={{ borderColor: 'black', boxShadow: '0 0 0 1px black' }}
-            />
-            <FormErrorMessage fontFamily="noto">
-              {errors.code?.message}
-            </FormErrorMessage>
+            <InputGroup>
+              <Input
+                placeholder="Invite Code (e.g., A1234)"
+                {...register('code', {
+                  required: '코드를 입력하세요.',
+                  pattern : { value: /^[A-Z]\d{4}$/, message: '형식 오류' },
+                  onChange: (e) => setCode(e.target.value.toUpperCase()),
+                })}
+                value={code}
+                maxLength={5}
+                bg="white"
+                borderRadius="20px"
+                border="1px solid #E8E8E8"
+                boxShadow="0 0 10px 1px rgba(0,0,0,.1)"
+                fontSize="14px"
+                fontFamily="noto"
+                _focus={{ borderColor: 'black', boxShadow: '0 0 0 1px black' }}
+                pr="52px"
+              />
+              <InputRightElement w="50px" pr="6px">
+                <IconButton
+                  aria-label="Confirm code"
+                  icon={
+                    checkingCode ? (
+                      <Spinner size="sm" />
+                    ) : (
+                      <ArrowForwardIcon boxSize="24px" />
+                    )
+                  }
+                  bg="black"
+                  color="white"
+                  size="md"
+                  borderRadius="full"
+                  boxShadow="0px 0px 10px 3px rgba(0, 0, 0, 0.25)"
+                  _hover={{ bg: 'gray.700', transform: 'scale(1.05)' }}
+                  _active={{ bg: 'gray.800' }}
+                  isDisabled={!codeValid || checkingCode || codeVerified}
+                  onClick={verifyCode}
+                />
+              </InputRightElement>
+            </InputGroup>
+            <FormErrorMessage>{errors.code?.message}</FormErrorMessage>
           </FormControl>
         )}
 
-        {/* 스크린샷: 코드가 유효해야 노출 */}
+        {/* ───────── 스크린샷 ───────── */}
         {showScreenshot && (
           <FormControl isInvalid={!!errors.screenshot} mb={8}>
             <VisuallyHidden>
@@ -388,7 +423,6 @@ export default function TicketScreen() {
                 })}
               />
             </VisuallyHidden>
-
             <Button
               as="label"
               htmlFor="screenshot-upload"
@@ -408,11 +442,6 @@ export default function TicketScreen() {
               {screenshotURL ? '스크린샷 변경' : '입금 확인 스크린샷 첨부'}
             </Button>
 
-            <Text mt={2} fontFamily="noto" fontSize="10px" color="gray.500">
-              위에 기입한 이름과 동일한 입금자명으로 ₩20,000 입금 후,
-              입금자명이 화면에 표시된 스크린샷을 첨부해주세요.
-            </Text>
-
             {screenshotURL && (
               <>
                 <Text
@@ -422,7 +451,7 @@ export default function TicketScreen() {
                   color="green.500"
                   fontWeight="700"
                 >
-                  입금 확인 스크린샷 첨부 완료.
+                  첨부 완료!
                 </Text>
                 <Image
                   src={screenshotURL}
@@ -434,14 +463,11 @@ export default function TicketScreen() {
                 />
               </>
             )}
-
-            <FormErrorMessage fontFamily="noto">
-              {errors.screenshot?.message}
-            </FormErrorMessage>
+            <FormErrorMessage>{errors.screenshot?.message}</FormErrorMessage>
           </FormControl>
         )}
 
-        {/* 버튼 영역 */}
+        {/* ───────── 버튼 ───────── */}
         {nameFilled && phoneValid && !dupChecked ? (
           <Button
             w="100%"
@@ -492,7 +518,6 @@ export default function TicketScreen() {
           </Button>
         )}
 
-        {/* 하단 안내 & SNS 링크 (생략 부분 그대로) */}
         {/* 하단 안내 */}
         <Text
           textAlign="center"
