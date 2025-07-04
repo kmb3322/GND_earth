@@ -56,7 +56,7 @@ export default function StartHomePage() {
     {
       name: '김민범',
       role: 'Marketing Director (Video & Web)',
-      desc: ['KAIST 전산학부 23학번', 'KAIST HCI 연구실 KIXLAB', "대전 대학가요제 '태울뮤직페스티벌 (2024.05.22)' 총기획·감독", 'KAIST 홍보·신입생 환영 영상 다수 제작', '전국 단위 단편영화제 및 공모전 다수 수상'],
+      desc: ['KAIST 전산학부 23학번', 'KAIST Interaction Lab KIXLAB', "대학가요제 '태울뮤직페스티벌 (2024.05.22)' 총기획·감독", '전국 단위 단편영화제 및 공모전 다수 수상', 'MinbeomKim.com'],
     },
   ];
 
