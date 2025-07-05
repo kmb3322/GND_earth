@@ -19,14 +19,6 @@ const SuccessScreen = ({ name, ticketNo, isPaid, code }) => (
         mb={{ base: '-20px', md: '-60px' }}
       />
 
-      <Text fontFamily="noto" fontWeight="bold" fontSize="17px" textAlign="center">
-        {name && `${name}님,`}
-      </Text>
-
-      <Text fontFamily="noto" fontWeight="bold" fontSize="17px" mt="-12px" textAlign="center">
-        GND SEOUL vol.2에 초대되신 것을<br />환영합니다.
-      </Text>
-
       {code && (
             <Text
               fontFamily="mono"
@@ -39,6 +31,16 @@ const SuccessScreen = ({ name, ticketNo, isPaid, code }) => (
               Invite Code: <b>{code}</b>
             </Text>
           )}
+
+      <Text fontFamily="noto" fontWeight="bold" fontSize="17px" textAlign="center">
+        {name && `${name}님,`}
+      </Text>
+
+      <Text fontFamily="noto" fontWeight="bold" fontSize="17px" mt="-12px" textAlign="center">
+        GND SEOUL vol.2에 초대되신 것을<br />환영합니다.
+      </Text>
+
+      
 
       {/* ───────────── 분기 ───────────── */}
       {isPaid ? (
