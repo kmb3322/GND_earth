@@ -120,7 +120,7 @@ export default function StartHomePage() {
           boxSize='700px'
           objectFit="contain"
           position="absolute"
-          top="-10%"          // 화면 높이 기준 Y 위치
+          top="-12%"          // 화면 높이 기준 Y 위치
           left="50%"         // 가로 중앙
           transform="translateX(-50%)" />
       
