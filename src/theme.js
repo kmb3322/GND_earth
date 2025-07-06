@@ -38,7 +38,7 @@ const theme = extendTheme({
       body: {
         margin: 0,
         padding: 0,
-        backgroundColor: '#f2f2f2',
+        backgroundColor: '#f0f0f0',
         fontFamily: "'Galmuri11', 'NotoSans', sans-serif",
       },
     },

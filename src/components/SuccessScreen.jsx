@@ -1,7 +1,7 @@
 // =========================
 //  SuccessScreen.jsx
 // =========================
-import { Button, Image, Text, VStack } from '@chakra-ui/react';
+import { AspectRatio, Box, Button, Text, VStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -10,14 +10,36 @@ const MotionButton = motion(Button);
 const SuccessScreen = ({ name, ticketNo, isPaid, code }) => (
   <VStack spacing={10} align="center" mt={10}>
     <VStack spacing={6} width="100%" align="center">
-      <Image
-        src="/gnd_vol2.png"
-        alt="GND2"
-        boxSize={{ base: '280px', md: '450px' }}
-        objectFit="contain"
+       <AspectRatio
+        ratio={1}
+        w={{ base: '280px', md: '450px' }}
         mt={-55}
         mb={{ base: '-20px', md: '-60px' }}
-      />
+        bg="#f0f0f0"        // 페이지 배경
+        borderRadius="md"
+        overflow="hidden"
+      >
+        {/* 자식은 단 하나! */}
+        <Box
+          as="video"
+          src="/gnd_ani.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          objectFit="cover"          // 꽉 채우되 비율 유지, 잘림 OK
+          w="100%"
+          h="100%"
+          /* 📌 핵심: 마스크로 중앙은 보이고, 밖으로 갈수록 투명 */
+          sx={{
+            maskImage:
+              'radial-gradient(circle at center, black 75%, transparent 100%)',
+            WebkitMaskImage:
+              'radial-gradient(circle at center, black 75%, transparent 100%)',
+          }}
+        />
+      </AspectRatio>
+
 
       {code && (
             <Text
@@ -66,7 +88,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid, code }) => (
       as={RouterLink}
       to="/"                         // 라우터 홈 경로
       fontFamily="noto"
-      bg="#f2f2f2"
+      bg="#f0f0f0"
       color="#303030"
       border="2px solid #606060"
       borderRadius="full"

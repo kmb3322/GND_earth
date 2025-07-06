@@ -79,7 +79,7 @@ export default function StartHomePage() {
 
 
   return (
-    <Box bg="#F2F2F2"
+    <Box bg="#f0f0f0"
     minH="100vh"
     position="relative"
     overflowX="hidden"
@@ -121,7 +121,7 @@ export default function StartHomePage() {
           objectFit="contain"
           position="absolute"
           top="-12%"          // 화면 높이 기준 Y 위치
-          left="52%"         // 가로 중앙
+          left="51%"         // 가로 중앙
           transform="translateX(-50%)" />
       
 
