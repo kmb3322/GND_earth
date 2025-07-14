@@ -46,18 +46,39 @@ export default function StartHomePage() {
     {
       name: '정수빈',
       role: 'Leader & Head Director',
-      desc: ['KAIST 산업디자인학과 23학번', 'KFAC(KAIST 금융 학회)', 'KAIST 입학처 주관 창글리 캠프 기획·운영 (2023.07.31, 2024.01.22, 2024.01.29, 2024.07.29, 2025.01.20)'],
+      desc: ['KAIST 산업디자인학과 23학번', 'KFAC(KAIST 금융 학회)', 'KAIST 입학처 주관 창글리 캠프 기획·운영 (2023 ~ 2025)'],
     },
     {
       name: '채도빈',
       role: 'Artist & Music Director',
-      desc: ["2022.7.16 EP 'BREAK THE MINOR' 데뷔","공연 'THE TOUR BUS' 기획 총괄", "밀라노 Fashion Week MilanloveSeoul 초청 아티스트 (2025.02.28)", "Instagram @chaedobin", "Soundcloud CHAEDOBIN"],
+      desc: ["2022 EP 'BREAK THE MINOR' 데뷔","공연 'THE TOUR BUS' 기획 총괄", "밀라노 Fashion Week MilanloveSeoul 초청 아티스트 (2025)", "Instagram @chaedobin", "Soundcloud CHAEDOBIN"],
     },
     {
       name: '김민범',
       role: 'Marketing Director (Video & Web)',
-      desc: ['KAIST 전산학부 23학번', 'KAIST Interaction Lab KIXLAB', "대학가요제 '태울뮤직페스티벌 (2024.05.22)' 총기획·감독", '전국 단위 단편영화제 및 공모전 다수 수상', 'MinbeomKim.com'],
+      desc: ['KAIST 전산학부 23학번', 'KAIST Interaction Lab KIXLAB 소속', "대학 축제 '태울뮤직페스티벌' 총기획·감독 (2024)", '전국 단위 단편영화제 및 공모전 다수 수상', 'MinbeomKim.com'],
     },
+    {
+      name: '이지우',
+      role: 'Designer & Art Director',
+      desc: ['홍익대학교 시각디자인과 24학번', '서울대x홍익대x이화여대x국민대 디자인 연합전시 <Heterotopia2025> 기획 및 아트 디렉팅', "포스터, 타이포그라피, 연극, 의류도안 등 시각 디자인 외주 작업", 'Instagram @ez.achv'],
+    },
+    {
+      name: '이동현',
+      role: 'Marketer',
+      desc: ['동아방송예술대학교 광고제작과 중퇴', '국민대학교 국어국문학과 23학번', "대학생 연합 독서 영어토론 동아리 북어 BOOKER 설립 및 운영자 (2023 ~)", '인스타그램 sulturemedia 에디터 (2024)', '경기도주식회사 디딤브릿지 광고 수상작 연출 및 편집 (2023)'],
+    },
+    {
+      name: '류성윤',
+      role: 'Video Team',
+      desc: ['KAIST 산업디자인과 23학번', 'KAIST 영화제작동아리 은막 대외협력부장', "한국대학생영화인연합회 KUFCA 9대 연합부회장", 'CLIMAX KUFCA 필름스쿨 조교', '단편영화 다수 제작'],
+    },
+    {
+      name: '곽효원',
+      role: 'Video Team',
+      desc: ['KAIST 전산학부 24학번', 'KAIST 학위수여식 및 대학원 홍보 영상 다수 제작', "2025 KAIST 신입생환영방송제 총기획", "중소기업 '투비유니콘' R&D 프로젝트 및 마케팅 인턴'", '단편영화 다수 제작'],
+    },
+
   ];
 
   /* ────────────── 애니메이션 Variant ────────────── */
@@ -207,8 +228,8 @@ export default function StartHomePage() {
       <Box
         pt={20}
         pb={10}
-        bg="#F2F2F2"
-        bgGradient="linear(to-b,#F2F2F2 0%,rgba(245,245,245,0) 100%)"
+        bg="#F0F0F0"
+        bgGradient="linear(to-b,#F0F0F0 0%,rgba(245,245,245,0) 100%)"
       >
         <VStack spacing={2} maxW="900px" mx="auto" px={20}>
           <AspectRatio width={{ base: '100vw', md: '80vw' }} ratio={16 / 9}>
@@ -228,7 +249,7 @@ export default function StartHomePage() {
         ref={infoRef}
         pt={20}
         pb={40}
-        bgGradient="linear(to-b,rgba(242,242,242,0) 0%,#F2F2F2 100%)"
+        bgGradient="linear(to-b,rgba(242,242,242,0) 0%,#F0F0F0 100%)"
       >
         <VStack spacing={6} maxW="900px" mx="auto" px={4}>
           <Text
@@ -317,7 +338,7 @@ export default function StartHomePage() {
               target="_blank"                 // 새 탭
               rel="noopener noreferrer"
               fontFamily="noto"
-              bg="#f2f2f2"
+              bg="#F0F0F0"
               color="303030"
               border="2px solid #606060"
               borderRadius="full"
