@@ -60,7 +60,7 @@ export default function StartHomePage() {
     },
     {
       name: '이지우',
-      role: 'Designer & Art Director',
+      role: 'Head Designer & Art Director',
       desc: ['홍익대학교 시각디자인과 24학번', '서울대x홍익대x이화여대x국민대 디자인 연합전시 <Heterotopia2025> 기획 및 아트 디렉팅', "포스터, 타이포그라피, 연극, 의류도안 등 시각 디자인 외주 작업", 'Instagram @ez.achv'],
     },
     {
