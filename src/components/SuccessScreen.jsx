@@ -69,7 +69,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid, code }) => (
         ticketNo && (
           <Text fontFamily="noto" fontSize="15px" mt="4px" textAlign="center">
             GND SEOUL vol.2 입장 번호는<br />
-            <b>{ticketNo}</b>번입니다.<br /><br />
+            <b>{parseInt(ticketNo) * 3 + 40}</b>번입니다.<br /><br />
             입장 번호가 띄워진 본 화면을<br />당일 STAFF에게 보여주시면 됩니다.
           </Text>
         )

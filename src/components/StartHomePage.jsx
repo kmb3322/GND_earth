@@ -59,6 +59,11 @@ export default function StartHomePage() {
       desc: ['KAIST 전산학부 23학번', 'KAIST Interaction Lab KIXLAB 소속', "대학 축제 '태울뮤직페스티벌' 총기획·감독 (2024)", '전국 단위 단편영화제 및 공모전 다수 수상', 'MinbeomKim.com'],
     },
     {
+      name: '김도현',
+      role: 'Party Director',
+      desc: ['공연기획사 행복컴퍼니 대표', 'LOEWE PARIS 컨설턴트', "2024 PARIS OLYMPIC DJ", '2024/25 Milan Fashion Week 연출', 'PARIS KPOP Event Agency', 'Instagram @cracksounds'],
+    },
+    {
       name: '이지우',
       role: 'Head Designer & Art Director',
       desc: ['홍익대학교 시각디자인과 24학번', '서울대x홍익대x이화여대x국민대 디자인 연합전시 <Heterotopia2025> 기획 및 아트 디렉팅', "포스터, 타이포그라피, 연극, 의류도안 등 시각 디자인 외주 작업", 'Instagram @ez.achv'],
