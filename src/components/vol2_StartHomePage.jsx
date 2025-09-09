@@ -1,9 +1,8 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
-  AspectRatio, Box, Button, Flex,
-  Icon,
+  AspectRatio, Box, Button, Flex, Grid, Icon,
   Image,
-  Link, Text, VStack, useBreakpointValue
+  Link, Text, VStack, useBreakpointValue,
 } from '@chakra-ui/react';
 import {
   AnimatePresence,
@@ -13,6 +12,7 @@ import {
 } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { FaInstagram, FaYoutube } from 'react-icons/fa';
+import { Link as RouterLink } from 'react-router-dom';
 
 const MotionText   = motion(Text);
 const MotionBox    = motion(Box);
@@ -42,6 +42,50 @@ export default function StartHomePage() {
     'GND는 나아가 아티스트들이 서로의 작품 세계를 공유하고 자유롭게 논의할 수 있는 네트워킹 장을 구축하여, 기존에 없던 협업과 창작의 기회를 창출하는 것을 목표로 하고 있습니다.',
   ];
 
+  const people = [
+    {
+      name: '정수빈',
+      role: 'Leader & Head Director',
+      desc: ['KAIST 산업디자인학과 23학번', 'KFAC(KAIST 금융 학회)', 'KAIST 입학처 주관 창글리 캠프 기획·운영 (2023 ~ 2025)'],
+    },
+    {
+      name: '채도빈',
+      role: 'Artist & Music Director',
+      desc: ["2022 EP 'BREAK THE MINOR' 데뷔","공연 'THE TOUR BUS' 기획 총괄", "밀라노 Fashion Week MilanloveSeoul 초청 아티스트 (2025)", "Instagram @chaedobin", "Soundcloud CHAEDOBIN"],
+    },
+    {
+      name: '김민범',
+      role: 'Marketing Director (Video & Web)',
+      desc: ['KAIST 전산학부 23학번', 'KAIST Interaction Lab KIXLAB 소속', "대학 축제 '태울뮤직페스티벌' 총기획·감독 (2024)", '전국 단위 단편영화제 및 공모전 다수 수상', 'MinbeomKim.com'],
+    },
+    {
+      name: '김도현',
+      role: 'Party Director',
+      desc: ['공연기획사 행복컴퍼니 대표', 'LOEWE PARIS 컨설턴트', "2024 PARIS OLYMPIC DJ", '2024/25 Milan Fashion Week 연출', 'PARIS KPOP Event Agency', 'Instagram @cracksounds'],
+    },
+    {
+      name: '이지우',
+      role: 'Head Designer & Art Director',
+      desc: ['홍익대학교 시각디자인과 24학번', '서울대x홍익대x이화여대x국민대 디자인 연합전시 <Heterotopia2025> 기획 및 아트 디렉팅', "포스터, 타이포그라피, 연극, 의류도안 등 시각 디자인 외주 작업", 'Instagram @ez.achv'],
+    },
+    {
+      name: '이동현',
+      role: 'Marketer',
+      desc: ['동아방송예술대학교 광고제작과 중퇴', '국민대학교 국어국문학과 23학번', "대학생 연합 독서 영어토론 동아리 북어 BOOKER 설립 및 운영자 (2023 ~)", '인스타그램 sulturemedia 에디터 (2024)', '경기도주식회사 디딤브릿지 광고 수상작 연출 및 편집 (2023)'],
+    },
+    {
+      name: '류성윤',
+      role: 'Video Team',
+      desc: ['KAIST 산업디자인과 23학번', 'KAIST 영화제작동아리 은막 대외협력부장', "한국대학생영화인연합회 KUFCA 9대 연합부회장", 'CLIMAX KUFCA 필름스쿨 조교', '단편영화 다수 제작'],
+    },
+    {
+      name: '곽효원',
+      role: 'Video Team',
+      desc: ['KAIST 전산학부 24학번', 'KAIST 학위수여식 및 대학원 홍보 영상 다수 제작', "2025 KAIST 신입생환영방송제 총기획", "중소기업 '투비유니콘' R&D 프로젝트 및 마케팅 인턴'", '단편영화 다수 제작'],
+    },
+
+  ];
+
   /* ────────────── 애니메이션 Variant ────────────── */
   const fadeVariant = {
     hidden:  { opacity: 0, y: 20 },
@@ -55,8 +99,8 @@ export default function StartHomePage() {
   // Breakpoint 값 설정
   const nameBottom = useBreakpointValue({ base: '40%', lg: '40%' });
   const joinBottom = useBreakpointValue({ base: '30%', lg: '30%' });
-  const dateBottom = useBreakpointValue({ base: '25%', lg: '22%' });
-  const scrollBottom = useBreakpointValue({ base: '7%', lg: '3%' });
+  const dateBottom = useBreakpointValue({ base: '20%', lg: '17%' });
+  const scrollBottom = useBreakpointValue({ base: '10%', lg: '5%' });
 
 
 
@@ -97,41 +141,74 @@ export default function StartHomePage() {
         <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" ml="220px" mb="60px">
           GND
         </Text>*/}
-        <Image
-        mb={10}
-        src="/roommate.png"
-        alt="roommate"
-        width="500px"
-      />
-
-          {/* 유튜브 영상은 모바일에서는 80vw, 데스크탑(md 이상)에서는 40vw 크기로 표시 */}
-                <AspectRatio
-                  width={{ base: "100vw", md: "40vw" }}
-                  ratio={16 / 9}
-                  mb={10}
-                >
-                  <iframe
-                    src="https://www.youtube.com/embed/HH3FtfPvcW0?autoplay=1&mute=1&controls=1"
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </AspectRatio>
+        <Image src="/gnd_vol2.png"
+          alt="GND2"
+          boxSize='700px'
+          objectFit="contain"
+          position="absolute"
+          top="-12%"          // 화면 높이 기준 Y 위치
+          left="51%"         // 가로 중앙
+          transform="translateX(-50%)" />
       
+
+      <Text
+          position="absolute"
+          left="50%"
+          transform="translateX(-50%)"
+          color="gray.700"
+          fontFamily="mono"
+          fontWeight={700}
+          fontSize="18px"
+          bottom={nameBottom} // 반응형으로 위치 조정
+        >          
+        GND SEOUL vol.2
+        </Text>
   
         {/* 날짜 */}
         <Text
-          mt="10px"
+          position="absolute"
+          left="50%"
+          transform="translateX(-50%)"
           color="gray.700"
           fontFamily="mono"
           fontWeight={500}
           fontSize="14px"
+          bottom={dateBottom} // 반응형으로 위치 조정
         >          
-        2025 09 20
+        서울 마포구 독막로7길 20<br />2025 07 18
         </Text>
 
 
-
+        {/* 참가하기 버튼 : AnimatePresence 로 부드럽게 fade-in */}
+        <AnimatePresence>
+          {showTicket && (
+            <MotionButton
+            position="absolute"
+              key="ticket-btn"
+              as={RouterLink}
+              to="/ticket"
+              fontFamily="mono"
+              fontWeight="700"
+              bg="black"
+              color="white"
+              fontSize="14px"
+              borderRadius="full"
+              px={8}
+              py={5}
+              boxShadow="0 4px 12px rgba(0,0,0,0.25)"
+              _hover={{ bg: 'gray.700', transform: 'scale(1.03)' }}
+              _active={{ bg: 'gray.800' }}
+              
+              bottom={joinBottom} // 반응형으로 위치 조정
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              JOIN
+            </MotionButton>
+          )}
+        </AnimatePresence>
 
         {/* 아래로 스크롤 버튼 */}
         <MotionButton
@@ -208,7 +285,54 @@ export default function StartHomePage() {
             </MotionText>
           ))}
 
-        
+          {/* ───── People ───── */}
+          <MotionBox
+            w="full"
+            pt={10}
+            variants={fadeVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-80px' }}
+          >
+            <Grid
+              templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
+              gap={6}
+              w="full"
+            >
+              {people.map((p, i) => (
+                <MotionBox
+                  key={p.name}
+                  p={5}
+                  borderRadius="lg"
+                  bg="rgba(255,255,255,0.25)"
+                  border="1px solid rgba(255,255,255,0.4)"
+                  backdropFilter="blur(6px)"
+                  shadow="lg"
+                  whileHover={{ rotateX: 5, rotateY: -5, scale: 1.03 }}
+                  transition={{ type: 'spring', stiffness: 100 }}
+                  variants={fadeVariant}
+                  initial="hidden"
+                  whileInView="visible"
+                  custom={i}
+                  viewport={{ once: true, margin: '-80px' }}
+                >
+                  <Text fontWeight="700" mb={0} fontFamily={"noto"}>
+                    {p.name}
+                  </Text>
+                  <Text fontSize="sm" color="gray.600" mb={2} fontFamily={"noto"}>
+                    {p.role}
+                  </Text>
+                  <VStack align="flex-start" spacing={1}>
+                    {p.desc.map((d, idx) => (
+                      <Text key={idx} fontSize="xs" color="gray.600" fontFamily={"noto"}>
+                        •&nbsp;{d}
+                      </Text>
+                    ))}
+                  </VStack>
+                </MotionBox>
+              ))}
+            </Grid>
+          </MotionBox>
 
           {/* ───── GND 더 알아보기 버튼 ───── */}
           <AnimatePresence> 
