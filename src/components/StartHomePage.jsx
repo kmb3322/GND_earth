@@ -13,6 +13,7 @@ import {
 } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { FaInstagram, FaYoutube } from 'react-icons/fa';
+import { Link as RouterLink } from 'react-router-dom';
 
 const MotionText   = motion(Text);
 const MotionBox    = motion(Box);
@@ -97,12 +98,17 @@ export default function StartHomePage() {
         <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" ml="220px" mb="60px">
           GND
         </Text>*/}
-        <Image
-        mb={10}
-        src="/roommate.png"
-        alt="roommate"
-        width="500px"
-      />
+        <RouterLink to="/artists">
+          <Image
+            mb={10}
+            src="/roommate.png"
+            alt="roommate"
+            width="500px"
+            cursor="pointer"
+            transition="all 0.3s"
+            _hover={{ opacity: 0.8, transform: 'scale(0.98)' }}
+          />
+        </RouterLink>
 
           {/* 유튜브 영상은 모바일에서는 80vw, 데스크탑(md 이상)에서는 40vw 크기로 표시 */}
                 <AspectRatio
@@ -126,6 +132,7 @@ export default function StartHomePage() {
           fontFamily="mono"
           fontWeight={500}
           fontSize="14px"
+          mb={40}
         >          
         2025 09 20
         </Text>

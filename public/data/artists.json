@@ -1,0 +1,35 @@
+[
+  {
+    "id": "chaedobin",
+    "name_kr": "채도빈",
+    "name_en": "chaedobin",
+    "organization": "GND EARTH",
+    "title": "Artist / Producer",
+    "tier": "core",
+    "bio": "음악, 예술, 네트워킹이 교차하는 새로운 문화를 만들고 있습니다.",
+    "profile_image": "/data/profile/chaedobin.jpg",
+    "show_instagram_feed": false,
+    "social": {
+      "instagram": "https://instagram.com/chaedobin",
+      "soundcloud": "https://soundcloud.com/chaedobin",
+      "youtube": "https://www.youtube.com/@chaedobin"
+    }
+  },
+  {
+    "id": "yoonb",
+    "name_kr": "윤비",
+    "name_en": "YUNB",
+    "organization": "GND EARTH",
+    "title": "Rapper / Performer",
+    "tier": "guest",
+    "bio": "힙합과 감각적인 퍼포먼스를 중심으로 청춘의 에너지를 표현합니다.",
+    "profile_image": "/data/profile/yunb.png",
+    "show_instagram_feed": false,
+    "social": {
+      "instagram": "https://instagram.com/yoonbofficial",
+      "soundcloud": "https://soundcloud.com/yoonb",
+      "youtube": "https://www.youtube.com/@yoonb"
+    }
+  }
+]
+
