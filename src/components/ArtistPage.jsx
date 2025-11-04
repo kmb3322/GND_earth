@@ -1,13 +1,13 @@
 import {
-    Box,
-    Link as ChakraLink,
-    Divider,
-    Flex,
-    HStack,
-    Image,
-    SimpleGrid,
-    Text,
-    VStack
+  Box,
+  Link as ChakraLink,
+  Divider,
+  Flex,
+  HStack,
+  Image,
+  SimpleGrid,
+  Text,
+  VStack
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import React, { useEffect, useMemo, useState } from 'react';
