@@ -134,7 +134,7 @@ export default function StartHomePage() {
           fontSize="14px"
           mb={40}
         >          
-        2025 09 20
+        2025 11 08
         </Text>
 
 
