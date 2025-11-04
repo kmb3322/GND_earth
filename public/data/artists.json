@@ -16,7 +16,7 @@
     }
   },
   {
-    "id": "yoonb",
+    "id": "yunb",
     "name_kr": "윤비",
     "name_en": "YUNB",
     "organization": "GND EARTH",
@@ -26,9 +26,9 @@
     "profile_image": "/data/profile/yunb.png",
     "show_instagram_feed": false,
     "social": {
-      "instagram": "https://instagram.com/yoonbofficial",
-      "soundcloud": "https://soundcloud.com/yoonb",
-      "youtube": "https://www.youtube.com/@yoonb"
+      "instagram": "https://instagram.com/yunbofficial",
+      "soundcloud": "https://soundcloud.com/yunb",
+      "youtube": "https://www.youtube.com/@yunb"
     }
   }
 ]
