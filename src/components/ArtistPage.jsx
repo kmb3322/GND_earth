@@ -254,7 +254,7 @@ export default function ArtistPage() {
                       />
                       <Box flex="1">
                         <Text fontSize={{ base: 'sm', md: 'md', lg: 'lg' }} fontWeight="600">{v.title}</Text>
-                        <Text fontSize={{ base: 'xs', md: 'sm' }} color="gray.600" mt={1}>Watch ↗</Text>
+                        <Text fontSize={{ base: 'xs', md: 'sm' }} color="gray.600" mt={1}>Watch</Text>
                       </Box>
                     </Flex>
                   </ChakraLink>
@@ -287,7 +287,7 @@ export default function ArtistPage() {
           textDecoration="underline"
           _hover={{ color: 'gray.800' }}
         >
-          Contact Form ↗
+          Contact Form
         </ChakraLink>
       </MotionBox>
 
@@ -306,17 +306,17 @@ export default function ArtistPage() {
           <HStack spacing={{ base: 6, md: 8 }} justify="center">
             {artist.social?.instagram && (
               <ChakraLink href={artist.social.instagram} isExternal fontSize={{ base: 'xs', md: 'sm' }} _hover={{ textDecoration: 'underline' }}>
-                Instagram ↗
+                Instagram
               </ChakraLink>
             )}
             {artist.social?.soundcloud && (
               <ChakraLink href={artist.social.soundcloud} isExternal fontSize={{ base: 'xs', md: 'sm' }} _hover={{ textDecoration: 'underline' }}>
-                SoundCloud ↗
+                SoundCloud
               </ChakraLink>
             )}
             {artist.social?.youtube && (
               <ChakraLink href={artist.social.youtube} isExternal fontSize={{ base: 'xs', md: 'sm' }} _hover={{ textDecoration: 'underline' }}>
-                YouTube ↗
+                YouTube
               </ChakraLink>
             )}
           </HStack>
