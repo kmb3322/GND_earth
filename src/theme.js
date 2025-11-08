@@ -8,6 +8,7 @@ const theme = extendTheme({
     body: "'Galmuri11', 'NotoSans', sans-serif",
     mono: "'UbuntuMono', monospace",
     noto: "'NotoSans', sans-serif",
+    NeueHaasUnica: "'NeueHaasUnica', sans-serif",
   },
 
   /* 2) @font-face 선언 및 기본 바디 스타일 */
@@ -32,6 +33,30 @@ const theme = extendTheme({
         {
           fontFamily: 'NotoSans',
           src: `url("/fonts/NotoSansKR-VariableFont_wght.ttf") format("truetype")`,
+          fontStyle: 'normal',
+        },
+        {
+          fontFamily: 'NeueHaasUnica',
+          src: `url("/fonts/Neue-Haas-Unica-Pro/NeueHaasUnicaPro-Regular.ttf") format("truetype")`,
+          fontWeight: '400',
+          fontStyle: 'normal',
+        },
+        {
+          fontFamily: 'NeueHaasUnica',
+          src: `url("/fonts/Neue-Haas-Unica-Pro/NeueHaasUnicaPro-Medium.ttf") format("truetype")`,
+          fontWeight: '500',
+          fontStyle: 'normal',
+        },
+        {
+          fontFamily: 'NeueHaasUnica',
+          src: `url("/fonts/Neue-Haas-Unica-Pro/NeueHaasUnicaPro-Bold.ttf") format("truetype")`,
+          fontWeight: '700',
+          fontStyle: 'normal',
+        },
+        {
+          fontFamily: 'NeueHaasUnica',
+          src: `url("/fonts/Neue-Haas-Unica-Pro/NeueHaasUnicaPro-Light.ttf") format("truetype")`,
+          fontWeight: '300',
           fontStyle: 'normal',
         },
       ],

@@ -19,6 +19,41 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'NeueHaasUnica';
+  src: url('/fonts/Neue-Haas-Unica-Pro/NeueHaasUnicaPro-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NeueHaasUnica';
+  src: url('/fonts/Neue-Haas-Unica-Pro/NeueHaasUnicaPro-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NeueHaasUnica';
+  src: url('/fonts/Neue-Haas-Unica-Pro/NeueHaasUnicaPro-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NeueHaasUnica';
+  src: url('/fonts/Neue-Haas-Unica-Pro/NeueHaasUnicaPro-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NeueHaasUnica';
+  src: url('/fonts/Neue-Haas-Unica-Pro/NeueHaasUnicaPro-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
 :root {
   font-family: 'Ubuntu Mono', 'Noto Sans KR', monospace, sans-serif;
   line-height: 1.5;

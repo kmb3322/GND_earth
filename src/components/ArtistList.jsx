@@ -1,10 +1,10 @@
 import {
-    Box,
-    Flex,
-    Image,
-    SimpleGrid,
-    Text,
-    VStack
+  Box,
+  Flex,
+  Image,
+  SimpleGrid,
+  Text,
+  VStack
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -37,7 +37,14 @@ export default function ArtistList() {
   }
 
   return (
-    <Box bg="#f0f0f0" minH="100vh" py={{ base: 12, md: 20, lg: 24 }} px={{ base: 4, md: 8, lg: 12, xl: 16 }}>
+    <Flex 
+      bg="#f0f0f0" 
+      minH="100vh" 
+      flexDirection="column"
+      pt={{ base: 12, md: 20, lg: 24 }} 
+      pb={{ base: 6, md: 8 }}
+      px={{ base: 4, md: 8, lg: 12, xl: 16 }}
+    >
       {/* Header */}
       <MotionBox
         initial={{ opacity: 0, y: -20 }}
@@ -63,9 +70,10 @@ export default function ArtistList() {
             fontFamily="mono"
             fontSize={{ base: 'sm', md: 'md', lg: 'lg' }}
             color="gray.600"
+            mt={-2}
             fontWeight="400"
           >
-            Artists
+            artists
           </Text>
         </VStack>
       </MotionBox>
@@ -115,29 +123,20 @@ export default function ArtistList() {
                   {/* Artist Info */}
                   <VStack spacing={1} w="100%">
                     <Text
-                      fontFamily="mono"
+                      fontFamily="NeueHaasUnica"
                       fontSize={{ base: 'md', md: 'lg', lg: 'xl' }}
-                      fontWeight="600"
+                      fontWeight="700"
                       color="gray.800"
-                      textAlign="center"
-                    >
-                      {artist.name_kr}
-                    </Text>
-                    <Text
-                      fontFamily="mono"
-                      fontSize={{ base: 'xs', md: 'sm', lg: 'md' }}
-                      color="gray.500"
-                      fontStyle="italic"
                       textAlign="center"
                     >
                       {artist.name_en}
                     </Text>
                     <Text
-                      fontFamily="mono"
+                      fontFamily="NeueHaasUnica"
                       fontSize={{ base: 'xs', md: 'sm' }}
                       color="gray.600"
+                      fontWeight="300"
                       textAlign="center"
-                      mt={1}
                     >
                       {artist.title}
                     </Text>
@@ -155,13 +154,19 @@ export default function ArtistList() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
         textAlign="center"
-        mt={{ base: 16, md: 24, lg: 32 }}
+        mt="auto"
+        pt={{ base: 16, md: 24, lg: 32 }}
       >
-        <Text fontFamily="mono" fontSize={{ base: 'xs', md: 'sm' }} color="gray.500">
-          © 2025 GND EARTH
-        </Text>
+        <VStack spacing={4}>
+          <Image 
+            src="/logo.png" 
+            alt="GND Logo" 
+            maxW={{ base: '20px', md: '30px' }}
+            opacity={0.7}
+          />
+        </VStack>
       </MotionBox>
-    </Box>
+    </Flex>
   );
 }
 

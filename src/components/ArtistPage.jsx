@@ -1,7 +1,6 @@
 import {
   Box,
   Link as ChakraLink,
-  Divider,
   Flex,
   HStack,
   Image,
@@ -75,7 +74,7 @@ export default function ArtistPage() {
   if (loading) {
     return (
       <Flex w="100%" minH="100vh" align="center" justify="center" bg="#f0f0f0">
-        <Text fontFamily="mono" fontSize="sm" color="gray.700">Loading...</Text>
+        <Text fontFamily="'NeueHaasUnica', 'Noto Sans KR', sans-serif" fontSize="sm" color="gray.700">Loading...</Text>
       </Flex>
     );
   }
@@ -83,12 +82,12 @@ export default function ArtistPage() {
   if (error || !artist) {
     return (
       <Flex w="100%" minH="100vh" direction="column" align="center" justify="center" gap={4} bg="#f0f0f0">
-        <Text fontFamily="mono" fontSize="lg">Error</Text>
-        <Text fontFamily="mono" fontSize="sm" color="gray.600">{error || 'Data not found'}</Text>
+        <Text fontFamily="'NeueHaasUnica', 'Noto Sans KR', sans-serif" fontSize="lg">Error</Text>
+        <Text fontFamily="'NeueHaasUnica', 'Noto Sans KR', sans-serif" fontSize="sm" color="gray.600">{error || 'Data not found'}</Text>
         <ChakraLink
           as={RouterLink}
           to="/artists"
-          fontFamily="mono"
+          fontFamily="'NeueHaasUnica', 'Noto Sans KR', sans-serif"
           fontSize="sm"
           textDecoration="underline"
           _hover={{ color: 'gray.800' }}
@@ -106,7 +105,7 @@ export default function ArtistPage() {
   const videos = artist.id === 'chaedobin' ? CHAEDOBIN_VIDEOS : [];
 
   return (
-    <Box bg="#f0f0f0" color="gray.800" minH="100vh" fontFamily="mono" pb={16}>
+    <Box bg="#f0f0f0" color="gray.800" minH="100vh" fontFamily="'NeueHaasUnica', 'Noto Sans KR', sans-serif" pb={16}>
       {/* HEADER */}
       <Box
         as="header"
@@ -124,10 +123,10 @@ export default function ArtistPage() {
         <Flex align="center" justify="space-between" w="100%">
           <HStack spacing={4}>
             <ChakraLink as={RouterLink} to="/artists" _hover={{ opacity: 0.7 }}>
-              <Text fontSize={{ base: 'xs', md: 'sm' }} fontWeight="700" letterSpacing="wider" textTransform="lowercase" color="gray.600">← artists</Text>
+              <Image src="/logo.png" opacity={0.7} alt="GND" h={{ base: '20px', md: '24px' }} objectFit="contain" />
             </ChakraLink>
           </HStack>
-          <HStack spacing={{ base: 4, md: 8, lg: 10 }} fontSize={{ base: 'xs', md: 'sm' }} fontWeight="700" color="gray.600">
+          <HStack spacing={{ base: 4, md: 8, lg: 10 }} fontFamily="NeueHaasUnica" fontWeight="300" fontSize={{ base: 'xs', md: 'sm' }} color="gray.600">
             <ChakraLink href="#info" _hover={{ textDecoration: 'underline' }} textTransform="lowercase">info</ChakraLink>
             <ChakraLink href="#works" _hover={{ textDecoration: 'underline' }} textTransform="lowercase">works</ChakraLink>
             <ChakraLink href="#contact" _hover={{ textDecoration: 'underline' }} textTransform="lowercase">contact</ChakraLink>
@@ -153,27 +152,25 @@ export default function ArtistPage() {
             <MotionText
               fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
               fontWeight="700"
-              mb={{ base: 2, md: 3 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              {artist.name_kr}
+              {artist.name_en}
+
             </MotionText>
             <MotionText
               fontSize={{ base: 'sm', md: 'md', lg: 'lg' }}
-              fontStyle="italic"
               color="gray.600"
               fontWeight="400"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              {artist.name_en}
+              {artist.name_kr}
             </MotionText>
           </Box>
 
-          <Divider borderColor="gray.400" />
 
           {/* Profile image */}
           <Flex justify="center">
@@ -208,30 +205,6 @@ export default function ArtistPage() {
               <Text fontSize={{ base: 'sm', md: 'md', lg: 'lg' }} lineHeight="1.8">{artist.bio}</Text>
             </Box>
           </SimpleGrid>
-
-          <Divider borderColor="gray.400" />
-
-          {/* Links */}
-          <Flex justify="space-between" align="center" flexWrap="wrap" gap={4}>
-            <HStack spacing={{ base: 6, md: 8 }}>
-              {artist.social?.instagram && (
-                <ChakraLink href={artist.social.instagram} isExternal fontSize={{ base: 'xs', md: 'sm' }} _hover={{ textDecoration: 'underline' }}>
-                  Instagram ↗
-                </ChakraLink>
-              )}
-              {artist.social?.soundcloud && (
-                <ChakraLink href={artist.social.soundcloud} isExternal fontSize={{ base: 'xs', md: 'sm' }} _hover={{ textDecoration: 'underline' }}>
-                  SoundCloud ↗
-                </ChakraLink>
-              )}
-              {artist.social?.youtube && (
-                <ChakraLink href={artist.social.youtube} isExternal fontSize={{ base: 'xs', md: 'sm' }} _hover={{ textDecoration: 'underline' }}>
-                  YouTube ↗
-                </ChakraLink>
-              )}
-            </HStack>
-            <Image src={qrUrl} alt="QR" w={{ base: '60px', md: '80px' }} h={{ base: '60px', md: '80px' }} border="1px solid" borderColor="gray.300" />
-          </Flex>
         </VStack>
       </MotionBox>
 
@@ -246,7 +219,7 @@ export default function ArtistPage() {
           px={{ base: 4, md: 8, lg: 12, xl: 16 }}
           pb={{ base: 16, lg: 20 }}
         >
-          <Text fontSize={{ base: 'xs', md: 'sm' }} fontWeight="700" mb={{ base: 6, md: 8 }} letterSpacing="wider" color="gray.600">SELECTED WORKS</Text>
+          <Text fontSize={{ base: 'xs', md: 'sm' }} fontWeight="700" mb={{ base: 6, md: 8 }} letterSpacing="wider" color="gray.600" textAlign="left">SELECTED WORKS</Text>
           <VStack spacing={{ base: 6, md: 8 }} align="stretch">
             {videos.map((v, i) => {
               const vid = getYoutubeId(v.url);
@@ -318,6 +291,38 @@ export default function ArtistPage() {
         </ChakraLink>
       </MotionBox>
 
+      {/* QR CODE & LINKS */}
+      <MotionBox
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8 }}
+        px={{ base: 4, md: 8, lg: 12, xl: 16 }}
+        pb={{ base: 16, lg: 20 }}
+        textAlign="center"
+      >
+        <VStack spacing={6}>
+          <Image src={qrUrl} alt="QR" w={{ base: '100px', md: '120px' }} h={{ base: '100px', md: '120px' }} border="1px solid" borderColor="gray.300" />
+          <HStack spacing={{ base: 6, md: 8 }} justify="center">
+            {artist.social?.instagram && (
+              <ChakraLink href={artist.social.instagram} isExternal fontSize={{ base: 'xs', md: 'sm' }} _hover={{ textDecoration: 'underline' }}>
+                Instagram ↗
+              </ChakraLink>
+            )}
+            {artist.social?.soundcloud && (
+              <ChakraLink href={artist.social.soundcloud} isExternal fontSize={{ base: 'xs', md: 'sm' }} _hover={{ textDecoration: 'underline' }}>
+                SoundCloud ↗
+              </ChakraLink>
+            )}
+            {artist.social?.youtube && (
+              <ChakraLink href={artist.social.youtube} isExternal fontSize={{ base: 'xs', md: 'sm' }} _hover={{ textDecoration: 'underline' }}>
+                YouTube ↗
+              </ChakraLink>
+            )}
+          </HStack>
+        </VStack>
+      </MotionBox>
+
       {/* FOOTER */}
       <MotionBox
         as="footer"
@@ -333,7 +338,7 @@ export default function ArtistPage() {
         borderColor="gray.300"
         mx={{ base: 4, md: 8, lg: 12, xl: 16 }}
       >
-        <Text>GND Verified Artist</Text>
+        <Text>GND Artist Network</Text>
         <Text mt={1} fontSize={{ base: '2xs', md: 'xs' }} fontStyle="italic">© 2025 GND EARTH</Text>
       </MotionBox>
     </Box>
