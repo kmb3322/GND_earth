@@ -282,7 +282,7 @@ export default function TicketScreen() {
             color="#000000"
             fontFamily="unica"
             fontWeight={600}
-            fontSize="18px"
+            fontSize="12px"
           >
             C&C: SHOW CASE
           </Text>
@@ -290,7 +290,7 @@ export default function TicketScreen() {
             color="#000000"
             fontFamily="unica"
             fontWeight={600}
-            fontSize="18px"
+            fontSize="12px"
           >
             PRESENTED BY GND
           </Text>
@@ -298,7 +298,7 @@ export default function TicketScreen() {
             color="#000000"
             fontFamily="unica"
             fontWeight={600}
-            fontSize="18px"
+            fontSize="12px"
           >
             2026 02 22
           </Text>
@@ -306,7 +306,7 @@ export default function TicketScreen() {
             color="#000000"
             fontFamily="unica"
             fontWeight={600}
-            fontSize="18px"
+            fontSize="12px"
           >
             HONEY CLOVER SEOUL
           </Text>
@@ -314,7 +314,7 @@ export default function TicketScreen() {
             color="#000000"
             fontFamily="unica"
             fontWeight={600}
-            fontSize="18px"
+            fontSize="12px"
           >
             7, YONSEI-RO 7-AN-GIL, SEODAEMUN-GU
           </Text>
