@@ -124,7 +124,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
                     textAlign="center"
                     fontWeight="500"
                   >
-                    입장 확인이 완료되었습니다.
+                    예매 확인이 완료되었습니다.
                   </Text>
                   <Text
                     fontFamily="unica"
@@ -134,7 +134,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
                     textAlign="center"
                     letterSpacing="0.03em"
                   >
-                    Your entry has been confirmed.
+                    Your reservation has been confirmed.
                   </Text>
                 </VStack>
 
