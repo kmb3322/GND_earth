@@ -111,17 +111,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
               >
                 {parseInt(ticketNo) * 3 + 40}
               </Text>
-              {/* ENTRY NUMBER */}
-              <Text
-                fontFamily="unica"
-                fontWeight="700"
-                fontSize="18px"
-                color="gray.700"
-                letterSpacing="0.15em"
-                textTransform="uppercase"
-              >
-                ENTRY NUMBER
-              </Text>
+              
 
               {/* 안내 문구 */}
               <VStack spacing={3} align="center" mt={4}>
