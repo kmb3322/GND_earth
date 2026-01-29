@@ -155,31 +155,24 @@ export default function StartHomePage() {
         </VStack>
 
         {/* JOIN 텍스트 링크 - 오른쪽 상하 중앙 */}
-        <AnimatePresence>
-          {showTicket && (
-            <MotionText
-              key="ticket-link"
-              as={RouterLink}
-              to="/ticket"
-              position="absolute"
-              right={{ base: 7, sm: 7, md: 7 }}
-              top="50%"
-              transform="translateY(-50%)"
-              fontFamily="unica"
-              fontWeight={600}
-              fontSize="20px"
-              color="#000000"
-              cursor="pointer"
-              _hover={{ color: '#555555' }}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4 }}
-            >
-              JOIN
-            </MotionText>
-          )}
-        </AnimatePresence>
+        {showTicket && (
+          <Text
+            as={RouterLink}
+            to="/ticket"
+            position="absolute"
+            right={{ base: 7, sm: 7, md: 7 }}
+            top="50%"
+            transform="translateY(-50%)"
+            fontFamily="unica"
+            fontWeight={600}
+            fontSize="20px"
+            color="#000000"
+            cursor="pointer"
+            _hover={{ color: '#555555' }}
+          >
+            JOIN
+          </Text>
+        )}
 
 
 
