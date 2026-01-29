@@ -13,8 +13,6 @@ import {
 } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { FaInstagram, FaYoutube } from 'react-icons/fa';
-import { Link as RouterLink } from 'react-router-dom';
-
 
 const MotionText   = motion(Text);
 const MotionBox    = motion(Box);
@@ -67,27 +65,9 @@ export default function StartHomePage() {
     minH="100vh"
     position="relative"
     overflowX="hidden"
-    w="100%"
+    px={{ base: 4, sm: 8, md: 16 }}
     >
-      {/* 상단 로고 */}
-      <Box
-        as={RouterLink}
-        to="/"
-        position="absolute"
-        top={{ base: "20px", md: "30px" }}
-        left="50%"
-        transform="translateX(-50%)"
-        zIndex={10}
-      >
-        <Image
-          src="/logo.png"
-          alt="logo"
-          width={{ base: "15px", md: "20px" }}
-          cursor="pointer"
-          transition="all 0.3s"
-          _hover={{ opacity: 0.8, transform: 'scale(0.98)' }}
-        />
-      </Box>
+    
 
       {/* ───── Hero ───── */}
       <MotionBox
@@ -107,75 +87,54 @@ export default function StartHomePage() {
         onClick={reveal}
         onTouchStart={reveal}
       >
+        {/* 로고 
+        <Text color="gray.700" fontFamily="mono" fontSize="18px" fontWeight="bold" mb="40px" mr="220px">
+          SADGAS
+        </Text>
+        <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" mb="40px">
+          X
+        </Text>
+        <Text color="gray.700" fontFamily="mono" fontSize="16px" fontWeight="bold" ml="220px" mb="60px">
+          GND
+        </Text>*/}
+        
+        <Image
+          mb={10}
+          src="/roommate.png"
+          alt="roommate"
+          width="500px"
+          cursor="pointer"
+          transition="all 0.3s"
+          _hover={{ opacity: 0.8, transform: 'scale(0.98)' }}
+        />
         
 
-          
+          {/* 유튜브 영상은 모바일에서는 80vw, 데스크탑(md 이상)에서는 40vw 크기로 표시 */}
+                <AspectRatio
+                  width={{ base: "100vw", md: "40vw" }}
+                  ratio={16 / 9}
+                  mb={10}
+                >
+                  <iframe
+                    src="https://www.youtube.com/embed/HH3FtfPvcW0?autoplay=1&mute=1&controls=1"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </AspectRatio>
+      
   
-        {/* 왼쪽 정렬 텍스트 그룹 */}
-        <VStack
-          position="absolute"
-          left={{ base: 7, sm: 7, md: 7 }}
-          top="50%"
-          transform="translateY(-50%)"
-          align="flex-start"
-          spacing={0}
-        >
-          <Text
-            color="#000000"
-            fontFamily="unica"
-            fontWeight={600}
-            fontSize="18px"
-          >
-            C&C: SHOW CASE
-          </Text>
-          <Text
-            color="#000000"
-            fontFamily="unica"
-            fontWeight={600}
-            fontSize="18px"
-          >
-            PRESENTED BY GND
-          </Text>
-          <Text
-            color="#000000"
-            fontFamily="unica"
-            fontWeight={600}
-            fontSize="18px"
-          >
-            2026 02 22
-          </Text>
-          <Text
-            color="#000000"
-            fontFamily="unica"
-            fontWeight={600}
-            fontSize="18px"
-          >
-            HONEY CLOVER SEOUL
-          </Text>
-        </VStack>
-
-        {/* JOIN 텍스트 링크 - 오른쪽 상하 중앙 */}
-        <AnimatePresence>
-          {showTicket && (
-            <MotionText
-              key="ticket-link"
-              as={RouterLink}
-              to="/ticket"
-              position="absolute"
-              right={{ base: 7, sm: 7, md: 7 }}
-              top="50%"
-              transform="translateY(-50%)"
-              fontFamily="unica"
-              fontWeight={600}
-              fontSize="20px"
-              color="#000000"
-              cursor="pointer"
-              _hover={{ color: '#555555' }}
-            >
-              JOIN
-            </MotionText>
-          )}
-        </AnimatePresence>
+        {/* 날짜 */}
+        <Text
+          mt="10px"
+          color="gray.700"
+          fontFamily="mono"
+          fontWeight={500}
+          fontSize="14px"
+          mb={40}
+        >          
+        2025 11 08
+        </Text>
 
 
 
@@ -199,7 +158,7 @@ export default function StartHomePage() {
         </MotionButton>
       </MotionBox>
 
-      {/* ───── Video ─────       */}
+      {/* ───── Video ───── */}
       <Box
         pt={20}
         pb={10}
@@ -218,8 +177,6 @@ export default function StartHomePage() {
 
         </VStack>
       </Box>
-
-
 
       {/* ───── Mission ───── */}
       <Box
@@ -287,7 +244,15 @@ export default function StartHomePage() {
             >
               GND 더 알아보기
             </MotionButton>
-            
+            <Text
+            fontFamily="mono"
+            fontSize="12px"
+            textAlign="center"
+            fontWeight="500"
+            mb={10}
+          >
+            창의적인 젊은 아티스트들이 모인 환상적인 네트워크 공간,<br/> GND EARTH에 참여하세요.
+          </Text>
           </AnimatePresence>
 
         </VStack>

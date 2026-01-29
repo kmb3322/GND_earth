@@ -26,11 +26,11 @@ module.exports = async (req, res) =>
       return res.status(405).json({ success: false, message: 'Method Not Allowed' });
 
     /* 1) 파라미터 검증 */
-    const { name, phone } = req.body;
-    if (!name || !phone)
+    const { name, phone, code } = req.body;
+    if (!name || !phone || !code)
       return res
         .status(400)
-        .json({ success: false, message: '이름·전화번호를 모두 입력하세요.' });
+        .json({ success: false, message: '이름·전화번호·코드를 모두 입력하세요.' });
 
     try {
       /* 2) 기존 연락처 중복 확인 */
@@ -58,7 +58,16 @@ module.exports = async (req, res) =>
         });
       }
 
-      /* 3) 트랜잭션: counter 증가 + contacts 저장 */
+      /* 3) 코드 유효성 확인 */
+      const codeRef  = db.collection('codes').doc(code.toUpperCase());
+      const codeSnap = await codeRef.get();
+      if (!codeSnap.exists) {
+        return res
+          .status(400)
+          .json({ success: false, message: '유효하지 않은 코드입니다.' });
+      }
+
+      /* 4) 트랜잭션: counter 증가 + contacts 저장 + 코드 count++ */
       const ticketNo = await db.runTransaction(async (t) => {
         /* (1) 전역 counter */
         const counterRef = db.doc('counters/registrations');
@@ -76,10 +85,18 @@ module.exports = async (req, res) =>
         t.set(db.collection('contacts').doc(), {
           name,
           phone,
+          code: code.toUpperCase(),
           ticketNo : next,
           isPaid   : false,
           createdAt: admin.firestore.FieldValue.serverTimestamp(),
         });
+
+        /* (3) 코드 문서에 count +1 */
+        t.set(
+          codeRef,
+          { count: admin.firestore.FieldValue.increment(1) },
+          { merge: true },
+        );
 
         return next;
       });
