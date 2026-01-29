@@ -183,8 +183,12 @@ export default function StartHomePage() {
           bottom={scrollBottom}
           variant="ghost"
           onClick={() => scrollTo(infoRef)}
-          _hover={{ transform: 'translateY(2px)' }}
-          _active={{ transform: 'translateY(4px)' }}
+          outline="none"
+          border="none"
+          _hover={{ color: 'gray.900', outline: 'none', boxShadow: 'none' }}
+          _active={{ color: 'gray.900', outline: 'none', boxShadow: 'none' }}
+          _focus={{ boxShadow: 'none', outline: 'none', border: 'none' }}
+          _focusVisible={{ boxShadow: 'none', outline: 'none', border: 'none' }}
           aria-label="scroll"
           color="gray.700"
           initial={{ opacity: 0, y: 10 }}
