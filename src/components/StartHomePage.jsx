@@ -124,7 +124,7 @@ export default function StartHomePage() {
             color="#000000"
             fontFamily="unica"
             fontWeight={600}
-            fontSize="18px"
+            fontSize="12px"
           >
             C&C: SHOW CASE
           </Text>
@@ -132,7 +132,7 @@ export default function StartHomePage() {
             color="#000000"
             fontFamily="unica"
             fontWeight={600}
-            fontSize="18px"
+            fontSize="12px"
           >
             PRESENTED BY GND
           </Text>
@@ -140,7 +140,7 @@ export default function StartHomePage() {
             color="#000000"
             fontFamily="unica"
             fontWeight={600}
-            fontSize="18px"
+            fontSize="12px"
           >
             2026 02 22
           </Text>
@@ -148,7 +148,7 @@ export default function StartHomePage() {
             color="#000000"
             fontFamily="unica"
             fontWeight={600}
-            fontSize="18px"
+            fontSize="12px"
           >
             HONEY CLOVER SEOUL
           </Text>
@@ -165,7 +165,7 @@ export default function StartHomePage() {
             transform="translateY(-50%)"
             fontFamily="unica"
             fontWeight={600}
-            fontSize="20px"
+            fontSize="14px"
             color="#000000"
             cursor="pointer"
             _hover={{ color: '#555555' }}
