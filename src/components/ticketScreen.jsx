@@ -610,7 +610,7 @@ export default function TicketScreen() {
         left={0}
         right={0}
         justify="space-between"
-        px={{ md: 8, lg: 16 }}
+        px={{ md: 7, lg: 7 }}
       >
         <Text
           color="gray.700"
