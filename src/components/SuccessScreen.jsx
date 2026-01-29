@@ -46,7 +46,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
           color="#000000"
           fontFamily="unica"
           fontWeight={600}
-          fontSize="18px"
+          fontSize={{ base: "12px", md: "18px" }}
         >
           C&C: SHOW CASE
         </Text>
@@ -54,7 +54,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
           color="#000000"
           fontFamily="unica"
           fontWeight={600}
-          fontSize="18px"
+          fontSize={{ base: "12px", md: "18px" }}
         >
           PRESENTED BY GND
         </Text>
@@ -62,7 +62,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
           color="#000000"
           fontFamily="unica"
           fontWeight={600}
-          fontSize="18px"
+          fontSize={{ base: "12px", md: "18px" }}
         >
           2026 02 22
         </Text>
@@ -70,7 +70,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
           color="#000000"
           fontFamily="unica"
           fontWeight={600}
-          fontSize="18px"
+          fontSize={{ base: "12px", md: "18px" }}
         >
           HONEY CLOVER SEOUL
         </Text>
@@ -78,7 +78,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
           color="#000000"
           fontFamily="unica"
           fontWeight={600}
-          fontSize="18px"
+          fontSize={{ base: "12px", md: "18px" }}
         >
           7, YONSEI-RO 7-AN-GIL, SEODAEMUN-GU
         </Text>
