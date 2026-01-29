@@ -20,6 +20,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
       top={{ base: "20px", md: "30px" }}
       left="50%"
       transform="translateX(-50%)"
+      zIndex={10}
     >
       <Image
         src="/logo.png"
@@ -31,6 +32,60 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
       />
     </Box>
 
+    {/* 이벤트 정보 로고 - logo.png와 ENTRY NUMBER 사이 */}
+    {isPaid && ticketNo && (
+      <VStack
+        spacing={0}
+        align="flex-start"
+        position="absolute"
+        top={{ base: "80px", md: "100px" }}
+        left="50%"
+        transform="translateX(-50%)"
+      >
+        <Text
+          color="#000000"
+          fontFamily="unica"
+          fontWeight={600}
+          fontSize="18px"
+        >
+          C&C: SHOW CASE
+        </Text>
+        <Text
+          color="#000000"
+          fontFamily="unica"
+          fontWeight={600}
+          fontSize="18px"
+        >
+          PRESENTED BY GND
+        </Text>
+        <Text
+          color="#000000"
+          fontFamily="unica"
+          fontWeight={600}
+          fontSize="18px"
+        >
+          2026 02 22
+        </Text>
+        <Text
+          color="#000000"
+          fontFamily="unica"
+          fontWeight={600}
+          fontSize="18px"
+        >
+          HONEY CLOVER SEOUL
+        </Text>
+        <Text
+          color="#000000"
+          fontFamily="unica"
+          fontWeight={600}
+          fontSize="18px"
+        >
+          7, YONSEI-RO 7-AN-GIL, SEODAEMUN-GU
+        </Text>
+      </VStack>
+    )}
+
+    {/* 메인 콘텐츠 - 화면 중앙 */}
     <VStack
       spacing={0}
       align="center"
@@ -39,104 +94,138 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
       py={8}
       w="100%"
     >
-      {/* 비디오 애니메이션 */}
-      <AspectRatio
-        ratio={1}
-        w={{ base: '200px', md: '280px' }}
-        bg="#f0f0f0"
-        borderRadius="md"
-        overflow="hidden"
-      >
-        <Box
-          as="video"
-          src="/gnd_ani.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          objectFit="cover"
-          w="100%"
-          h="100%"
-          sx={{
-            maskImage:
-              'radial-gradient(circle at center, black 75%, transparent 100%)',
-            WebkitMaskImage:
-              'radial-gradient(circle at center, black 75%, transparent 100%)',
-          }}
-        />
-      </AspectRatio>
-
-      {/* 환영 메시지 */}
-      <VStack spacing={2} mt={4} align="center">
-        <Text
-          fontFamily="noto"
-          fontWeight="700"
-          fontSize={{ base: "16px", md: "18px" }}
-          color="gray.800"
-          textAlign="center"
-        >
-          {name && `${name}님,`}
-        </Text>
-
-        <Text
-          fontFamily="noto"
-          fontWeight="700"
-          fontSize={{ base: "16px", md: "18px" }}
-          color="gray.800"
-          textAlign="center"
-        >
-          C&C: SHOW CASE에 초대되신 것을<br />환영합니다.
-        </Text>
-      </VStack>
-
-      {/* 입장 정보 */}
-      <VStack spacing={2} mt={6} align="center">
+      <VStack spacing={4} align="center">
         {isPaid ? (
           ticketNo && (
+            <VStack spacing={3} align="center">
+              {/* ENTRY NUMBER */}
+              <Text
+                fontFamily="unica"
+                fontWeight="700"
+                fontSize="18px"
+                color="gray.700"
+                letterSpacing="0.15em"
+                textTransform="uppercase"
+              >
+                ENTRY NUMBER
+              </Text>
+
+              {/* 번호 */}
+              <Text
+                fontFamily="unica"
+                fontWeight="700"
+                fontSize="50px"
+                color="gray.800"
+                lineHeight="1"
+                mt={-1}
+              >
+                {parseInt(ticketNo) * 3 + 40}
+              </Text>
+
+              {/* 안내 문구 */}
+              <VStack spacing={3} align="center" mt={4}>
+                {/* 입장 확인 완료 */}
+                <VStack spacing={1} align="center">
+                  <Text
+                    fontFamily="noto"
+                    fontSize={{ base: "13px", md: "14px" }}
+                    color="gray.700"
+                    textAlign="center"
+                    fontWeight="500"
+                  >
+                    입장 확인이 완료되었습니다.
+                  </Text>
+                  <Text
+                    fontFamily="unica"
+                    fontWeight="400"
+                    fontSize={{ base: "10px", md: "11px" }}
+                    color="gray.500"
+                    textAlign="center"
+                    letterSpacing="0.03em"
+                  >
+                    Your entry has been confirmed.
+                  </Text>
+                </VStack>
+
+                {/* 안내 */}
+                <VStack spacing={1} align="center" mt={2}>
+                  <Text
+                    fontFamily="noto"
+                    fontSize={{ base: "12px", md: "13px" }}
+                    color="gray.500"
+                    textAlign="center"
+                    lineHeight="1.8"
+                  >
+                    입장 번호가 띄워진 본 화면을<br />입장시 당일 STAFF에게 보여주시기 바랍니다.
+                  </Text>
+                  <Text
+                    fontFamily="unica"
+                    fontWeight="400"
+                    fontSize={{ base: "10px", md: "11px" }}
+                    color="gray.400"
+                    textAlign="center"
+                    letterSpacing="0.03em"
+                    mt={1}
+                  >
+                    Please show this screen to STAFF upon entry.
+                  </Text>
+                </VStack>
+              </VStack>
+            </VStack>
+          )
+        ) : (
+          <VStack spacing={2} align="center">
             <Text
               fontFamily="noto"
-              fontSize={{ base: "14px", md: "15px" }}
-              color="gray.700"
+              fontSize={{ base: "13px", md: "14px" }}
+              color="gray.600"
               textAlign="center"
               lineHeight="1.8"
             >
-              입장 번호는 <Text as="span" fontWeight="700" fontSize={{ base: "18px", md: "20px" }}>{parseInt(ticketNo) * 3 + 40}</Text>번입니다.<br /><br />
-              입장 번호가 띄워진 본 화면을<br />당일 STAFF에게 보여주시면 됩니다.
+              입금 확인이 완료되면,<br />
+              당일 입장 가능한 번호가 제공됩니다.
             </Text>
-          )
-        ) : (
-          <Text
-            fontFamily="noto"
-            fontSize={{ base: "14px", md: "15px" }}
-            color="gray.700"
-            textAlign="center"
-            lineHeight="1.8"
-          >
-            입금 확인이 완료되면,<br />
-            당일 입장 가능한 번호가 제공됩니다.
-          </Text>
+            <Text
+              fontFamily="unica"
+              fontWeight="400"
+              fontSize={{ base: "10px", md: "11px" }}
+              color="gray.400"
+              textAlign="center"
+              letterSpacing="0.03em"
+              mt={1}
+            >
+              Your entry number will be provided<br />once payment is confirmed.
+            </Text>
+          </VStack>
         )}
       </VStack>
-
-      {/* 홈으로 돌아가기 버튼 */}
-      <Button
-        as={RouterLink}
-        to="/"
-        mt={10}
-        bg="black"
-        color="white"
-        borderRadius="20px"
-        fontFamily="unica"
-        fontWeight="700"
-        fontSize="14px"
-        px={8}
-        py={5}
-        _hover={{ bg: 'gray.700', transform: 'scale(1.02)' }}
-        transition="all 0.2s"
-      >
-        HOME
-      </Button>
     </VStack>
+
+    {/* 홈으로 돌아가기 버튼 - 하단 중앙 */}
+    <Button
+      as={RouterLink}
+      to="/"
+      position="absolute"
+      bottom={{ base: "40px", md: "50px" }}
+      left="50%"
+      transform="translateX(-50%)"
+      bg="#f0f0f0"
+      color="#303030"
+      border="2px solid #606060"
+      borderRadius="full"
+      fontFamily="noto"
+      fontWeight="500"
+      fontSize="14px"
+      px={5}
+      py={4}
+      boxShadow="0 4px 12px rgba(0,0,0,0.1)"
+      _hover={{ bg: '#f0f0f0', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+      _focus={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', outline: 'none' }}
+      _focusVisible={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', outline: 'none' }}
+      _active={{ bg: '#f0f0f0', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+    >
+      HOME
+    </Button>
   </Box>
 );
 
