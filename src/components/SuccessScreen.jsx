@@ -1,7 +1,7 @@
 // =========================
 //  SuccessScreen.jsx
 // =========================
-import { AspectRatio, Box, Button, Image, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Image, Text, VStack } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 
 const SuccessScreen = ({ name, ticketNo, isPaid }) => (
@@ -98,17 +98,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
         {isPaid ? (
           ticketNo && (
             <VStack spacing={3} align="center">
-              {/* ENTRY NUMBER */}
-              <Text
-                fontFamily="unica"
-                fontWeight="700"
-                fontSize="18px"
-                color="gray.700"
-                letterSpacing="0.15em"
-                textTransform="uppercase"
-              >
-                ENTRY NUMBER
-              </Text>
+              
 
               {/* 번호 */}
               <Text
@@ -120,6 +110,17 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
                 mt={-1}
               >
                 {parseInt(ticketNo) * 3 + 40}
+              </Text>
+              {/* ENTRY NUMBER */}
+              <Text
+                fontFamily="unica"
+                fontWeight="700"
+                fontSize="18px"
+                color="gray.700"
+                letterSpacing="0.15em"
+                textTransform="uppercase"
+              >
+                ENTRY NUMBER
               </Text>
 
               {/* 안내 문구 */}
