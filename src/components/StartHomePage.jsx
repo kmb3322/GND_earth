@@ -25,7 +25,7 @@ export default function StartHomePage() {
 
   /* ────────────── 티켓 버튼 자동·수동 노출 ────────────── */
   useEffect(() => {
-    const id = setTimeout(() => setShowTicket(true), 500);
+    const id = setTimeout(() => setShowTicket(true), 200);
     return () => clearTimeout(id);
   }, []);
   const reveal = () => setShowTicket(true);
@@ -171,6 +171,10 @@ export default function StartHomePage() {
               color="#000000"
               cursor="pointer"
               _hover={{ color: '#555555' }}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4 }}
             >
               JOIN
             </MotionText>
