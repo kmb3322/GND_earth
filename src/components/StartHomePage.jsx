@@ -144,14 +144,6 @@ export default function StartHomePage() {
           >
             2026 02 22
           </Text>
-          <Text
-            color="#000000"
-            fontFamily="unica"
-            fontWeight={600}
-            fontSize={{ base: "12px", md: "18px" }}
-          >
-            HONEY CLOVER SEOUL
-          </Text>
         </VStack>
 
         {/* JOIN 텍스트 링크 - 오른쪽 상하 중앙 */}
