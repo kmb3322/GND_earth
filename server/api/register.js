@@ -77,6 +77,7 @@ module.exports = async (req, res) =>
           name,
           phone,
           ticketNo : next,
+          // 입금확인 하려면 이걸로 ㄱㄱ isPaid   : false,
           isPaid   : true,
           createdAt: admin.firestore.FieldValue.serverTimestamp(),
         });
