@@ -77,7 +77,7 @@ module.exports = async (req, res) =>
           name,
           phone,
           ticketNo : next,
-          isPaid   : false,
+          isPaid   : true,
           createdAt: admin.firestore.FieldValue.serverTimestamp(),
         });
 
@@ -88,7 +88,7 @@ module.exports = async (req, res) =>
       return res.status(200).json({
         success : true,
         ticketNo,
-        isPaid  : false,
+        isPaid  : true,
         message : `${ticketNo}번 등록 완료!`,
       });
     } catch (err) {

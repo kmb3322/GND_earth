@@ -66,7 +66,7 @@ export default function TicketScreen() {
   const phoneValid = /^\d{3}-\d{3,4}-\d{4}$/.test(watchedPhone || '');
 
   const showScreenshot = dupChecked && !isExisting && nameFilled && phoneValid;
-  const accountNumber = '94290201906113';
+  const accountNumber = '3333-24-8961557';
   const { onCopy, hasCopied } = useClipboard(accountNumber);
   
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -482,7 +482,7 @@ export default function TicketScreen() {
                   cursor="pointer"
                   textDecoration="underline"
                 >
-                  김민범 KB국민은행 {accountNumber}
+                  백종서 카카오뱅크 {accountNumber}
                 </Text>
                 <Text
                   fontFamily="noto"
@@ -502,7 +502,7 @@ export default function TicketScreen() {
                   fontSize="10px"
                   textAlign="left"
                 >
-                  Minbeom Kim KB Kookmin Bank {accountNumber}
+                  Jongseo Baek Kakao Bank {accountNumber}
                 </Text>
                 <Text
                   fontFamily="unica"
@@ -803,7 +803,7 @@ export default function TicketScreen() {
                     cursor="pointer"
                     textDecoration="underline"
                   >
-                    김민범 KB국민은행 {accountNumber}
+                    백종서 카카오뱅크 {accountNumber}
                   </Text>
                   <Text
                     fontFamily="noto"
@@ -823,7 +823,7 @@ export default function TicketScreen() {
                     fontSize="10px"
                     textAlign="left"
                   >
-                    Minbeom Kim KB Kookmin Bank {accountNumber}
+                    Jongseo Baek Kakao Bank {accountNumber}
                   </Text>
                   <Text
                     fontFamily="unica"
