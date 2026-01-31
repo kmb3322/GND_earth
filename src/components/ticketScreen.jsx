@@ -787,6 +787,7 @@ export default function TicketScreen() {
                 <Flex direction="row" justify="flex-start" align="center" gap="1" mt={1} wrap="wrap">
                   <Text
                     as="button"
+                    type="button"
                     onClick={() => {
                       onCopy();
                       toast({
