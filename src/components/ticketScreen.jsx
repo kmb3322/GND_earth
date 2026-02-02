@@ -595,7 +595,7 @@ export default function TicketScreen() {
             fontSize="10px"
             mb={3}
           >
-            서울특별시 서대문구 연세로7안길 7<br />2026 02 22
+           2026 02 22<br />서울특별시 서대문구 연세로7안길 7
           </Text>
           <Text
             textAlign="center"
