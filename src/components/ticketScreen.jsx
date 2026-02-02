@@ -446,7 +446,7 @@ export default function TicketScreen() {
                 fontWeight="700"
                 color="gray.700"
               >
-                Alcohol drinks - ₩7,000<br />
+                Alcohol drinks - ₩6,000<br />
                 Non-Alcohol drinks - ₩3,000
               </Text>
               <Text
@@ -779,7 +779,7 @@ export default function TicketScreen() {
                   fontWeight="700"
                   color="gray.700"
                 >
-                  Alcohol drinks - ₩7,000<br />
+                  Alcohol drinks - ₩6,000<br />
                   Non-Alcohol drinks - ₩3,000
                 </Text>
                 <Text
