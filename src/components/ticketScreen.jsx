@@ -587,6 +587,16 @@ export default function TicketScreen() {
           mt={10}
           mb={6}
         >
+        <Text
+            textAlign="center"
+            color="gray.700"
+            fontFamily="unica"
+            fontWeight="500"
+            fontSize="10px"
+            mb={3}
+          >
+            서울특별시 서대문구 연세로7안길 7<br />2026 02 22
+          </Text>
           <Text
             textAlign="center"
             color="gray.700"
