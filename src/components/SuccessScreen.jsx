@@ -7,9 +7,6 @@ import { Link as RouterLink } from 'react-router-dom';
 
 // 예매 코드 생성 함수
 const generateReservationCode = (ticketNo) => {
-  // 날짜/회차: 260222 (2026년 02월 22일)
-  const dateCode = '260222';
-  
   // ticketNo 기반 시드로 랜덤 코드 생성 (4자리 영숫자)
   const seed = parseInt(ticketNo) * 7919 + 1337; // 소수 곱으로 분산
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 혼동되는 문자 제외 (0,O,1,I)
@@ -23,7 +20,7 @@ const generateReservationCode = (ticketNo) => {
   // 마지막 숫자: ticketNo * 3 + 1 (역산 가능)
   const ticketCode = parseInt(ticketNo) * 3 + 1;
   
-  return `${dateCode}-${randomCode}-${ticketCode}`;
+  return `${randomCode}-${ticketCode}`;
 };
 
 const SuccessScreen = ({ name, ticketNo, isPaid }) => {
