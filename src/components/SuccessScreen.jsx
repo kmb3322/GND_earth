@@ -2,9 +2,34 @@
 //  SuccessScreen.jsx
 // =========================
 import { Box, Button, Image, Text, VStack } from '@chakra-ui/react';
+import { useMemo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-const SuccessScreen = ({ name, ticketNo, isPaid }) => (
+// 예매 코드 생성 함수
+const generateReservationCode = (ticketNo) => {
+  // 날짜/회차: 260222 (2026년 02월 22일)
+  const dateCode = '260222';
+  
+  // ticketNo 기반 시드로 랜덤 코드 생성 (4자리 영숫자)
+  const seed = parseInt(ticketNo) * 7919 + 1337; // 소수 곱으로 분산
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 혼동되는 문자 제외 (0,O,1,I)
+  let randomCode = '';
+  let tempSeed = seed;
+  for (let i = 0; i < 4; i++) {
+    randomCode += chars[Math.abs(tempSeed) % chars.length];
+    tempSeed = Math.floor(tempSeed / chars.length) + (tempSeed * 31);
+  }
+  
+  // 마지막 숫자: ticketNo * 3 + 1 (역산 가능)
+  const ticketCode = parseInt(ticketNo) * 3 + 1;
+  
+  return `${dateCode}-${randomCode}-${ticketCode}`;
+};
+
+const SuccessScreen = ({ name, ticketNo, isPaid }) => {
+  const reservationCode = useMemo(() => generateReservationCode(ticketNo), [ticketNo]);
+  
+  return (
   <Box
     bg="#f0f0f0"
     minH="100vh"
@@ -100,16 +125,17 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
             <VStack spacing={3} align="center">
               
 
-              {/* 번호 */}
+              {/* 예매 코드 */}
               <Text
                 fontFamily="unica"
                 fontWeight="700"
-                fontSize="50px"
+                fontSize={{ base: "28px", md: "36px" }}
                 color="gray.800"
                 lineHeight="1"
                 mt={-1}
+                letterSpacing="0.05em"
               >
-                {parseInt(ticketNo) * 3 + 40}
+                {reservationCode}
               </Text>
               
 
@@ -147,7 +173,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
                     textAlign="center"
                     lineHeight="1.8"
                   >
-                    입장 번호가 띄워진 본 화면을<br />입장시 당일 STAFF에게 보여주시기 바랍니다.
+                    본 화면을 입장시 당일 STAFF에게 보여주시기 바랍니다.<br />예매 코드는 실제 입장 순서와 무관합니다.
                   </Text>
                   <Text
                     fontFamily="unica"
@@ -158,8 +184,11 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
                     letterSpacing="0.03em"
                     mt={1}
                   >
-                    Please show this screen to STAFF upon entry.
+                    
+                    Please show this screen to STAFF upon entry.<br />The reservation code is not related to the actual entry order.
                   </Text>
+                  
+
                 </VStack>
               </VStack>
             </VStack>
@@ -174,7 +203,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
               lineHeight="1.8"
             >
               입금 확인이 완료되면,<br />
-              당일 입장 가능한 번호가 제공됩니다.
+              당일 입장 가능한 예매 코드가 제공됩니다.
             </Text>
             <Text
               fontFamily="unica"
@@ -185,7 +214,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
               letterSpacing="0.03em"
               mt={1}
             >
-              Your entry number will be provided<br />once payment is confirmed.
+              Your reservation code will be provided<br />once payment is confirmed.
             </Text>
           </VStack>
         )}
@@ -218,6 +247,7 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => (
       HOME
     </Button>
   </Box>
-);
+  );
+};
 
 export default SuccessScreen;
