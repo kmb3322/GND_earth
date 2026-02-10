@@ -60,10 +60,16 @@ const SuccessScreen = ({ name, ticketNo, isPaid }) => {
         spacing={0}
         align="flex-start"
         position="absolute"
-        top={{ base: "80px", md: "100px" }}
+        top={{ base: "120px", md: "100px" }}
         left="50%"
         transform="translateX(-50%)"
       >
+        <Image
+          src="/c&c_logo.png"
+          alt="C&C logo"
+          width={{ base: "40px", md: "50px" }}
+          mb={2}
+        />
         <Text
           color="#000000"
           fontFamily="unica"

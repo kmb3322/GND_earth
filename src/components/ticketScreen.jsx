@@ -216,6 +216,12 @@ export default function TicketScreen() {
         align="flex-start"
         spacing={0}
       >
+        <Image
+          src="/c&c_logo.png"
+          alt="C&C logo"
+          width="50px"
+          mb={2}
+        />
         <Text
           color="#000000"
           fontFamily="unica"
@@ -277,7 +283,14 @@ export default function TicketScreen() {
           w="100%"
           maxW="400px"
           px={4}
+          mt={10}
         >
+          <Image
+            src="/c&c_logo.png"
+            alt="C&C logo"
+            width="40px"
+            mb={2}
+          />
           <Text
             color="#000000"
             fontFamily="unica"
