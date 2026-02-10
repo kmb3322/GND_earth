@@ -112,39 +112,47 @@ export default function StartHomePage() {
           
   
         {/* 왼쪽 정렬 텍스트 그룹 */}
-        <VStack
+        <Box
           position="absolute"
           left={{ base: 7, sm: 7, md: 7 }}
           top="50%"
           transform="translateY(-50%)"
-          align="flex-start"
-          spacing={0}
         >
-          <Text
-            color="#000000"
-            fontFamily="unica"
-            fontWeight={600}
-            fontSize={{ base: "12px", md: "18px" }}
-          >
-            C&C: SHOW CASE
-          </Text>
-          <Text
-            color="#000000"
-            fontFamily="unica"
-            fontWeight={600}
-            fontSize={{ base: "12px", md: "18px" }}
-          >
-            PRESENTED BY GND
-          </Text>
-          <Text
-            color="#000000"
-            fontFamily="unica"
-            fontWeight={600}
-            fontSize={{ base: "12px", md: "18px" }}
-          >
-            2026 02 22
-          </Text>
-        </VStack>
+          <Image
+            src="/c&c_logo.png"
+            alt="C&C logo"
+            width={{ base: "30px", md: "40px" }}
+            position="absolute"
+            bottom="100%"
+            mb={1}
+          />
+          <VStack align="flex-start" spacing={0}>
+            <Text
+              color="#000000"
+              fontFamily="unica"
+              fontWeight={600}
+              fontSize={{ base: "12px", md: "18px" }}
+            >
+              C&C: SHOW CASE
+            </Text>
+            <Text
+              color="#000000"
+              fontFamily="unica"
+              fontWeight={600}
+              fontSize={{ base: "12px", md: "18px" }}
+            >
+              PRESENTED BY GND
+            </Text>
+            <Text
+              color="#000000"
+              fontFamily="unica"
+              fontWeight={600}
+              fontSize={{ base: "12px", md: "18px" }}
+            >
+              2026 02 22
+            </Text>
+          </VStack>
+        </Box>
 
         {/* JOIN 텍스트 링크 - 오른쪽 상하 중앙 */}
         {showTicket && (
